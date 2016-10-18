@@ -1,0 +1,79 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gta.administrator.infraredcontrol.bulb.Bulb_DoubleColorFragmentSub2">
+
+
+<!--
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button_left"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="开"/>
+            <Button
+                android:id="@+id/button_left_1"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/button_left_2"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/button_left_3"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button_right"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="关"/>
+            <Button
+                android:id="@+id/button_right_1"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/button_right_2"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/button_right_3"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

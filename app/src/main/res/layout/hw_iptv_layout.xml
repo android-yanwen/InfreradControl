@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".setTopBoxes.HW_TV">
+
+    <FrameLayout
+        android:id="@+id/framelayout_1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/colorDivide">
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/direction_control_layout" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/indicator_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/icon_point"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/icon_point"/>
+
+    </LinearLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_above="@id/indicator_page"
+        android:layout_below="@id/framelayout_1"
+        android:id="@+id/my_viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </android.support.v4.view.ViewPager>
+
+
+</RelativeLayout>
