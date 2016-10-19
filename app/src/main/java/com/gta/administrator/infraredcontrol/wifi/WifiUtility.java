@@ -21,12 +21,21 @@ import java.util.List;
  * Created by Administrator on 2016/10/18.
  */
 public class WifiUtility {
+    private static WifiUtility wifiUtility;
+
     private WifiManager wifiManager;
 
-    private  List<WifiConfiguration> wifiConfigList;
+    private List<WifiConfiguration> wifiConfigList;
     private Context mContext;
 
     private ConnectStatusListener statusListener = null;
+
+    public static WifiUtility getInstance(Context mContext) {
+        if (wifiUtility == null) {
+            wifiUtility = new WifiUtility(mContext);
+        }
+        return wifiUtility;
+    }
 
     public WifiUtility(Context context) {
         mContext = context;
@@ -55,7 +64,7 @@ public class WifiUtility {
         }
     }
 
-    private void startScanWifi() {
+    public void startScanWifi() {
         wifiManager.startScan();
 //        List<ScanResult> result = getScanResult();
 //        for (int i = 0; i < result.size(); i++) {
@@ -85,11 +94,11 @@ public class WifiUtility {
      * 得到Wifi配置好的信息
      */
 
-    public void getConfiguration(){
+    public void getConfiguration() {
         wifiConfigList = wifiManager.getConfiguredNetworks();//得到配置好的网络信息
-        for(int i =0;i<wifiConfigList.size();i++){
+        for (int i = 0; i < wifiConfigList.size(); i++) {
             Log.i("getConfiguration", wifiConfigList.get(i).SSID);
-            Log.i("getConfiguration",String.valueOf(wifiConfigList.get(i).networkId));
+            Log.i("getConfiguration", String.valueOf(wifiConfigList.get(i).networkId));
         }
     }
 
@@ -97,11 +106,11 @@ public class WifiUtility {
      * 判定指定WIFI是否已经配置好,依据WIFI的地址BSSID,返回NetId
      */
 
-    public int IsConfiguration(String SSID){
-        Log.i("IsConfiguration",String.valueOf(wifiConfigList.size()));
-        for(int i = 0; i < wifiConfigList.size(); i++){
-            Log.i(wifiConfigList.get(i).SSID,String.valueOf( wifiConfigList.get(i).networkId));
-            if(wifiConfigList.get(i).SSID.equals(SSID)){//地址相同
+    public int IsConfiguration(String SSID) {
+        Log.i("IsConfiguration", String.valueOf(wifiConfigList.size()));
+        for (int i = 0; i < wifiConfigList.size(); i++) {
+            Log.i(wifiConfigList.get(i).SSID, String.valueOf(wifiConfigList.get(i).networkId));
+            if (wifiConfigList.get(i).SSID.equals(SSID)) {//地址相同
                 return wifiConfigList.get(i).networkId;
             }
         }
@@ -112,18 +121,21 @@ public class WifiUtility {
      * 添加指定WIFI的配置信息,原列表不存在此SSID
      */
 
-    public int AddWifiConfig(List<ScanResult> wifiList,String ssid,String pwd){
+    public int AddWifiConfig(List<ScanResult> wifiList, String ssid, String pwd) {
         int wifiId = -1;
-        for(int i = 0;i < wifiList.size(); i++){
+        for (int i = 0; i < wifiList.size(); i++) {
             ScanResult wifi = wifiList.get(i);
-            if(wifi.SSID.equals(ssid)){
+            if (wifi.SSID.equals(ssid)) {
                 WifiConfiguration wifiCong = new WifiConfiguration();
-                wifiCong.SSID = "\""+wifi.SSID+"\"";//\"转义字符，代表"
-                wifiCong.preSharedKey = "\""+pwd+"\"";//WPA-PSK密码
+                wifiCong.SSID = "\"" + wifi.SSID + "\"";//\"转义字符，代表"
+
+                if (pwd != null) {
+                    wifiCong.preSharedKey = "\"" + pwd + "\"";//WPA-PSK密码
+                }
                 wifiCong.hiddenSSID = false;
                 wifiCong.status = WifiConfiguration.Status.ENABLED;
                 wifiId = wifiManager.addNetwork(wifiCong);//将配置好的特定WIFI密码信息添加,添加完成后默认是不激活状态，成功返回ID，否则为-1
-                if(wifiId != -1){
+                if (wifiId != -1) {
                     return wifiId;
                 }
             }
@@ -134,25 +146,27 @@ public class WifiUtility {
 
     /**
      * 连接指定SSID的WIFI
+     *
      * @param ssId
      * @param password
      */
 
-    public void connectWiFi(String ssId , String password){
-        if (TextUtils.isEmpty(ssId)|| TextUtils.isEmpty(password)){
+    public void connectWiFi(String ssId, String password) {
+        if (TextUtils.isEmpty(ssId)/* || TextUtils.isEmpty(password)*/) {
             return;
         }
         openWifi();
 //         getConfiguration();
 
-        boolean wifiIsInScope=false;
+        boolean wifiIsInScope = false;
 
-        for (int i = 0; i <getSSIDList().size() ; i++) {
-            if (getSSIDList().get(i).equals(ssId)){
-                wifiIsInScope=true;
-            };
+        for (int i = 0; i < getSSIDList().size(); i++) {
+            if (getSSIDList().get(i).equals(ssId)) {
+                wifiIsInScope = true;
+            }
+            ;
         }
-        if (!wifiIsInScope){
+        if (!wifiIsInScope) {
 //            ToastMgr.show("WiFi不在范围内");
             Toast.makeText(mContext, "WiFi不在范围内", Toast.LENGTH_SHORT).show();
             return;
@@ -160,14 +174,18 @@ public class WifiUtility {
 //        else ToastMgr.show("WiFi连接中...");
         Toast.makeText(mContext, "WiFi连接中...", Toast.LENGTH_SHORT).show();
 
-        int netId= AddWifiConfig(getScanResult(),ssId,password);
-        wifiManager.enableNetwork(netId,true);
+        int netId = AddWifiConfig(getScanResult(), ssId, password);
+        boolean status = wifiManager.enableNetwork(netId, true);
+//        Log.d("tag", "connectWiFi: " + status);
+        if (!status) {
+            Toast.makeText(mContext, "连接失败", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
 
     public void finish() {
         mContext.unregisterReceiver(statusListener);
+        wifiUtility = null;
     }
 
 
@@ -186,6 +204,7 @@ public class WifiUtility {
             switch (state) {
                 case CONNECTED:
                     Log.e("tag", "CONNECTED");
+                    Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
                     break;
                 case CONNECTING:
                     Log.e("tag", "CONNECTING");
@@ -195,6 +214,9 @@ public class WifiUtility {
                     break;
                 case DISCONNECTING:
                     Log.e("tag", "DISCONNECTING");
+                    break;
+                case UNKNOWN:
+                    Log.e("tag", "UNKNOWN");
                     break;
             }
 

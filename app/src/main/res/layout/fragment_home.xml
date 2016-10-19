@@ -21,12 +21,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/close_wifi_btn"
         android:text="关闭WiFi"/>
-    <Button
+<!--    <Button
         android:layout_below="@id/close_wifi_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/conn_wifi_btn"
-        android:text="连接WiFi"/>
+        android:text="连接WiFi"/>-->
+    <Button
+        android:layout_below="@id/close_wifi_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_wifi_btn"
+        android:text="扫描周围WiFi"/>
+    <Button
+        android:id="@+id/send_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/scan_wifi_btn"
+        android:text="发送数据"/>
+
+    <ListView
+        android:id="@+id/my_listview"
+        android:layout_below="@id/scan_wifi_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>
