@@ -1,5 +1,6 @@
 package com.gta.administrator.infraredcontrol;
 
+<<<<<<< HEAD
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,12 +23,21 @@ import com.gta.administrator.infraredcontrol.wifi.WifiUtility;
 
 import java.util.ArrayList;
 import java.util.List;
+=======
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+>>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
 
 /**
  * Created by yanwen on 16/10/4.
  */
 public class FragmentHome extends Fragment {
 
+<<<<<<< HEAD
     private Button open_btn;
     private Button close_btn;
     private Button send_btn;
@@ -39,10 +49,13 @@ public class FragmentHome extends Fragment {
 
     WifiUtility wifiUtility;
 
+=======
+>>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+<<<<<<< HEAD
         open_btn = (Button) view.findViewById(R.id.open_wifi_btn);
         open_btn.setOnClickListener(new ButtonClickedListener());
         close_btn = (Button) view.findViewById(R.id.close_wifi_btn);
@@ -127,4 +140,9 @@ public class FragmentHome extends Fragment {
     }
 
 
+=======
+
+        return view;
+    }
+>>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
 }
