@@ -55,7 +55,7 @@ public class WifiUtility {
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
-        startScanWifi();
+//        startScanWifi();
     }
 
     public void closeWifi() {
@@ -127,13 +127,29 @@ public class WifiUtility {
             ScanResult wifi = wifiList.get(i);
             if (wifi.SSID.equals(ssid)) {
                 WifiConfiguration wifiCong = new WifiConfiguration();
+                wifiCong.allowedAuthAlgorithms.clear();
+                wifiCong.allowedGroupCiphers.clear();
+                wifiCong.allowedKeyManagement.clear();
+                wifiCong.allowedPairwiseCiphers.clear();
+                wifiCong.allowedProtocols.clear();
                 wifiCong.SSID = "\"" + wifi.SSID + "\"";//\"转义字符，代表"
 
-                if (pwd != null) {
+                if (pwd.equals("") || pwd == null) { //无密码时的连接
+//                    wifiCong.wepKeys[0] = "";
+                    wifiCong.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+//                    wifiCong.wepTxKeyIndex = 0;
+                } else {
                     wifiCong.preSharedKey = "\"" + pwd + "\"";//WPA-PSK密码
+                    wifiCong.hiddenSSID = false;
+                    wifiCong.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+                    wifiCong.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+                    wifiCong.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+                    wifiCong.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+                    //wifiCong.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+                    wifiCong.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+                    wifiCong.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+                    wifiCong.status = WifiConfiguration.Status.ENABLED;
                 }
-                wifiCong.hiddenSSID = false;
-                wifiCong.status = WifiConfiguration.Status.ENABLED;
                 wifiId = wifiManager.addNetwork(wifiCong);//将配置好的特定WIFI密码信息添加,添加完成后默认是不激活状态，成功返回ID，否则为-1
                 if (wifiId != -1) {
                     return wifiId;
@@ -164,8 +180,8 @@ public class WifiUtility {
             if (getSSIDList().get(i).equals(ssId)) {
                 wifiIsInScope = true;
             }
-            ;
         }
+
         if (!wifiIsInScope) {
 //            ToastMgr.show("WiFi不在范围内");
             Toast.makeText(mContext, "WiFi不在范围内", Toast.LENGTH_SHORT).show();

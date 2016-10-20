@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.socket.SocketUlitity;
@@ -29,6 +31,7 @@ import java.util.List;
  */
 public class FragmentHome extends Fragment {
 
+    private static final String TAG = "FragmentHome";
     private Button open_btn;
     private Button close_btn;
     private Button send_btn;
@@ -62,8 +65,9 @@ public class FragmentHome extends Fragment {
         my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String ssid = list.get(position);
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
-                builder.setTitle("连接到Wifi:" + list.get(position));
+                builder.setTitle("连接到Wifi:" + ssid);
                 LinearLayout linearLayout = new LinearLayout(getActivity());
                 linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -71,6 +75,7 @@ public class FragmentHome extends Fragment {
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 final EditText text = new EditText(getActivity());
                 text.setHint("输入SSID");
+                text.setText(ssid);
                 final EditText text1 = new EditText(getActivity());
                 text1.setHint("输入密码");
                 linearLayout.addView(text);
@@ -104,10 +109,30 @@ public class FragmentHome extends Fragment {
                     break;
                 case R.id.send_btn:
 
-                    NetworkInterface networkInterface = SocketUlitity.getInstance();
+                    final NetworkInterface networkInterface = SocketUlitity.getInstance();
                     networkInterface.openConnect();
-                    networkInterface.sendData("hello socket");
+                    ((SocketUlitity)networkInterface).setReceiveListener(new SocketUlitity.Receive() {
+                        @Override
+                        public void receive(String val) {
+                            Toast.makeText(getActivity(), "收到数据：" + val, Toast.LENGTH_SHORT).show();
+//                            Log.d(TAG, "receive: " + val);
+                        }
+                    });
+                    networkInterface.receiveData();
 
+
+                    final EditText edit = new EditText(getContext());
+                    new AlertDialog.Builder(getActivity())
+                    .setTitle("输入消息")
+                    .setView(edit)
+                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            networkInterface.sendData(edit.getText().toString());
+                            Toast.makeText(getActivity(), "发送数据：" + edit.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show();
 
                     break;
 

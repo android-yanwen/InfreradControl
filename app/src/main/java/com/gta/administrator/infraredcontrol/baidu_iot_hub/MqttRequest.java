@@ -263,8 +263,7 @@ public class MqttRequest implements NetworkInterface{
     }
 
     @Override
-    public String receiveData() {
-        return null;
+    public void receiveData() {
     }
 
     /**

@@ -11,7 +11,7 @@ public interface NetworkInterface {
 
     void sendData(String data);
 
-    String receiveData();
+    void receiveData();
 
 
 }
