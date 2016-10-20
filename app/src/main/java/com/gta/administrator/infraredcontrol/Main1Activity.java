@@ -186,9 +186,23 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+        MqttRequest.getInstance().closeMqttRequestThis();//关闭Mqtt连接
+=======
+        MqttRequest.getInstance().closeMqttRequestThis();
+>>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
+=======
+>>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
         NetworkInterface networkInterface = MqttRequest.getInstance();
         networkInterface.closeConnect();//关闭Mqtt连接
 
         WifiUtility.getInstance(getApplicationContext()).finish();
+<<<<<<< HEAD
+=======
+>>>>>>> dev
+>>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
     }
 }
