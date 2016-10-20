@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyGradLayoutItem" >
+        <attr name="gradlayoutSrc" format="reference"/>
+        <attr name="gradlayoutText" format="string" />
+
+    </declare-styleable>
+
+    <declare-styleable name="MyToolBarAttrs">
+        <attr name="startText" format="string" />
+        <attr name="middleText" format="string" />
+        <attr name="endText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="color_picker">
+
+        <!-- 背景圆的半径 -->
+        <attr name="circle_radius" format="dimension" />
+        <!-- 可滑动小球的半径 -->
+        <attr name="center_radius" format="dimension" />
+        <!-- 可滑动小球的颜色 -->
+        <attr name="center_color" format="color" />
+    </declare-styleable>
+
+</resources>

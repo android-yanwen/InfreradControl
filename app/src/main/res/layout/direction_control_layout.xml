@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/tv_allow_relative"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/tv_left_btn"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/icon_left"
+            android:background="@drawable/tv_num_bg_selector"
+            android:scaleType="center"
+            android:layout_centerVertical="true"/>
+
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/tv_up_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/tv_num_bg_selector"
+                android:scaleType="center"
+                android:src="@mipmap/icon_up"/>
+            <ImageButton
+                android:id="@+id/tv_ok_btn"
+                android:layout_below="@id/tv_up_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/tv_num_bg_selector"
+                android:scaleType="center"
+                android:src="@mipmap/tv_control_ok_normal"/>
+            <ImageButton
+                android:id="@+id/tv_down_btn"
+                android:layout_below="@id/tv_ok_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/tv_num_bg_selector"
+                android:scaleType="center"
+                android:src="@mipmap/icon_down"/>
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/tv_right_btn"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/icon_right"
+            android:background="@drawable/tv_num_bg_selector"
+            android:scaleType="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
