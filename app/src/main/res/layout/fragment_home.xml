@@ -2,21 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
-<!--
-=======
->>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="房间"/>
-<<<<<<< HEAD
--->
 
     <Button
         android:layout_width="wrap_content"
@@ -54,10 +39,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
-
->>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
 </RelativeLayout>

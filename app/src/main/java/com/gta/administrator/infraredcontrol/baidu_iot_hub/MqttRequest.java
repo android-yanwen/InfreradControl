@@ -309,15 +309,4 @@ public class MqttRequest implements NetworkInterface{
         void onFaild();   //因网络问题连接失败后调用
     }
 
-<<<<<<< HEAD
-=======
-//    /**
-//     * 发送消息成功与否监听
-//     */
-//    public interface MqttPublishListener{
-////        void onSuccess();
-//        void onError(); //发送失败
-//    }
->>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
-
 }
