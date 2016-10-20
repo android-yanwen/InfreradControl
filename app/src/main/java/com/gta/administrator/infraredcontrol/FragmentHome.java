@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.socket.SocketUlitity;
 import com.gta.administrator.infraredcontrol.wifi.WifiUtility;
 
@@ -104,8 +105,9 @@ public class FragmentHome extends Fragment {
                     break;
                 case R.id.send_btn:
 
-                    SocketUlitity socketUlitity = SocketUlitity.getInstance();
-                    socketUlitity.write("hello socket");
+                    NetworkInterface networkInterface = SocketUlitity.getInstance();
+                    networkInterface.openConnect();
+                    networkInterface.sendData("hello socket");
 
 
                     break;
