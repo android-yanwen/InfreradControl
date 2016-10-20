@@ -18,7 +18,9 @@ import android.widget.TextView;
 //import com.baidubce.http.DefaultRetryPolicy;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.Baidu_IotHubModule;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.other.MyGradLayoutItem;
+import com.gta.administrator.infraredcontrol.wifi.WifiUtility;
 
 //import org.slf4j.LoggerFactory;
 //import org.slf4j.helpers.SubstituteLoggerFactory;
@@ -185,9 +187,16 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
 <<<<<<< HEAD
+<<<<<<< HEAD
         MqttRequest.getInstance().closeMqttRequestThis();//关闭Mqtt连接
 =======
         MqttRequest.getInstance().closeMqttRequestThis();
 >>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
+=======
+        NetworkInterface networkInterface = MqttRequest.getInstance();
+        networkInterface.closeConnect();//关闭Mqtt连接
+
+        WifiUtility.getInstance(getApplicationContext()).finish();
+>>>>>>> dev
     }
 }

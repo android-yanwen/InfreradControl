@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -18,7 +19,7 @@ public class AirConditionControlActivity extends AppCompatActivity {
 
     private Button power_switch_button;
 
-    private MqttRequest mqttRequest;
+    private NetworkInterface mqttRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class AirConditionControlActivity extends AppCompatActivity {
 
         initView();
         mqttRequest = MqttRequest.getInstance();
-        mqttRequest.setCallbackListener(new MqttRequest.MqttCallbackListener() {
+        ((MqttRequest) mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
             @Override
             public void connectionLost(Throwable cause) {
                 mqttRequest.openConnect();//异常断开后重新打开链接
@@ -45,6 +46,11 @@ public class AirConditionControlActivity extends AppCompatActivity {
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
                 Log.d(tag, "deliveryComplete");
+            }
+
+            @Override
+            public void onSendError() {
+                // 发送消息失败调用此接口
             }
         });
 
@@ -65,7 +71,8 @@ public class AirConditionControlActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.power_switch_button:
                     // 发送开空调电源码
-                    mqttRequest.publishMessage(AirConditionCode.getOpenCode(),null);
+//                    mqttRequest.publishMessage(AirConditionCode.getOpenCode(),null);
+                    mqttRequest.sendData(AirConditionCode.getOpenCode());
 
                     break;
             }

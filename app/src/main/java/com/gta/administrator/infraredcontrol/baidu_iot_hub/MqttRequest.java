@@ -2,6 +2,8 @@ package com.gta.administrator.infraredcontrol.baidu_iot_hub;
 
 import android.util.Log;
 
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
+
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -26,7 +28,7 @@ import javax.net.ssl.TrustManagerFactory;
 /**
  * Created by yanwen on 16/10/14.
  */
-public class MqttRequest {
+public class MqttRequest implements NetworkInterface{
     private static MqttRequest mqttRequest = null;
 
     private MqttClient client = null;
@@ -116,7 +118,7 @@ public class MqttRequest {
     }
 
 
-    public void initMqtt()  {
+    private void initMqtt()  {
         init();
 
 //        MqttConnectOptions options = setConnectOptions();
@@ -148,7 +150,7 @@ public class MqttRequest {
      * 发布一条消息
      * @param msg
      */
-    public void publishMessage(final String msg, final MqttPublishListener listener) {
+    private void publishMessage(final String msg) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -158,9 +160,9 @@ public class MqttRequest {
                     client.publish(topicA, message);  //发布消息
                 } catch (MqttException e) {
                     e.printStackTrace();
-                    if (listener != null) {
+                    if (callbackListener != null) {
                         Log.d(TAG, "请检查网络");
-                        listener.onError();
+                        callbackListener.onSendError();
                     }
 
 
@@ -211,8 +213,8 @@ public class MqttRequest {
                 @Override
                 public void run() {
                     //链接监听接口不为空
-                    while (connectStatus == null) {
-
+                    if (connectStatus == null) {
+                        return;
                     }
                     try {
                         // 启动链接
@@ -243,7 +245,7 @@ public class MqttRequest {
         return client.isConnected();
     }
 
-    private void closeConnect() {
+    public void closeConnect() {
         // 客户机断开连接
         if (client.isConnected()) {
             try {
@@ -252,15 +254,26 @@ public class MqttRequest {
                 e1.printStackTrace();
             }
         }
+        closeMqttRequestThis();
+    }
+
+    @Override
+    public void sendData(String data) {
+        publishMessage(data);
+    }
+
+    @Override
+    public String receiveData() {
+        return null;
     }
 
     /**
      * 关闭当前类实例
      */
-    public void closeMqttRequestThis() {
-        if (client != null) {
-            closeConnect();
-        }
+    private void closeMqttRequestThis() {
+//        if (client != null) {
+//            closeConnect();
+//        }
         mqttRequest = null;
     }
 
@@ -275,6 +288,8 @@ public class MqttRequest {
         void messageArrived(String topic, MqttMessage message);
 
         void deliveryComplete(IMqttDeliveryToken token);
+
+        void onSendError(); //publish发送失败
     }
 
     private MqttConnectStatusListener connectStatus;
@@ -294,11 +309,12 @@ public class MqttRequest {
         void onFaild();   //因网络问题连接失败后调用
     }
 
-    /**
-     * 发送消息成功与否监听
-     */
-    public interface MqttPublishListener{
-        void onError(); //发送失败
-    }
+//    /**
+//     * 发送消息成功与否监听
+//     */
+//    public interface MqttPublishListener{
+////        void onSuccess();
+//        void onError(); //发送失败
+//    }
 
 }

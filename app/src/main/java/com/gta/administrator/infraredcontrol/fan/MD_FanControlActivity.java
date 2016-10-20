@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
 import com.gta.administrator.infraredcontrol.infrared_code.FanCode;
 
@@ -17,7 +18,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MD_FanControlActivity extends AppCompatActivity {
 
     private Button on_off_switch_btn;
-    private MqttRequest mqttRequest;
+    private NetworkInterface mqttRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class MD_FanControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_md__fan_control);
 
         mqttRequest = MqttRequest.getInstance();
-        mqttRequest.setCallbackListener(new MqttRequest.MqttCallbackListener() {
+        ((MqttRequest) mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
             @Override
             public void connectionLost(Throwable cause) {
                 mqttRequest.openConnect();//异常断开后重新打开链接
@@ -43,6 +44,11 @@ public class MD_FanControlActivity extends AppCompatActivity {
             public void deliveryComplete(IMqttDeliveryToken token) {
 //                        Log.d(tag, "deliveryComplete");
             }
+
+            @Override
+            public void onSendError() {
+
+            }
         });
 
 
@@ -51,7 +57,7 @@ public class MD_FanControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                mqttRequest.publishMessage(FanCode.getOnFanCode(),null);
+                mqttRequest.sendData(FanCode.getOnFanCode());
 
             }
         });

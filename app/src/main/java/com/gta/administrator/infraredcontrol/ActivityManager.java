@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 
 /**
  * Created by yanwen on 16/10/15.
@@ -25,15 +26,15 @@ public class ActivityManager {
 
     public void startActivity(final Class activity) {
         // 获取MqttRequest实例
-        final MqttRequest mqttRequest = MqttRequest.getInstance();
+        final NetworkInterface mqttRequest = MqttRequest.getInstance();
         // 检查是否处于连接状态
-        if (mqttRequest.isConnected()) {
+        if (((MqttRequest)mqttRequest).isConnected()) {
             mContext.startActivity(new Intent(mContext, activity));
         } else {
             // 第一次需要打开连接
             mqttRequest.openConnect();
             // 打开连接之后，监听连接过程的状态（连接成功或因网络问题失败）
-            mqttRequest.setMqttConnectStatusListener(new MqttRequest.MqttConnectStatusListener() {
+            ((MqttRequest)mqttRequest).setMqttConnectStatusListener(new MqttRequest.MqttConnectStatusListener() {
                 @Override
                 public void onStartConn() {
                     Log.d(TAG, "onStartConn: 启动链接");
@@ -50,7 +51,7 @@ public class ActivityManager {
                 @Override
                 public void onFaild() {
                     Log.d(TAG, "onFaild: 链接失败，请检查网络");
-                    mqttRequest.closeMqttRequestThis();
+                    mqttRequest.closeConnect();
                     progressDismiss();
                     showMessge();
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
+import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -29,7 +30,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     private ImageButton tv_left_btn;
     private ImageButton tv_right_btn;
     private ImageButton tv_ok_btn;
-    private MqttRequest mqttRequest;
+    private NetworkInterface mqttRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
         initView();
 
         mqttRequest = MqttRequest.getInstance();
-        mqttRequest.setCallbackListener(new MqttRequest.MqttCallbackListener() {
+        ((MqttRequest)mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
             @Override
             public void connectionLost(Throwable cause) {
 
@@ -54,15 +55,20 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
             public void deliveryComplete(IMqttDeliveryToken token) {
                 showErrorMsg("发送成功");
             }
+
+            @Override
+            public void onSendError() {
+                showErrorMsg("，发送失败请检查网络连接");
+            }
         });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!mqttRequest.isConnected()) {
+//        if (!mqttRequest.isConnected()) {
             mqttRequest.openConnect();
-        }
+//        }
 
 
     }
@@ -109,107 +115,42 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.open_btn:
-                mqttRequest.publishMessage(BulbCode.getOpenCode(), new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getOpenCode());
                 break;
             case R.id.close_btn:
-                mqttRequest.publishMessage(BulbCode.getCloseCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getCloseCode());
 
                 break;
             case R.id.tv_up_btn:
-                mqttRequest.publishMessage(BulbCode.getUpCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getUpCode());
                 break;
             case R.id.tv_down_btn:
-                mqttRequest.publishMessage(BulbCode.getDownCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getDownCode());
 
                 break;
             case R.id.tv_left_btn:
-                mqttRequest.publishMessage(BulbCode.getLeftCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getLeftCode());
                 break;
             case R.id.tv_right_btn:
-                mqttRequest.publishMessage(BulbCode.getRightCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getRightCode());
 
                 break;
             case R.id.tv_ok_btn:
-                mqttRequest.publishMessage(BulbCode.getBrightessCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getBrightessCode());
                 break;
 
             case R.id.light_source_btn:
-                mqttRequest.publishMessage(BulbCode.getLightSourceCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getLightSourceCode());
                 break;
 
             case R.id.color_temp_reduce_btn:
-                mqttRequest.publishMessage(BulbCode.getColorTempReduceCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getColorTempReduceCode());
                 break;
             case R.id.color_temp_plus_btn:
-                mqttRequest.publishMessage(BulbCode.getColorTempPlusCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getColorTempPlusCode());
                 break;
             case R.id.section_btn:
-                mqttRequest.publishMessage(BulbCode.getSectionCode(),new MqttRequest.MqttPublishListener() {
-                    @Override
-                    public void onError() {
-                        showErrorMsg("请检查网络连接");
-                    }
-                });
+                mqttRequest.sendData(BulbCode.getSectionCode());
                 break;
         }
     }
