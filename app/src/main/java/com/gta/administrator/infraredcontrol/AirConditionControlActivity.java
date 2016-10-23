@@ -1,5 +1,6 @@
 package com.gta.administrator.infraredcontrol;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,45 +15,47 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class AirConditionControlActivity extends AppCompatActivity {
+    private Context mContext;
 
     private static final String tag = "AirConditionControlActivity";
 
     private Button power_switch_button;
 
-    private NetworkInterface mqttRequest;
+    private NetworkInterface networkInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_air_condition_control);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mContext = this;
 
         initView();
-        mqttRequest = MqttRequest.getInstance();
-        ((MqttRequest) mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
-            @Override
-            public void connectionLost(Throwable cause) {
-                mqttRequest.openConnect();//异常断开后重新打开链接
-                Log.d(tag, "connectionLost");
-
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage message) {
-                Log.d(tag, "messageArrived");
-
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
-                Log.d(tag, "deliveryComplete");
-            }
-
-            @Override
-            public void onSendError() {
-                // 发送消息失败调用此接口
-            }
-        });
+        networkInterface = NetworkRequest.getInstance(mContext);
+//        ((MqttRequest) mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
+//            @Override
+//            public void connectionLost(Throwable cause) {
+//                mqttRequest.openConnect();//异常断开后重新打开链接
+//                Log.d(tag, "connectionLost");
+//
+//            }
+//
+//            @Override
+//            public void messageArrived(String topic, MqttMessage message) {
+//                Log.d(tag, "messageArrived");
+//
+//            }
+//
+//            @Override
+//            public void deliveryComplete(IMqttDeliveryToken token) {
+//                Log.d(tag, "deliveryComplete");
+//            }
+//
+//            @Override
+//            public void onSendError() {
+//                // 发送消息失败调用此接口
+//            }
+//        });
 
     }
 
@@ -72,7 +75,7 @@ public class AirConditionControlActivity extends AppCompatActivity {
                 case R.id.power_switch_button:
                     // 发送开空调电源码
 //                    mqttRequest.publishMessage(AirConditionCode.getOpenCode(),null);
-                    mqttRequest.sendData(AirConditionCode.getOpenCode());
+                    networkInterface.sendData(AirConditionCode.getOpenCode());
 
                     break;
             }

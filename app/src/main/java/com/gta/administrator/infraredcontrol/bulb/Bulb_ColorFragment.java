@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.R;
 
@@ -16,6 +17,7 @@ import com.gta.administrator.infraredcontrol.R;
  */
 public class Bulb_ColorFragment extends Fragment {
 
+    private static final String TAG = "Bulb_ColorFragment";
     private TextView txtColor;
     private ColorPickView myView;
     private View view;
@@ -44,7 +46,9 @@ public class Bulb_ColorFragment extends Fragment {
             public void onColorChange(int color) {
 
 //                Log.d(TAG, "color=" + color + ":" + Integer.toHexString(color));
+//                Toast.makeText(getActivity(), "color:" + Integer.toHexString(color), Toast.LENGTH_SHORT).show();
                 txtColor.setTextColor(color);
+                txtColor.setText(Integer.toHexString(color));
             }
 
         });

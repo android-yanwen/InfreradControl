@@ -1,5 +1,6 @@
 package com.gta.administrator.infraredcontrol.bulb.bulb_brands;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
@@ -19,6 +21,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Context mContext;
     private Button open_btn;
     private Button close_btn;
     private Button light_source_btn;
@@ -30,17 +33,18 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     private ImageButton tv_left_btn;
     private ImageButton tv_right_btn;
     private ImageButton tv_ok_btn;
-    private NetworkInterface mqttRequest;
+    private NetworkInterface networkInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xiao_zhi_brands);
+        mContext = this;
 
         initView();
 
-        mqttRequest = MqttRequest.getInstance();
-        ((MqttRequest)mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
+        networkInterface = NetworkRequest.getInstance(mContext);
+        networkInterface.setCallbackListener(new NetworkInterface.CallbackListener() {
             @Override
             public void connectionLost(Throwable cause) {
 
@@ -58,16 +62,42 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onSendError() {
-                showErrorMsg("，发送失败请检查网络连接");
+                showErrorMsg("发送失败请检查网络连接");
+            }
+
+            @Override
+            public void socketReceiveData(String data) {
+
             }
         });
+//        ((MqttRequest)mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
+//            @Override
+//            public void connectionLost(Throwable cause) {
+//
+//            }
+//
+//            @Override
+//            public void messageArrived(String topic, MqttMessage message) {
+//
+//            }
+//
+//            @Override
+//            public void deliveryComplete(IMqttDeliveryToken token) {
+//                showErrorMsg("发送成功");
+//            }
+//
+//            @Override
+//            public void onSendError() {
+//                showErrorMsg("，发送失败请检查网络连接");
+//            }
+//        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 //        if (!mqttRequest.isConnected()) {
-            mqttRequest.openConnect();
+        networkInterface.openConnect();
 //        }
 
 
@@ -115,42 +145,42 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.open_btn:
-                mqttRequest.sendData(BulbCode.getOpenCode());
+                networkInterface.sendData(BulbCode.getOpenCode());
                 break;
             case R.id.close_btn:
-                mqttRequest.sendData(BulbCode.getCloseCode());
+                networkInterface.sendData(BulbCode.getCloseCode());
 
                 break;
             case R.id.tv_up_btn:
-                mqttRequest.sendData(BulbCode.getUpCode());
+                networkInterface.sendData(BulbCode.getUpCode());
                 break;
             case R.id.tv_down_btn:
-                mqttRequest.sendData(BulbCode.getDownCode());
+                networkInterface.sendData(BulbCode.getDownCode());
 
                 break;
             case R.id.tv_left_btn:
-                mqttRequest.sendData(BulbCode.getLeftCode());
+                networkInterface.sendData(BulbCode.getLeftCode());
                 break;
             case R.id.tv_right_btn:
-                mqttRequest.sendData(BulbCode.getRightCode());
+                networkInterface.sendData(BulbCode.getRightCode());
 
                 break;
             case R.id.tv_ok_btn:
-                mqttRequest.sendData(BulbCode.getBrightessCode());
+                networkInterface.sendData(BulbCode.getBrightessCode());
                 break;
 
             case R.id.light_source_btn:
-                mqttRequest.sendData(BulbCode.getLightSourceCode());
+                networkInterface.sendData(BulbCode.getLightSourceCode());
                 break;
 
             case R.id.color_temp_reduce_btn:
-                mqttRequest.sendData(BulbCode.getColorTempReduceCode());
+                networkInterface.sendData(BulbCode.getColorTempReduceCode());
                 break;
             case R.id.color_temp_plus_btn:
-                mqttRequest.sendData(BulbCode.getColorTempPlusCode());
+                networkInterface.sendData(BulbCode.getColorTempPlusCode());
                 break;
             case R.id.section_btn:
-                mqttRequest.sendData(BulbCode.getSectionCode());
+                networkInterface.sendData(BulbCode.getSectionCode());
                 break;
         }
     }

@@ -9,7 +9,8 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="点击下列Wi-Fi名即可连接"/>
+        android:textColor="@color/colorRed"
+        android:text="点击ESP8266开头的Wi-Fi名即可配置硬件"/>
 
 
     <ListView

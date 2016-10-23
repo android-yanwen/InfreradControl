@@ -1,5 +1,6 @@
 package com.gta.administrator.infraredcontrol.wifi;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.gta.administrator.infraredcontrol.debug.DebugMsg;
+import com.gta.administrator.infraredcontrol.setting.NetWorkSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +63,11 @@ public class WifiUtility {
 //        startScanWifi();
     }
 
+    public void disconnectWifi() {
+        wifiManager.disconnect();
+    }
+
+
     public void closeWifi() {
         if (wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(false);
@@ -92,11 +101,17 @@ public class WifiUtility {
 
     /**
      * 返回当前连接的Wi-Fi的ssid
+     *
      * @return
      */
     public String getConnectedSSID() {
+        String ssidTrim = null;
         WifiInfo info = wifiManager.getConnectionInfo();
-        return info == null ? null : info.getSSID();
+        String ssid = info.getSSID();
+        if (ssid != null) {
+            ssidTrim = ssid.substring(1, ssid.length() - 1);
+        }
+        return ssidTrim;
     }
 
 
@@ -181,8 +196,10 @@ public class WifiUtility {
         if (TextUtils.isEmpty(ssId)/* || TextUtils.isEmpty(password)*/) {
             return;
         }
+
         openWifi();
 //         getConfiguration();
+
 
         boolean wifiIsInScope = false;
 
@@ -199,19 +216,24 @@ public class WifiUtility {
         }
 //        else ToastMgr.show("WiFi连接中...");
         Toast.makeText(mContext, "WiFi连接中...", Toast.LENGTH_SHORT).show();
-
+//        DebugMsg.getInstance(mContext).showProgressDialog("正在连接设备...");
         int netId = AddWifiConfig(getScanResult(), ssId, password);
         boolean status = wifiManager.enableNetwork(netId, true);
-//        Log.d("tag", "connectWiFi: " + status);
+
+        Log.d("tag", "connectWiFi: " + status);
         if (!status) {
             Toast.makeText(mContext, "连接失败", Toast.LENGTH_SHORT).show();
+//            DebugMsg.getInstance(mContext).dismissProgressDialog();
         }
     }
 
 
+
     public void finish() {
-        mContext.unregisterReceiver(statusListener);
-        wifiUtility = null;
+        if (statusListener != null) {
+            mContext.unregisterReceiver(statusListener);
+            wifiUtility = null;
+        }
     }
 
 
@@ -230,13 +252,27 @@ public class WifiUtility {
             switch (state) {
                 case CONNECTED:
                     Log.e("tag", "CONNECTED");
-                    Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+                    // 销毁进度框
+//                    DebugMsg.getInstance(mContext).dismissProgressDialog();
+
+                    // 判断是否连接的是硬件发出的Wi-Fi  ESP8266
+//                    String wifiSSID = getConnectedSSID();
+                    String wifiSSID = getConnectedSSID().substring(0, 7);
+                    if (wifiSSID.equals("ESP8266"/*"Netcore"*/)) {
+                        if (NetWorkSettingActivity.myHandler != null) {
+                            // 发送连接到硬件成功的标志到Activity
+                            NetWorkSettingActivity.myHandler.sendEmptyMessage(NetWorkSettingActivity.NET_STATUS_SUCCESS);
+                            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
                     break;
                 case CONNECTING:
                     Log.e("tag", "CONNECTING");
                     break;
                 case DISCONNECTED:
                     Log.e("tag", "DISCONNECTED");
+                    Toast.makeText(mContext, "连接失败", Toast.LENGTH_SHORT).show();
                     break;
                 case DISCONNECTING:
                     Log.e("tag", "DISCONNECTING");
@@ -258,5 +294,6 @@ public class WifiUtility {
 //            }
         }
     }
+
 
 }

@@ -61,34 +61,34 @@ public class MqttRequest implements NetworkInterface{
      * 设置消息后结构的监听
      * @param callbackListener
      */
-    public void setCallbackListener(MqttCallbackListener callbackListener) {
-        MqttRequest.this.callbackListener = callbackListener;
-        client.setCallback(new MqttCallback() {
-            @Override
-            public void connectionLost(Throwable cause) {
-                //连接丢失后，一般在这里面进行重连
-                Log.d(TAG, "connection lost");
-                MqttRequest.this.callbackListener.connectionLost(cause);
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {
-                //subscribe后得到的消息会执行到这里面
-                Log.d(TAG, "messageArrived");
-                Log.d(TAG, "topic=" + topic + " " + new String(message.getPayload()));
-                MqttRequest.this.callbackListener.messageArrived(topic, message);
-
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
-                //publish后会执行到这里
-                Log.d(TAG, "deliveryComplete");
-                MqttRequest.this.callbackListener.deliveryComplete(token);
-            }
-        });
-
-    }
+//    public void setCallbackListener(MqttCallbackListener callbackListener) {
+//        MqttRequest.this.callbackListener = callbackListener;
+//        client.setCallback(new MqttCallback() {
+//            @Override
+//            public void connectionLost(Throwable cause) {
+//                //连接丢失后，一般在这里面进行重连
+//                Log.d(TAG, "connection lost");
+//                MqttRequest.this.callbackListener.connectionLost(cause);
+//            }
+//
+//            @Override
+//            public void messageArrived(String topic, MqttMessage message) throws Exception {
+//                //subscribe后得到的消息会执行到这里面
+//                Log.d(TAG, "messageArrived");
+//                Log.d(TAG, "topic=" + topic + " " + new String(message.getPayload()));
+//                MqttRequest.this.callbackListener.messageArrived(topic, message);
+//
+//            }
+//
+//            @Override
+//            public void deliveryComplete(IMqttDeliveryToken token) {
+//                //publish后会执行到这里
+//                Log.d(TAG, "deliveryComplete");
+//                MqttRequest.this.callbackListener.deliveryComplete(token);
+//            }
+//        });
+//
+//    }
 
     private void init() {
         TrustManagerFactory tmf = null;
@@ -262,8 +262,34 @@ public class MqttRequest implements NetworkInterface{
         publishMessage(data);
     }
 
+
     @Override
-    public void receiveData() {
+    public void setCallbackListener(CallbackListener callbackListener) {
+        this.callbackListener = callbackListener;
+        client.setCallback(new MqttCallback() {
+            @Override
+            public void connectionLost(Throwable cause) {
+                //连接丢失后，一般在这里面进行重连
+                Log.d(TAG, "connection lost");
+                MqttRequest.this.callbackListener.connectionLost(cause);
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws Exception {
+                //subscribe后得到的消息会执行到这里面
+                Log.d(TAG, "messageArrived");
+                Log.d(TAG, "topic=" + topic + " " + new String(message.getPayload()));
+                MqttRequest.this.callbackListener.messageArrived(topic, message);
+
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+                //publish后会执行到这里
+                Log.d(TAG, "deliveryComplete");
+                MqttRequest.this.callbackListener.deliveryComplete(token);
+            }
+        });
     }
 
     /**
@@ -276,20 +302,20 @@ public class MqttRequest implements NetworkInterface{
         mqttRequest = null;
     }
 
-    private MqttCallbackListener callbackListener = null;
+    private CallbackListener callbackListener = null;
 
     /**
      * 链接成功后，数据收发过程的监听，以及链接意外丢失的监听
      */
-    public interface MqttCallbackListener {
-        void connectionLost(Throwable cause);
-
-        void messageArrived(String topic, MqttMessage message);
-
-        void deliveryComplete(IMqttDeliveryToken token);
-
-        void onSendError(); //publish发送失败
-    }
+//    public interface MqttCallbackListener {
+//        void connectionLost(Throwable cause);
+//
+//        void messageArrived(String topic, MqttMessage message);
+//
+//        void deliveryComplete(IMqttDeliveryToken token);
+//
+//        void onSendError(); //publish发送失败
+//    }
 
     private MqttConnectStatusListener connectStatus;
 

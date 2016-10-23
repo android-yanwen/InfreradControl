@@ -79,7 +79,9 @@
         <activity
             android:name=".bulb.bulb_brands.XiaoZhiBrandsActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".setting.NetWorkSettingActivity"></activity>
+        <activity android:name=".setting.NetWorkSettingActivity" />
+        <activity android:name=".setting.NetChooseActivity"
+            android:theme="@style/MyDialogStyle"></activity>
     </application>
 
 </manifest>
