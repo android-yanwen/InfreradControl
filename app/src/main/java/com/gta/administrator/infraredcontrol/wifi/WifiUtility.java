@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -87,6 +88,15 @@ public class WifiUtility {
             }
         }
         return ssids;
+    }
+
+    /**
+     * 返回当前连接的Wi-Fi的ssid
+     * @return
+     */
+    public String getConnectedSSID() {
+        WifiInfo info = wifiManager.getConnectionInfo();
+        return info == null ? null : info.getSSID();
     }
 
 

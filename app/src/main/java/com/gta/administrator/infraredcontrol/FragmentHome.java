@@ -1,9 +1,11 @@
 package com.gta.administrator.infraredcontrol;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
+import com.gta.administrator.infraredcontrol.debug.DebugMsg;
 import com.gta.administrator.infraredcontrol.socket.SocketUlitity;
 import com.gta.administrator.infraredcontrol.wifi.WifiUtility;
 
@@ -113,8 +116,8 @@ public class FragmentHome extends Fragment {
                     networkInterface.openConnect();
                     ((SocketUlitity)networkInterface).setReceiveListener(new SocketUlitity.Receive() {
                         @Override
-                        public void receive(String val) {
-                            Toast.makeText(getActivity(), "收到数据：" + val, Toast.LENGTH_SHORT).show();
+                        public void receive(final String val) {
+                            DebugMsg.showToast(getActivity(), val);
 //                            Log.d(TAG, "receive: " + val);
                         }
                     });
@@ -151,5 +154,6 @@ public class FragmentHome extends Fragment {
             }
         }
     }
+
 
 }

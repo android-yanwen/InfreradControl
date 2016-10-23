@@ -22,8 +22,8 @@ public class SocketUlitity implements com.gta.administrator.infraredcontrol.bean
     private InputStream inputStream = null;
     private static Socket mSocket = null;
 
-    private static final String IP_ADDRESS = "192.168.1.1";
-    private static final int PORT = 6666;
+    private static final String IP_ADDRESS = "10.0.0.1";//硬件的SSID
+    private static final int PORT = 6666;//端口
     private String data;
 
     public static SocketUlitity getInstance() {
@@ -124,7 +124,7 @@ public class SocketUlitity implements com.gta.administrator.infraredcontrol.bean
         receive = receiveListener;
     }
     public interface Receive {
-        void receive(String val);
+        void receive(final String val);
     }
 
 }

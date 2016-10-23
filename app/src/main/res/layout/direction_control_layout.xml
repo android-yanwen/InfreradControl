@@ -36,9 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/tv_num_bg_selector"
-                android:scaleType="center"
-                android:src="@mipmap/tv_control_ok_normal"/>
+                android:background="@drawable/key_ok_bg_selector1"/>
             <ImageButton
                 android:id="@+id/tv_down_btn"
                 android:layout_below="@id/tv_ok_btn"

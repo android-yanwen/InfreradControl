@@ -9,4 +9,5 @@
     <color name="colorDivide">#d8d8d8</color>
     <color name="colorBk_0">#EFFBF8</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorNormalBack">#FCFCFC</color>
 </resources>
