@@ -212,9 +212,11 @@ public class MqttRequest implements NetworkInterface{
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //链接监听接口不为空
-                    if (connectStatus == null) {
-                        return;
+                    //确保链接监听接口不为空,延时100ms
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                     try {
                         // 启动链接
@@ -250,6 +252,7 @@ public class MqttRequest implements NetworkInterface{
         if (client.isConnected()) {
             try {
                 client.disconnect();
+                client = null;
             } catch (MqttException e1) {
                 e1.printStackTrace();
             }
@@ -292,6 +295,13 @@ public class MqttRequest implements NetworkInterface{
         });
     }
 
+
+    private CallbackConnectListener connectStatus;
+    @Override
+    public void setCallbackConnectListener(CallbackConnectListener callbackConnectListener) {
+        connectStatus = callbackConnectListener;
+    }
+
     /**
      * 关闭当前类实例
      */
@@ -303,6 +313,11 @@ public class MqttRequest implements NetworkInterface{
     }
 
     private CallbackListener callbackListener = null;
+
+
+
+
+
 
     /**
      * 链接成功后，数据收发过程的监听，以及链接意外丢失的监听
@@ -317,21 +332,21 @@ public class MqttRequest implements NetworkInterface{
 //        void onSendError(); //publish发送失败
 //    }
 
-    private MqttConnectStatusListener connectStatus;
-
-    public void setMqttConnectStatusListener(MqttConnectStatusListener connectStatus) {
-        this.connectStatus = connectStatus;
-    }
-
-    /**
-     * 开始连接时网络状态监听
-     */
-    public interface MqttConnectStatusListener {
-        void onStartConn();  //连接刚刚启动时调用
-
-        void onSuccess();   // 连接成功后调用
-
-        void onFaild();   //因网络问题连接失败后调用
-    }
+//    private MqttConnectStatusListener connectStatus;
+//
+//    public void setMqttConnectStatusListener(MqttConnectStatusListener connectStatus) {
+//        this.connectStatus = connectStatus;
+//    }
+//
+//    /**
+//     * 开始连接时网络状态监听
+//     */
+//    public interface MqttConnectStatusListener {
+//        void onStartConn();  //连接刚刚启动时调用
+//
+//        void onSuccess();   // 连接成功后调用
+//
+//        void onFaild();   //因网络问题连接失败后调用
+//    }
 
 }

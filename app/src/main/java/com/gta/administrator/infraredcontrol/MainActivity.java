@@ -136,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(mContext, SatelliteTvBrandsActivity.class));
                         break;
                     case 11:
-                        startActivity(new Intent(mContext, BulbActivity.class));
+//                        startActivity(new Intent(mContext, BulbActivity.class));
+                        new ActivityManager(mContext).startActivity(BulbActivity.class);
                         break;
 
                 }

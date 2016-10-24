@@ -29,9 +29,9 @@ public class NetworkRequest {
     }
 
 
-    public void setCallbackListener(NetworkInterface.CallbackListener callbackListener) {
-        networkInterface.setCallbackListener(callbackListener);
-    }
+//    public void setCallbackListener(NetworkInterface.CallbackListener callbackListener) {
+//        networkInterface.setCallbackListener(callbackListener);
+//    }
 
 
 }

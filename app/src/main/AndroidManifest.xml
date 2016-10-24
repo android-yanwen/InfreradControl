@@ -72,6 +72,7 @@
         <activity
             android:name=".bulb.BulbActivity"
             android:label="@string/bulb_activity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".projectors.ProjectorsBrandsSelectActivity" />
         <activity android:name=".projectors.ProjectorsBrands1Activity" />

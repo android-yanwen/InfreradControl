@@ -14,6 +14,7 @@ import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
+import com.gta.administrator.infraredcontrol.debug.DebugMsg;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -57,12 +58,12 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
-                showErrorMsg("发送成功");
+                toastMsg("发送成功");
             }
 
             @Override
             public void onSendError() {
-                showErrorMsg("发送失败请检查网络连接");
+                toastMsg("发送失败请检查网络连接");
             }
 
             @Override
@@ -186,7 +187,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     }
 
     
-    private void showErrorMsg(final String msg) {
+    private void toastMsg(final String msg) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

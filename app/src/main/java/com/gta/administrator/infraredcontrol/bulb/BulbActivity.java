@@ -94,7 +94,7 @@ public class BulbActivity extends AppCompatActivity {
         }
 
         id_bottom_item[0].setSelected(true);
-        replaceFragment(R.id.bulb_framelayout, new Bulb_ColorFragment());
+        replaceFragment(R.id.bulb_framelayout, bulb_colorFragment);
 
     }
 

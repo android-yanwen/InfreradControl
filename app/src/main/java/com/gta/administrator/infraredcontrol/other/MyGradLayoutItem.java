@@ -15,7 +15,9 @@ import com.gta.administrator.infraredcontrol.R;
  * Created by yanwen on 16/10/1.
  */
 public class MyGradLayoutItem extends LinearLayout {
-
+    TextView textView;
+    ImageView imageView;
+    View view;
 
     public MyGradLayoutItem(Context context) {
         this(context, null);
@@ -29,17 +31,19 @@ public class MyGradLayoutItem extends LinearLayout {
         super(context, attrs, defStyleAttr);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.my_gradlayout_item, null, false);
+        view = LayoutInflater.from(context).inflate(R.layout.my_gradlayout_item, null, false);
+
+
 
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.MyGradLayoutItem, defStyleAttr, 0);
 
         int res = a.getResourceId(R.styleable.MyGradLayoutItem_gradlayoutSrc, 0);
-        ImageView imageView = (ImageView)view.findViewById(R.id.item_img);
+        imageView = (ImageView)view.findViewById(R.id.item_img);
         imageView.setImageResource(res);
 
         String text = a.getString(R.styleable.MyGradLayoutItem_gradlayoutText);
-        TextView textView = (TextView) view.findViewById(R.id.item_text);
+        textView = (TextView) view.findViewById(R.id.item_text);
         textView.setText(text);
 
         a.recycle();
@@ -52,6 +56,16 @@ public class MyGradLayoutItem extends LinearLayout {
 
 
     }*/
+
+    public void setTextText(String textText) {
+        textView.setText(textText);
+    }
+
+    public void setImageViewIcon(int res) {
+        imageView.setImageResource(res);
+    }
+
+
 
 
 }

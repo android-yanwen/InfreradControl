@@ -26,15 +26,15 @@ public class ActivityManager {
 
     public void startActivity(final Class activity) {
         // 获取MqttRequest实例
-        final NetworkInterface mqttRequest = MqttRequest.getInstance();
+        final NetworkInterface networkInterface = NetworkRequest.getInstance(mContext);
         // 检查是否处于连接状态
-        if (((MqttRequest)mqttRequest).isConnected()) {
+        if (networkInterface.isConnected()) {
             mContext.startActivity(new Intent(mContext, activity));
         } else {
             // 第一次需要打开连接
-            mqttRequest.openConnect();
+            networkInterface.openConnect();
             // 打开连接之后，监听连接过程的状态（连接成功或因网络问题失败）
-            ((MqttRequest)mqttRequest).setMqttConnectStatusListener(new MqttRequest.MqttConnectStatusListener() {
+            networkInterface.setCallbackConnectListener(new NetworkInterface.CallbackConnectListener() {
                 @Override
                 public void onStartConn() {
                     Log.d(TAG, "onStartConn: 启动链接");
@@ -51,7 +51,7 @@ public class ActivityManager {
                 @Override
                 public void onFaild() {
                     Log.d(TAG, "onFaild: 链接失败，请检查网络");
-                    mqttRequest.closeConnect();
+                    networkInterface.closeConnect();
                     progressDismiss();
                     showMessge();
 
@@ -81,7 +81,9 @@ public class ActivityManager {
         ((Activity)mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressDialog.cancel();
+                if (progressDialog != null) {
+                    progressDialog.cancel();
+                }
             }
         });
     }

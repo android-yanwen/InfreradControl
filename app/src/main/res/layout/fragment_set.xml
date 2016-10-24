@@ -17,11 +17,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="网络设置图标"
-            android:background="@mipmap/ic_launcher"/>
+            android:background="@mipmap/icon_net_setting"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/network_set_icon"
             android:layout_centerVertical="true"
             android:text="网络设置"/>

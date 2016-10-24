@@ -11,16 +11,18 @@ import android.widget.Toast;
 public class DebugMsg {
     private static DebugMsg debugMsg;
     private ProgressDialog progressDialog;
-    private Activity mContext;
+    private static Context mContext;
 
-    public static DebugMsg getInstance(Context mContext) {
+    public static DebugMsg getInstance(Context context) {
+        mContext = context;
         if (debugMsg == null) {
-            debugMsg = new DebugMsg(mContext);
+            debugMsg = new DebugMsg();
         }
         return debugMsg;
     }
 
-    public DebugMsg(Context mContext) {
+
+    public DebugMsg() {
         // 进度框
         progressDialog = new ProgressDialog(mContext);
     }

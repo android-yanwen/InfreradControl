@@ -91,13 +91,22 @@ public class SocketUlitity implements NetworkInterface{
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    // 延时100ms
                     try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        connectListener.onStartConn();//开始创建socket
                         mSocket = new Socket(IP_ADDRESS, PORT);
                         outputStream = mSocket.getOutputStream();
                         inputStream = mSocket.getInputStream();
+                        connectListener.onSuccess();// 创建socket成功
                     } catch (IOException e) {
                         e.printStackTrace();
                         Log.d(TAG, "socket open failed");
+                        connectListener.onFaild();// 创建socket失败
                     }
                 }
             }).start();
@@ -127,6 +136,11 @@ public class SocketUlitity implements NetworkInterface{
 //        receiveData();
     }
 
+    @Override
+    public boolean isConnected() {
+        return mSocket != null ? mSocket.isConnected() : false;
+    }
+
 //    @Override
 //    private void receiveData() {
 ////        Log.d(TAG, "receiveData: ");
@@ -138,6 +152,12 @@ public class SocketUlitity implements NetworkInterface{
     @Override
     public void setCallbackListener(CallbackListener callbackListener) {
         this.callbackListener = callbackListener;
+    }
+
+    private CallbackConnectListener connectListener;
+    @Override
+    public void setCallbackConnectListener(CallbackConnectListener callbackConnectListener) {
+        connectListener = callbackConnectListener;
     }
 
 

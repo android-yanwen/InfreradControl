@@ -31,6 +31,24 @@
         android:text="color" />
 
 
+
+    <SeekBar
+        android:layout_below="@id/txt_color"
+        android:layout_marginBottom="100dp"
+        android:id="@+id/color_picker_brightness_seekbar"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="28dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:progress="1"
+        android:max="255"
+        android:background="@android:color/transparent"
+        android:progressDrawable="@drawable/seekbar_define_color_style"
+        android:thumb="@drawable/seekbar_thumb"/>
+
+
+
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"

@@ -57,4 +57,34 @@ public class BulbCode {
     }
 
 
+    /****************************************彩灯控制命令****************************************/
+    private final static String len = "len:";
+    private final static String command = "|command:";
+    private final static String RGBW = "RGBW|";
+
+    public static String getBulbColorCode(String s_R, String s_G, String s_B, String s_W) {
+        String code = null;
+//        String s_R = Integer.toString(R);
+//        String s_G = Integer.toString(G);
+//        String s_B = Integer.toString(B);
+//        String s_W = Integer.toString(W);
+        code = len + getProtocalLength(s_R, s_G, s_B, s_W) + command + RGBW + "{" + s_R + "," + s_G + "," + s_B + "," + s_W + "}";
+        return code;
+    }
+
+    private static int getProtocalLength(String s_R, String s_G, String s_B, String s_W) {
+        int length = 0;
+        //    len:33|command:set_ssid|{ESP8266}  格式
+        // 头的长度   +   命令字长度     +     关键字长度     +     内容
+        length = len.length() + command.length() + RGBW.length() + s_R.length() + 1 + s_G.length() + 1 + s_B.length() + 1 + s_W.length() + 2;
+        int length_len = Integer.toString(length).length();//得到length的长度的位数
+        length += length_len;//加上长度本身的位数长度
+
+        // 返回整条协议的长度数值
+        return length;
+
+    }
+
+
+
 }

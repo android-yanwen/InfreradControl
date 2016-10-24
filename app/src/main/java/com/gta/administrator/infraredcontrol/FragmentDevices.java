@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.gta.administrator.infraredcontrol.bulb.bulb_brands.XiaoZhiBrandsActivity;
+import com.gta.administrator.infraredcontrol.other.MyGradLayoutItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,25 +56,26 @@ public class FragmentDevices extends Fragment {
             if (isDeviceBack) {
                 return;
             }
-            Button button = new Button(getContext());
+            MyGradLayoutItem button = new MyGradLayoutItem(getContext());
             button.setLayoutParams(
                     new RelativeLayout.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT)
             );
-            button.setText(getName());
+            button.setPadding(10,10,10,10);
+            button.setTextText(getName());
+            button.setImageViewIcon(R.mipmap.device_icon);
             button.setTag(getName());
+            button.setClickable(true);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getName().equals(((Button) v).getTag())) {
-                        Log.d(TAG, "onClick: " + ((Button) v).getTag());
+                    if (getName().equals( v.getTag())) {
+                        Log.d(TAG, "onClick: " + v.getTag());
 
                         new ActivityManager(mContext).startActivity(XiaoZhiBrandsActivity.class);
 //                        startActivityForResult(new Intent(getActivity(), XiaoZhiBrandsActivity.class), 1);
                         isDeviceBack = true;
-
-
                     }
                 }
             });
@@ -84,7 +86,7 @@ public class FragmentDevices extends Fragment {
             isDeviceBack = false;
             for (int i = 0; i < devices.size(); ++i) {
                 Map<String, View> map = devices.get(i);
-                Button button = (Button) map.get(getName());
+                MyGradLayoutItem button = (MyGradLayoutItem) map.get(getName());
                 if (button.getTag() != null) {
                     layout.removeView(button);
                     devices.remove(i);

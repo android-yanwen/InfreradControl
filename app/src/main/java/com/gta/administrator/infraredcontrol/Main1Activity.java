@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 //import com.baidubce.http.DefaultRetryPolicy;
@@ -30,6 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main1Activity extends AppCompatActivity implements View.OnClickListener{
+    private static final String TAG = "Main1Activity";
+
+    private ImageView main_background_image;
 
     private Toolbar toolbar;
     private Button toolbar_start_btn;
@@ -47,6 +51,8 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main1);
+//        main_background_image = (ImageView) findViewById(R.id.main_background_image);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_start_btn = (Button) findViewById(R.id.toolbar_start_btn);
@@ -92,6 +98,7 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         my_view_pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d(TAG, position + ":" + positionOffset + ":" + positionOffsetPixels);
 
             }
 

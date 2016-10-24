@@ -102,6 +102,7 @@ public class ColorPickView extends View {
                 if (length > bigCircle - rudeRadius) {
                     return true;
                 }
+                listener.onActionDown();
                 break;
             case MotionEvent.ACTION_MOVE: // 移动
                 length = getLength(event.getX(), event.getY(), centerPoint.x,
@@ -117,7 +118,7 @@ public class ColorPickView extends View {
                         mRockPosition.y));
                 break;
             case MotionEvent.ACTION_UP:// 抬起
-
+                listener.onActionUp();
                 break;
 
             default:
@@ -175,6 +176,11 @@ public class ColorPickView extends View {
 
     // 颜色发生变化的回调接口
     public interface OnColorChangedListener {
+
+        void onActionDown();
+
         void onColorChange(int color);
+
+        void onActionUp();
     }
 }
