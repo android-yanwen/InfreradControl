@@ -161,7 +161,7 @@ public class MqttRequest implements NetworkInterface{
                 } catch (MqttException e) {
                     e.printStackTrace();
                     if (callbackListener != null) {
-                        Log.d(TAG, "请检查网络");
+//                        Log.d(TAG, "请检查网络");
                         callbackListener.onSendError();
                     }
 
@@ -273,7 +273,7 @@ public class MqttRequest implements NetworkInterface{
             @Override
             public void connectionLost(Throwable cause) {
                 //连接丢失后，一般在这里面进行重连
-                Log.d(TAG, "connection lost");
+//                Log.d(TAG, "connection lost");
                 MqttRequest.this.callbackListener.connectionLost(cause);
             }
 

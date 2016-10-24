@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "XiaoZhiBrandsActivity";
 
     private Context mContext;
     private Button open_btn;
@@ -48,6 +50,8 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
         networkInterface.setCallbackListener(new NetworkInterface.CallbackListener() {
             @Override
             public void connectionLost(Throwable cause) {
+                networkInterface.openConnect();//异常断开后重新打开链接
+                Log.d(TAG, "Lost reconnected");
 
             }
 
@@ -64,6 +68,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onSendError() {
                 toastMsg("发送失败请检查网络连接");
+                networkInterface.openConnect();
             }
 
             @Override

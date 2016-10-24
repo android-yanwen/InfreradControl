@@ -6,10 +6,29 @@
     tools:context="com.gta.administrator.infraredcontrol.bulb.Bulb_ColorFragment">
 
     <ImageView
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:src="@mipmap/color_rgb_small"/>
+
+    <TextView
+        android:layout_toRightOf="@id/image"
+        android:id="@+id/txt_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="color" />
+    <ImageView
+        android:id="@+id/bulb_icon_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="25dp"
+        android:background="@mipmap/icon_color_bulb"/>
+
+
+
     <com.gta.administrator.infraredcontrol.bulb.ColorPickView
         android:id="@+id/color_picker_view"
         android:layout_width="wrap_content"
@@ -21,27 +40,17 @@
         colorpicker:center_radius="10dp"
         colorpicker:circle_radius="100dp" />
 
-    <TextView
-        android:id="@+id/txt_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/color_picker_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:text="color" />
-
-
 
     <SeekBar
-        android:layout_below="@id/txt_color"
-        android:layout_marginBottom="100dp"
+        android:layout_below="@id/color_picker_view"
+        android:layout_marginTop="70dp"
         android:id="@+id/color_picker_brightness_seekbar"
         android:layout_centerHorizontal="true"
         android:layout_width="300dp"
         android:layout_height="28dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:progress="1"
+        android:progress="128"
         android:max="255"
         android:background="@android:color/transparent"
         android:progressDrawable="@drawable/seekbar_define_color_style"
@@ -55,11 +64,6 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@mipmap/icon_div_color_32"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

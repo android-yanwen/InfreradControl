@@ -1,6 +1,5 @@
 package com.gta.administrator.infraredcontrol;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,17 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.adapter.DividerGridItemDecoration;
 import com.gta.administrator.infraredcontrol.adapter.RecycleViewAdapter;
-import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.DevicesModule;
 import com.gta.administrator.infraredcontrol.bulb.BulbActivity;
-import com.gta.administrator.infraredcontrol.bulb.ColorPickView;
 import com.gta.administrator.infraredcontrol.dvd.DvdBrandsListActivity;
 import com.gta.administrator.infraredcontrol.fan.FanBrandsListActivity;
 import com.gta.administrator.infraredcontrol.powerAmplification.PowerAmplification_BrandsActivity;

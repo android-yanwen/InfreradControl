@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/main_background1"
+    android:background="@mipmap/main_background1"
     tools:context="com.gta.administrator.infraredcontrol.Main1Activity">
 
     <android.support.design.widget.AppBarLayout
