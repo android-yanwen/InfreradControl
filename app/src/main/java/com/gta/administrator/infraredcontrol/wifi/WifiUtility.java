@@ -262,7 +262,7 @@ public class WifiUtility {
                         if (NetWorkSettingActivity.myHandler != null) {
                             // 发送连接到硬件成功的标志到Activity
                             NetWorkSettingActivity.myHandler.sendEmptyMessage(NetWorkSettingActivity.NET_STATUS_SUCCESS);
-                            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
 
                         }
                     }

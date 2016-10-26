@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
+    private ActivityManager activityManager;
     private RecyclerView my_recycle_view;
 
 
@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
         mContext = MainActivity.this;
+        activityManager = ActivityManager.getInstance(mContext);
+
 //        initView();
 
         initData();
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         break;
                     case 1:
-                        new ActivityManager(mContext).startActivity(AirConditionControlActivity.class);
+                        activityManager.startActivity(AirConditionControlActivity.class);
 
                         break;
                     case 2:
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 11:
 //                        startActivity(new Intent(mContext, BulbActivity.class));
-                        new ActivityManager(mContext).startActivity(BulbActivity.class);
+                        activityManager.startActivity(BulbActivity.class);
                         break;
 
                 }

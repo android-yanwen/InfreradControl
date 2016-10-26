@@ -12,7 +12,7 @@ public interface NetworkInterface {
 
     void closeConnect();
 
-    void sendData(String data);
+    void sendData(String data, boolean isReceived);
 
     boolean isConnected();
 

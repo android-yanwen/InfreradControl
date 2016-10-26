@@ -49,6 +49,8 @@ public class SocketUlitity implements NetworkInterface{
                     outputStream.write(data.getBytes("UTF-8"));
                 } catch (IOException e) {
                     e.printStackTrace();
+                    callbackListener.onSendError();
+
                 }
             }
         }).start();
@@ -116,6 +118,7 @@ public class SocketUlitity implements NetworkInterface{
     @Override
     public void closeConnect() {
         if (mSocket == null) {
+            socketUlitity = null;
             return;
         }
         try {
@@ -128,12 +131,19 @@ public class SocketUlitity implements NetworkInterface{
         }
     }
 
-
+    /**
+     * 发送数据
+     * @param data  发送的数据
+     * @param isReceived  是否允许接收
+     */
     @Override
-    public void sendData(String data) {
+    public void sendData(String data, boolean isReceived) {
         write(data);
-        receive();//发送完数据，立马开启线程等待接收
+        // 是否接收消息
+        if (isReceived) {
+            receive();//发送完数据，立马开启线程等待接收
 //        receiveData();
+        }
     }
 
     @Override

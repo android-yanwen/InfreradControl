@@ -175,7 +175,7 @@ public class MqttRequest implements NetworkInterface{
     /**
      * 订阅一次消息
      */
-    public void subscribeMessage() {
+    private void subscribeMessage() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -261,8 +261,12 @@ public class MqttRequest implements NetworkInterface{
     }
 
     @Override
-    public void sendData(String data) {
+    public void sendData(String data, boolean isReceived) {
         publishMessage(data);
+        // 是否接收，即是否订阅消息
+        if (isReceived) {
+            subscribeMessage();
+        }
     }
 
 

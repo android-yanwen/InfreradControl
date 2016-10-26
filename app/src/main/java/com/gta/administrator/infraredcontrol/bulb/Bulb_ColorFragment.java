@@ -115,7 +115,7 @@ public class Bulb_ColorFragment extends Fragment {
             public void onActionUp() {
                 String command = BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W);
                 Log.d(TAG, "onActionUp: " + command);
-                network.sendData(command);
+                network.sendData(command, false);
             }
 
         });
@@ -143,7 +143,7 @@ public class Bulb_ColorFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 //                Log.d(TAG, "onStopTrackingTouch: " + seekBar);
-                network.sendData(BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W));
+                network.sendData(BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W), false);
 
 
             }
@@ -176,7 +176,7 @@ public class Bulb_ColorFragment extends Fragment {
 
             @Override
             public void onSendError() {
-                toastMsg("网络超时");
+                toastMsg("网络超时，请退出后重试。");
             }
 
             @Override

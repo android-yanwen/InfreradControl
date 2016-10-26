@@ -79,6 +79,7 @@
         <activity android:name=".satellite_tv.SatelliteTvBrandsActivity" />
         <activity
             android:name=".bulb.bulb_brands.XiaoZhiBrandsActivity"
+            android:label="晓智电子"
             android:launchMode="singleTask" />
         <activity android:name=".setting.NetWorkSettingActivity" />
         <activity android:name=".setting.NetChooseActivity"

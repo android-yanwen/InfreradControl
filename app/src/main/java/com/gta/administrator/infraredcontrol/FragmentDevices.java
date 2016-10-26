@@ -33,17 +33,21 @@ public class FragmentDevices extends Fragment {
     private boolean isDeviceBack = false;
     private Context mContext;
 
+    private ActivityManager activityManager;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 //        isChecked = getIsChecked();
         mContext = getContext();
+        activityManager = ActivityManager.getInstance(mContext);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_devices, container, false);
+
         return view;
     }
 
@@ -73,7 +77,7 @@ public class FragmentDevices extends Fragment {
                     if (getName().equals( v.getTag())) {
                         Log.d(TAG, "onClick: " + v.getTag());
 
-                        new ActivityManager(mContext).startActivity(XiaoZhiBrandsActivity.class);
+                        activityManager.startActivity(XiaoZhiBrandsActivity.class);
 //                        startActivityForResult(new Intent(getActivity(), XiaoZhiBrandsActivity.class), 1);
                         isDeviceBack = true;
                     }

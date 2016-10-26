@@ -86,7 +86,7 @@ public class MD_FanControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                networkInterface.sendData(FanCode.getOnFanCode());
+                networkInterface.sendData(FanCode.getOnFanCode(),false);
 
             }
         });

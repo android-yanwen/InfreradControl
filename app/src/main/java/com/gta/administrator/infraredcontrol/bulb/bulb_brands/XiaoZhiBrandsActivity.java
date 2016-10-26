@@ -2,10 +2,12 @@ package com.gta.administrator.infraredcontrol.bulb.bulb_brands;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +22,8 @@ import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.io.UnsupportedEncodingException;
 
 public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "XiaoZhiBrandsActivity";
@@ -57,7 +61,13 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void messageArrived(String topic, MqttMessage message) {
-
+                String s_data = null;
+                try {
+                    s_data = new String(message.getPayload(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "messageArrived: " + s_data);
             }
 
             @Override
@@ -73,7 +83,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void socketReceiveData(String data) {
-
+                Log.d(TAG, "socketReceiveData: " + data);
             }
         });
 //        ((MqttRequest)mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
@@ -110,6 +120,11 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initView() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+
         open_btn = (Button) findViewById(R.id.open_btn);
         open_btn.setOnClickListener(this);
         close_btn = (Button) findViewById(R.id.close_btn);
@@ -151,42 +166,42 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.open_btn:
-                networkInterface.sendData(BulbCode.getOpenCode());
+                networkInterface.sendData(BulbCode.getOpenCode(), true);
                 break;
             case R.id.close_btn:
-                networkInterface.sendData(BulbCode.getCloseCode());
+                networkInterface.sendData(BulbCode.getCloseCode(), true);
 
                 break;
             case R.id.tv_up_btn:
-                networkInterface.sendData(BulbCode.getUpCode());
+                networkInterface.sendData(BulbCode.getUpCode(), true);
                 break;
             case R.id.tv_down_btn:
-                networkInterface.sendData(BulbCode.getDownCode());
+                networkInterface.sendData(BulbCode.getDownCode(), true);
 
                 break;
             case R.id.tv_left_btn:
-                networkInterface.sendData(BulbCode.getLeftCode());
+                networkInterface.sendData(BulbCode.getLeftCode(), true);
                 break;
             case R.id.tv_right_btn:
-                networkInterface.sendData(BulbCode.getRightCode());
+                networkInterface.sendData(BulbCode.getRightCode(), true);
 
                 break;
             case R.id.tv_ok_btn:
-                networkInterface.sendData(BulbCode.getBrightessCode());
+                networkInterface.sendData(BulbCode.getBrightessCode(), true);
                 break;
 
             case R.id.light_source_btn:
-                networkInterface.sendData(BulbCode.getLightSourceCode());
+                networkInterface.sendData(BulbCode.getLightSourceCode(), true);
                 break;
 
             case R.id.color_temp_reduce_btn:
-                networkInterface.sendData(BulbCode.getColorTempReduceCode());
+                networkInterface.sendData(BulbCode.getColorTempReduceCode(), true);
                 break;
             case R.id.color_temp_plus_btn:
-                networkInterface.sendData(BulbCode.getColorTempPlusCode());
+                networkInterface.sendData(BulbCode.getColorTempPlusCode(), true);
                 break;
             case R.id.section_btn:
-                networkInterface.sendData(BulbCode.getSectionCode());
+                networkInterface.sendData(BulbCode.getSectionCode(), true);
                 break;
         }
     }
@@ -201,4 +216,15 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
         });
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

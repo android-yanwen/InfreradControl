@@ -45,7 +45,7 @@ public class FanBrandsListActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
 //                        startActivity(new Intent(FanBrandsListActivity.this, MD_FanControlActivity.class));
-                        new ActivityManager(mContext).startActivity(MD_FanControlActivity.class);
+                        ActivityManager.getInstance(mContext).startActivity(MD_FanControlActivity.class);
                         break;
                 }
             }

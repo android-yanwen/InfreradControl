@@ -196,6 +196,6 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         NetworkInterface networkInterface = MqttRequest.getInstance();
         networkInterface.closeConnect();//关闭Mqtt连接
 
-        WifiUtility.getInstance(getApplicationContext()).finish();
+//        WifiUtility.getInstance(getApplicationContext()).finish();
     }
 }
