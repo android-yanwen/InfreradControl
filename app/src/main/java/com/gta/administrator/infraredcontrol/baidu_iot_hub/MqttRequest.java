@@ -249,7 +249,7 @@ public class MqttRequest implements NetworkInterface{
 
     public void closeConnect() {
         // 客户机断开连接
-        if (client.isConnected()) {
+        if (client != null && client.isConnected()) {
             try {
                 client.disconnect();
                 client = null;

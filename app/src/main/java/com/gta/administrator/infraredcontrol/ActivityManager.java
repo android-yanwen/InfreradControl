@@ -57,9 +57,6 @@ public class ActivityManager {
      * 显示提示状态框
      */
     private void progressShow() {
-        if (mContext == null) {
-            return;
-        }
         ((Activity) mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {

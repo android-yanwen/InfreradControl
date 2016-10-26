@@ -1,6 +1,7 @@
 package com.gta.administrator.infraredcontrol.setting;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +12,12 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.gta.administrator.infraredcontrol.R;
+import com.gta.administrator.infraredcontrol.socket.SocketUlitity;
 
 public class NetChooseActivity extends Activity {
     private static final String TAG = "NetChooseActivity";
     public static final String NET_TYPE_KEY = "NetType";
+    public static final String PREFERENCE_NAME = "device";
     public static final int NET_TYPE_LOCAL_INTERNET = 0;
     public static final int NET_TYPE_INTERNET = 1;
 
@@ -62,7 +65,7 @@ public class NetChooseActivity extends Activity {
         });
 
 
-        preferences = getSharedPreferences("device", MODE_PRIVATE);
+        preferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
         netType = preferences.getInt(NET_TYPE_KEY, NET_TYPE_INTERNET);
         //判断是互联网
         if (netType == NET_TYPE_INTERNET) {
@@ -72,9 +75,6 @@ public class NetChooseActivity extends Activity {
         }
 
     }
-
-
-
 
 
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -48,8 +49,10 @@ public class NetWorkSettingActivity extends AppCompatActivity {
     private List<String> wifiList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
-    private static String routerSSID;
-    private WifiUtility wifiUtility;
+    public static String routerSSID;
+    public static String routerPWD;
+    public static String hardwareSSID;
+    public static WifiUtility wifiUtility;
     private static SocketUlitity socketUlitity;
     private Timer timer;
 
@@ -76,10 +79,10 @@ public class NetWorkSettingActivity extends AppCompatActivity {
         my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String curSSID = wifiList.get(position);
+                hardwareSSID = wifiList.get(position);
                 // 连接wifi前先关闭socket
                 SocketUlitity.getInstance().closeConnect();
-                wifiUtility.connectWiFi(curSSID, SocketUlitity.ESP8266_PWD/*"GTA!@2016"*/);
+                wifiUtility.connectWiFi(hardwareSSID, SocketUlitity.ESP8266_PWD/*"GTA!@2016"*/);
 
 //                Log.d(TAG, "onItemClick: connectedSSID" + connectedSSID);
 
@@ -109,8 +112,10 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 }
                 // 硬件回应Socket成功
                 if (msg.what == HARDWARE_RESPONSE_SUCCESS) {
-                    Toast.makeText(NetWorkSettingActivity.this, "硬件入网成功", Toast.LENGTH_SHORT).show();
-                    NetWorkSettingActivity.this.finish();
+                    Toast.makeText(NetWorkSettingActivity.this, "硬件入网成功，点击标题栏设置‘网控制方式’", Toast.LENGTH_LONG).show();
+                    // 硬件入网成功后选择控制方式
+//                    startActivity(new Intent(mContext, NetChooseActivity.class));
+//                    NetWorkSettingActivity.this.finish();
                 }
             }
         };
@@ -171,6 +176,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_net_choose) {//网络访问方式选择
             startActivity(new Intent(mContext, NetChooseActivity.class));
+            finish();
 
         }else if (id == R.id.action_send_config) {//发送配置
             initSocket();
@@ -197,6 +203,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     String str_ssid = s_ssid.getText().toString();
                     String str_pwd = s_pwd.getText().toString();
+                    routerPWD = str_pwd;//保存用户输入的路由器密码
                     WifiCommand command = new WifiCommand(str_ssid, str_pwd);
                     String protocal_ssid = command.getSSIDProtocal();
                     String protocal_pwd = command.getPWDProtocal();

@@ -39,8 +39,6 @@ public class FragmentDevices extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 //        isChecked = getIsChecked();
-        mContext = getContext();
-        activityManager = ActivityManager.getInstance(mContext);
     }
 
     @Nullable
@@ -53,6 +51,9 @@ public class FragmentDevices extends Fragment {
 
     @Override
     public void onResume() {
+        mContext = getContext();
+        activityManager = ActivityManager.getInstance(mContext);
+
         RelativeLayout layout = (RelativeLayout) view;
         super.onResume();
         isChecked = getIsChecked();
