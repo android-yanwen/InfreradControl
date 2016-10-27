@@ -25,9 +25,12 @@ import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
+import com.gta.smart.slideswitch.SlideSwitch;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.math.BigDecimal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,10 +44,11 @@ public class Bulb_ColorFragment extends Fragment {
     private View view;
 
 
-    private String color_R = "0";
-    private String color_G = "0";
-    private String color_B = "0";
     private String color_W = "0";
+    private float f_color_R = 128f;
+    private float f_color_G = 128f;
+    private float f_color_B = 128f;
+    private float f_color_Alpha = 0.5f;
 
 
     private NetworkInterface network;
@@ -54,6 +58,8 @@ public class Bulb_ColorFragment extends Fragment {
     private Paint paint;
     private Canvas canvas;
     private ImageView bulb_icon_img;
+
+    private SlideSwitch on_off_slide;
 
     public Bulb_ColorFragment() {
         // Required empty public constructor
@@ -78,13 +84,27 @@ public class Bulb_ColorFragment extends Fragment {
      * initView() 初始化页面资源
      */
     private void initView() {
+        on_off_slide = (SlideSwitch) view.findViewById(R.id.on_off_slide);
+        on_off_slide.setOnStateChangedListener(new SlideSwitch.OnStateChangedListener() {
+            @Override
+            public void onStateChanged(boolean state) {
+                if (state) {
+                    Log.d(TAG, "onStateChanged: on");
+                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
+                } else {
+                    Log.d(TAG, "onStateChanged: off");
+                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_OFF), true);
+                }
+            }
+        });
+
 
         bulb_icon_img = (ImageView) view.findViewById(R.id.bulb_icon_img);
 
         myView = (ColorPickView) view.findViewById(R.id.color_picker_view);
         txtColor = (TextView) view.findViewById(R.id.txt_color);
         myView.setOnColorChangedListener(new ColorPickView.OnColorChangedListener() {
-
+            RGB rgba;
             @Override
             public void onActionDown() {
                 Log.d(TAG, "onActionDown: ");
@@ -96,43 +116,39 @@ public class Bulb_ColorFragment extends Fragment {
 //                Log.d(TAG, "color=" + color + ":" + Integer.toHexString(color));
 //                Toast.makeText(getActivity(), "color:" + Integer.toHexString(color), Toast.LENGTH_SHORT).show();
                 txtColor.setTextColor(color);
-                int n_R = color >> 16 & 0xff;//取出颜色R值
-                int n_G = color >> 8 & 0xff;//取出颜色G值
-                int n_B = color & 0xff;//取出颜色B值
-                color_R = Integer.toString(n_R);
-                color_G = Integer.toString(n_G);
-                color_B = Integer.toString(n_B);
-//                String command = BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W);
-                String command = "(" + color_R + "," + color_G + "," + color_B + "," + color_W + ")";
-                txtColor.setText(command);
 
+                f_color_R = color >> 16 & 0xff;//取出颜色R值
+                f_color_G = color >> 8 & 0xff;//取出颜色G值
+                f_color_B = color & 0xff;//取出颜色B值
 
-                adjustColorBulb();
-
+                rgba = calcRGB(f_color_Alpha);
+                // 颜色显示在控件上
+                dispColor(rgba);
             }
 
             @Override
             public void onActionUp() {
-                String command = BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W);
-                Log.d(TAG, "onActionUp: " + command);
-                network.sendData(command, false);
+                sendColorData(rgba);
             }
 
         });
 
+        // 进度条可调节亮度
         color_picker_brightness_seekbar = (SeekBar) view.findViewById(R.id.color_picker_brightness_seekbar);
-        int progress = color_picker_brightness_seekbar.getProgress();
-        color_W = Integer.toHexString(progress);//获取颜色W值
+//        int progress = color_picker_brightness_seekbar.getProgress();
+//        color_W = Integer.toHexString(progress);//获取颜色W值
         color_picker_brightness_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            RGB rgba;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                Log.d(TAG, "onProgressChanged: " + seekBar + ":" + progress + ":" + fromUser);
-                color_W = Integer.toString(progress);//获取颜色W值
-//                String command = BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W);
-                String command = "(" + color_R + "," + color_G + "," + color_B + "," + color_W + ")";
-                txtColor.setText(command);
-                adjustColorBulb();
+                f_color_Alpha = progress / 100f;//计算透明度值
+//                Log.d(TAG, "onProgressChanged: " + f_color_Alpha + ":" + fromUser);
 
+                // 将亮度alpha计算到rgb值当中
+                rgba = calcRGB(f_color_Alpha);
+                // 颜色显示在控件上
+                dispColor(rgba);
             }
 
             @Override
@@ -143,15 +159,10 @@ public class Bulb_ColorFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 //                Log.d(TAG, "onStopTrackingTouch: " + seekBar);
-                network.sendData(BulbCode.getBulbColorCode(color_R, color_G, color_B, color_W), false);
-
-
+                sendColorData(rgba);
             }
         });
-
-
         initColorBulb();
-
     }
 
 
@@ -212,17 +223,17 @@ public class Bulb_ColorFragment extends Fragment {
         canvas = new Canvas(afterBitmap);
         paint = new Paint();
     }
-    private void adjustColorBulb() {
-        float f_color_R = Integer.parseInt(color_R) / 128f;
-        float f_color_G = Integer.parseInt(color_G) / 128f;
-        float f_color_B = Integer.parseInt(color_B) / 128f;
-        float f_color_W = Integer.parseInt(color_W) / 128f;
+    private void adjustColorBulb(float f_R, float f_G, float f_B) {
+        float f_color_R = f_R / 128f;
+        float f_color_G = f_G / 128f;
+        float f_color_B = f_B / 128f;
+//        float f_color_W = Integer.parseInt(color_W) / 128f;
         //RGBA矩阵
         float[] src = new float[]{
                 f_color_R, 0, 0, 0, 0,
                 0, f_color_G, 0, 0, 0,
                 0, 0, f_color_B, 0, 0,
-                0, 0, 0, f_color_W, 0,
+                0, 0, 0, 255/128f, 0,
         };
         // 定义ColorMatrix指定RGBA矩阵
         ColorMatrix matrix = new ColorMatrix();
@@ -231,4 +242,53 @@ public class Bulb_ColorFragment extends Fragment {
         canvas.drawBitmap(baseBitmap, new Matrix(), paint);
         bulb_icon_img.setImageBitmap(afterBitmap);
     }
+
+    /**
+     * 显示颜色
+     * @param rgba 颜色值
+     */
+    private void dispColor(RGB rgba) {
+        // 灯泡图片颜色刷新
+        adjustColorBulb(rgba.f_r, rgba.f_g, rgba.f_b);
+        // RGB颜色数值显示
+        String command = "(" + Float.toString(rgba.f_r) + "," + Float.toString(rgba.f_g) + "," + Float.toString(rgba.f_b) + "," + color_W + ")";
+        txtColor.setText(command);
+    }
+
+    private void sendColorData(RGB rgba) {
+        String command = BulbCode.getBulbColorCode(Float.toString(rgba.f_r), Float.toString(rgba.f_g), Float.toString(rgba.f_b), color_W);
+        network.sendData(command, true);
+    }
+
+
+    /**
+     * 保留两位小数
+     * @param f
+     * @return
+     */
+    private float reserveTwoDeciamls(float f) {
+        BigDecimal bigDecimal = new BigDecimal(f);
+        float f1 = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        return f1;
+    }
+
+    class RGB {
+        public float f_r;
+        public float f_g;
+        public float f_b;
+    }
+
+    /**
+     * 计算将亮度加入RGB三色当中
+     * @param alpha 亮度值0.0f～1.0f
+     * @return RGB值
+     */
+    private RGB calcRGB(float alpha) {
+        RGB rgb = new RGB();
+        rgb.f_r = reserveTwoDeciamls(f_color_R * alpha);
+        rgb.f_g = reserveTwoDeciamls(f_color_G * alpha);
+        rgb.f_b = reserveTwoDeciamls(f_color_B * alpha);
+        return rgb;
+    }
+
 }

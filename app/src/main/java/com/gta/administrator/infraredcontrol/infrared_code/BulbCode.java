@@ -61,6 +61,9 @@ public class BulbCode {
     private final static String len = "len:";
     private final static String command = "|command:";
     private final static String RGBW = "RGBW|";
+    private final static String lamp_power = "lamp_power|";
+    public final static boolean SWITCH_ON = true;
+    public final static boolean SWITCH_OFF = false;
 
     public static String getBulbColorCode(String s_R, String s_G, String s_B, String s_W) {
         String code = null;
@@ -82,7 +85,40 @@ public class BulbCode {
 
         // 返回整条协议的长度数值
         return length;
+    }
 
+    /**
+     * 获取电源开关命令协议长度
+     * @param val
+     * @return
+     */
+    private static int getProtocalLength(String val) {
+        int length = 0;
+        //    len:33|command:set_ssid|{ESP8266}  格式
+        // 头的长度   +   命令字长度     +     关键字长度     +     内容
+        length = len.length() + command.length() + lamp_power.length() + val.length() + 2;
+        int length_len = Integer.toString(length).length();//得到length的长度的位数
+        length += length_len;//加上长度本身的位数长度
+
+        // 返回整条协议的长度数值
+        return length;
+    }
+
+    /**
+     * 获取电源开关协议
+     * @param isOn  true开灯  false关灯
+     * @return
+     */
+    public static String getBulbColorSwitchCode(boolean isOn) {
+        String cmd = null;
+        if (isOn) {
+            // 开灯
+            cmd = len + getProtocalLength("1") + command + lamp_power + "{" + "1" + "}";
+        } else {
+            // 关灯
+            cmd = len + getProtocalLength("0") + command + lamp_power + "{" + "0" + "}";
+        }
+        return cmd;
     }
 
 
