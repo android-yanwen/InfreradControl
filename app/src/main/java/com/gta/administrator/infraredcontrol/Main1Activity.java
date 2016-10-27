@@ -33,7 +33,10 @@ import java.util.List;
 public class Main1Activity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "Main1Activity";
 
-    private ImageView main_background_image;
+//    private ImageView main_background_image;
+
+    public static WifiUtility wifiUtility;
+
 
     private Toolbar toolbar;
     private Button toolbar_start_btn;
@@ -53,6 +56,8 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_main1);
 //        main_background_image = (ImageView) findViewById(R.id.main_background_image);
 
+        // 获得Wi-Fi操作实例
+        wifiUtility = WifiUtility.getInstance(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar_start_btn = (Button) findViewById(R.id.toolbar_start_btn);
@@ -196,6 +201,6 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         NetworkInterface networkInterface = MqttRequest.getInstance();
         networkInterface.closeConnect();//关闭Mqtt连接
 
-//        WifiUtility.getInstance(getApplicationContext()).finish();
+        WifiUtility.getInstance(this).finish();
     }
 }

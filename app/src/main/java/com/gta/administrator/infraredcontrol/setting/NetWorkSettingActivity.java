@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.gta.administrator.infraredcontrol.Main1Activity;
 import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
@@ -52,7 +53,6 @@ public class NetWorkSettingActivity extends AppCompatActivity {
     public static String routerSSID;
     public static String routerPWD;
     public static String hardwareSSID;
-    public static WifiUtility wifiUtility;
     private static SocketUlitity socketUlitity;
     private Timer timer;
 
@@ -82,7 +82,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 hardwareSSID = wifiList.get(position);
                 // 连接wifi前先关闭socket
                 SocketUlitity.getInstance().closeConnect();
-                wifiUtility.connectWiFi(hardwareSSID, SocketUlitity.ESP8266_PWD/*"GTA!@2016"*/);
+                Main1Activity.wifiUtility.connectWiFi(hardwareSSID, SocketUlitity.ESP8266_PWD/*"GTA!@2016"*/);
 
 //                Log.d(TAG, "onItemClick: connectedSSID" + connectedSSID);
 
@@ -91,10 +91,8 @@ public class NetWorkSettingActivity extends AppCompatActivity {
         });
 
 
-        // 获得Wi-Fi操作实例
-        wifiUtility = WifiUtility.getInstance(mContext);
         // 如果连接到了自家路由器，则获取到路由器的SSID
-        routerSSID = wifiUtility.getConnectedSSID();
+        routerSSID = Main1Activity.wifiUtility.getConnectedSSID();
 
 //        wifiUtility.disconnectWifi();
 
@@ -132,10 +130,10 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 //                Log.d(TAG, "run: timer task");
-                    wifiUtility.startScanWifi();
+                    Main1Activity.wifiUtility.startScanWifi();
 
                     wifiList.clear();
-                    for (String ssid : wifiUtility.getSSIDList()) {
+                    for (String ssid : Main1Activity.wifiUtility.getSSIDList()) {
                         wifiList.add(ssid);
                     }
                     notifyDataSetChanged();
@@ -156,7 +154,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        wifiUtility.finish();
+//        wifiUtility.finish();
     }
 
 
@@ -176,7 +174,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_net_choose) {//网络访问方式选择
             startActivity(new Intent(mContext, NetChooseActivity.class));
-            finish();
+//            finish();
 
         }else if (id == R.id.action_send_config) {//发送配置
             initSocket();
@@ -204,6 +202,14 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                     String str_ssid = s_ssid.getText().toString();
                     String str_pwd = s_pwd.getText().toString();
                     routerPWD = str_pwd;//保存用户输入的路由器密码
+                    // 保存8266的ssid、路由器的ssid、路由器的密码等信息
+                    SharedPreferences preferences = getSharedPreferences(NetConfig.CONFIGURATION, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(NetConfig.KEY_ESP8266_SSID, hardwareSSID);
+                    editor.putString(NetConfig.KEY_ROUTER_SSID, routerSSID);
+                    editor.putString(NetConfig.KEY_ROUTER_PWD, routerPWD);
+                    editor.commit();
+
                     WifiCommand command = new WifiCommand(str_ssid, str_pwd);
                     String protocal_ssid = command.getSSIDProtocal();
                     String protocal_pwd = command.getPWDProtocal();

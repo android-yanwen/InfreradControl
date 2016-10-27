@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
+import com.gta.administrator.infraredcontrol.Main1Activity;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.socket.SocketUlitity;
 
@@ -40,6 +41,23 @@ public class NetChooseActivity extends Activity {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt(NET_TYPE_KEY, netType);
                 editor.commit();
+
+                SharedPreferences sharedPreferences = getSharedPreferences(NetConfig.CONFIGURATION, MODE_PRIVATE);
+                String routerSSID = sharedPreferences.getString(NetConfig.KEY_ROUTER_SSID, "");
+                String routerPWD = sharedPreferences.getString(NetConfig.KEY_ROUTER_PWD, "");
+                String esp8266SSID = sharedPreferences.getString(NetConfig.KEY_ESP8266_SSID, "");
+                if (preferences.getInt(NET_TYPE_KEY, NET_TYPE_INTERNET) == NET_TYPE_INTERNET) {
+                    if (routerSSID != null && routerPWD != null) {
+                        Main1Activity.wifiUtility.connectWiFi(NetWorkSettingActivity.routerSSID, NetWorkSettingActivity.routerPWD);
+                    }
+                }else if (preferences.getInt(NET_TYPE_KEY, NET_TYPE_INTERNET) == NET_TYPE_LOCAL_INTERNET) {
+                    // 如果是局域网连接，则连接到8266硬件
+                    if (esp8266SSID != null) {
+                        Main1Activity.wifiUtility.connectWiFi(esp8266SSID, SocketUlitity.ESP8266_PWD);
+                    }
+                }
+
+
                 finish();
             }
         });
