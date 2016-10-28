@@ -43,19 +43,15 @@
 
     <SeekBar
         android:layout_below="@id/color_picker_view"
-        android:layout_marginTop="70dp"
         android:id="@+id/color_picker_brightness_seekbar"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_width="300dp"
         android:layout_height="28dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:progress="50"
         android:max="100"
         android:background="@android:color/transparent"
         android:progressDrawable="@drawable/seekbar_define_color_style"
         android:thumb="@drawable/seekbar_thumb"/>
-
 
 
     <LinearLayout
@@ -65,7 +61,7 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <TextView
+       <!-- <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -73,7 +69,14 @@
         <com.gta.smart.slideswitch.SlideSwitch
             android:id="@+id/on_off_slide"
             android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" />-->
+
+        <ImageButton
+            android:id="@+id/power_switch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/power_off_icon"/>
+
     </LinearLayout>
 
 </RelativeLayout>

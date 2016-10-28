@@ -2,6 +2,7 @@ package com.gta.administrator.infraredcontrol.bulb;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,12 +10,15 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -45,9 +49,9 @@ public class Bulb_ColorFragment extends Fragment {
 
 
     private static final String color_W = "0";
-    private float f_color_R = 128f;
-    private float f_color_G = 128f;
-    private float f_color_B = 128f;
+    private int n_color_R = 128;
+    private int n_color_G = 128;
+    private int n_color_B = 128;
     private float f_color_Alpha = 0.5f;
 
 
@@ -59,8 +63,11 @@ public class Bulb_ColorFragment extends Fragment {
     private Canvas canvas;
     private ImageView bulb_icon_img;
 
-    private SlideSwitch on_off_slide;
+    //    private SlideSwitch on_off_slide;
+    // 电源开关标志位
+    private boolean powerIsOn = false;
 
+    private ImageButton power_switch_button;
     public Bulb_ColorFragment() {
         // Required empty public constructor
         mContext = getActivity();
@@ -81,18 +88,26 @@ public class Bulb_ColorFragment extends Fragment {
      * initView() 初始化页面资源
      */
     private void initView() {
-        on_off_slide = (SlideSwitch) view.findViewById(R.id.on_off_slide);
-        on_off_slide.setOnStateChangedListener(new SlideSwitch.OnStateChangedListener() {
+        powerIsOn = false;
+        power_switch_button = (ImageButton) view.findViewById(R.id.power_switch_button);
+        power_switch_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onStateChanged(boolean state) {
-                if (state) {
-                    Log.d(TAG, "onStateChanged: on");
-                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
-                } else {
-                    Log.d(TAG, "onStateChanged: off");
+            public void onClick(View v) {
+//                Resources resources = getActivity().getResources();
+//                Drawable drawable = resources.getDrawable(R.mipmap.power_off_icon);
+                // on
+                if (powerIsOn) {
+                    powerIsOn = false;
+                    power_switch_button.setBackgroundResource(R.mipmap.power_off_icon);
                     network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_OFF), true);
+                } else {//off
+                    powerIsOn = true;
+                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
+                    power_switch_button.setBackgroundResource(R.mipmap.power_on_icon);
                 }
+
             }
+
         });
 
 
@@ -102,6 +117,7 @@ public class Bulb_ColorFragment extends Fragment {
         txtColor = (TextView) view.findViewById(R.id.txt_color);
         myView.setOnColorChangedListener(new ColorPickView.OnColorChangedListener() {
             RGB rgba;
+
             @Override
             public void onActionDown() {
                 Log.d(TAG, "onActionDown: ");
@@ -114,9 +130,9 @@ public class Bulb_ColorFragment extends Fragment {
 //                Toast.makeText(getActivity(), "color:" + Integer.toHexString(color), Toast.LENGTH_SHORT).show();
                 txtColor.setTextColor(color);
 
-                f_color_R = color >> 16 & 0xff;//取出颜色R值
-                f_color_G = color >> 8 & 0xff;//取出颜色G值
-                f_color_B = color & 0xff;//取出颜色B值
+                n_color_R = color >> 16 & 0xff;//取出颜色R值
+                n_color_G = color >> 8 & 0xff;//取出颜色G值
+                n_color_B = color & 0xff;//取出颜色B值
 
                 rgba = calcRGB(f_color_Alpha);
                 // 颜色显示在控件上
@@ -168,6 +184,9 @@ public class Bulb_ColorFragment extends Fragment {
             public void connectionLost(Throwable cause) {
                 network.openConnect();//异常断开后重新打开链接
                 Log.d(TAG, "Lost reconnected");
+//                Toast.makeText(getActivity(), "连接丢失，网络不稳定！", Toast.LENGTH_SHORT).show();
+//                network.closeConnect();
+//                getActivity().finish();
             }
 
             @Override
@@ -178,6 +197,7 @@ public class Bulb_ColorFragment extends Fragment {
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
                 toastMsg("发送成功");
+
             }
 
             @Override
@@ -246,12 +266,12 @@ public class Bulb_ColorFragment extends Fragment {
         // 灯泡图片颜色刷新
         adjustColorBulb(rgba.f_r, rgba.f_g, rgba.f_b);
         // RGB颜色数值显示
-        String command = "(" + Float.toString(rgba.f_r) + "," + Float.toString(rgba.f_g) + "," + Float.toString(rgba.f_b) + "," + color_W + ")";
+        String command = "(" + Integer.toString(rgba.f_r) + "," + Integer.toString(rgba.f_g) + "," + Integer.toString(rgba.f_b) + "," + color_W + ")";
         txtColor.setText(command);
     }
 
     private void sendColorData(RGB rgba) {
-        String command = BulbCode.getBulbColorCode(Float.toString(rgba.f_r), Float.toString(rgba.f_g), Float.toString(rgba.f_b), color_W);
+        String command = BulbCode.getBulbColorCode(Integer.toString(rgba.f_r), Integer.toString(rgba.f_g), Integer.toString(rgba.f_b), color_W);
         network.sendData(command, true);
     }
 
@@ -261,17 +281,17 @@ public class Bulb_ColorFragment extends Fragment {
      * @param f
      * @return
      */
-    private float reserveTwoDeciamls(float f) {
+    private int reserveTwoDeciamls(float f) {
         BigDecimal bigDecimal = new BigDecimal(f);
         // 0去掉小数   1保留一位小数   2保留两位小数   3保留三位小数 依次类推
         float f1 = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
-        return f1;
+        return (int)f1;
     }
 
     class RGB {
-        public float f_r;
-        public float f_g;
-        public float f_b;
+        public int f_r;
+        public int f_g;
+        public int f_b;
     }
 
     /**
@@ -281,9 +301,9 @@ public class Bulb_ColorFragment extends Fragment {
      */
     private RGB calcRGB(float alpha) {
         RGB rgb = new RGB();
-        rgb.f_r = reserveTwoDeciamls(f_color_R * alpha);
-        rgb.f_g = reserveTwoDeciamls(f_color_G * alpha);
-        rgb.f_b = reserveTwoDeciamls(f_color_B * alpha);
+        rgb.f_r = reserveTwoDeciamls(n_color_R * alpha);
+        rgb.f_g = reserveTwoDeciamls(n_color_G * alpha);
+        rgb.f_b = reserveTwoDeciamls(n_color_B * alpha);
         return rgb;
     }
 
