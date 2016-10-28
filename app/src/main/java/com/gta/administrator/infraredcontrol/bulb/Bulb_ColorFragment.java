@@ -44,7 +44,7 @@ public class Bulb_ColorFragment extends Fragment {
     private View view;
 
 
-    private String color_W = "0";
+    private static final String color_W = "0";
     private float f_color_R = 128f;
     private float f_color_G = 128f;
     private float f_color_B = 128f;
@@ -74,9 +74,6 @@ public class Bulb_ColorFragment extends Fragment {
         // Inflate the layout for this fragment
         initView();
         initNetwork();
-
-
-
         return view;
     }
 
@@ -143,8 +140,6 @@ public class Bulb_ColorFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 f_color_Alpha = progress / 100f;//计算透明度值
-//                Log.d(TAG, "onProgressChanged: " + f_color_Alpha + ":" + fromUser);
-
                 // 将亮度alpha计算到rgb值当中
                 rgba = calcRGB(f_color_Alpha);
                 // 颜色显示在控件上
@@ -268,7 +263,8 @@ public class Bulb_ColorFragment extends Fragment {
      */
     private float reserveTwoDeciamls(float f) {
         BigDecimal bigDecimal = new BigDecimal(f);
-        float f1 = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        // 0去掉小数   1保留一位小数   2保留两位小数   3保留三位小数 依次类推
+        float f1 = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
         return f1;
     }
 

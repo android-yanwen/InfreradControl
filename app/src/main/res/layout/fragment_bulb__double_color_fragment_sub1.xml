@@ -5,153 +5,45 @@
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
     tools:context="com.gta.administrator.infraredcontrol.bulb.Bulb_DoubleColorFragmentSub1">
 
-    <RelativeLayout
-        android:id="@+id/layout_0"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/colorDivide">
-
-        <ImageButton
-            android:padding="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tv_num_bg_selector"
-            android:src="@mipmap/icon_open_64"
-
-            />
-
-        <ImageButton
-            android:layout_alignParentEnd="true"
-            android:padding="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tv_num_bg_selector"
-            android:src="@mipmap/icon_close_64"
-
-            />
-
-        <include
-            android:id="@+id/layout2"
-            android:layout_marginTop="15dp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/direction_control_layout" />
-
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_alignParentBottom="true"
-            android:clickable="true"
-            android:background="@drawable/tv_num_bg_selector"
-            attrs:gradlayoutSrc="@mipmap/icon_night_light_64"
-            attrs:gradlayoutText="小夜灯" />
-
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:padding="20dp"
-            android:clickable="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/tv_num_bg_selector"
-            attrs:gradlayoutSrc="@mipmap/icon_leutral_light_64"
-            attrs:gradlayoutText="中性灯" />
-
-    </RelativeLayout>
-
+    <com.gta.smart.slideswitch.SlideSwitch
+        android:id="@+id/on_off_slide"
+        android:layout_width="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
 
 
     <LinearLayout
-        android:layout_below="@id/layout_0"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_centerInParent="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="纯白"/>
+        <SeekBar
+            android:id="@+id/lamp1_seek"
+            android:layout_below="@id/on_off_slide"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:progress="50"
+            android:max="100"
+            style="@style/Widget.AppCompat.SeekBar.Normal"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="开" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorDivide"/>
-
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="开" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorDivide"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="开" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorDivide"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="开" />
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivide"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="关" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorDivide"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="关" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorDivide"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="关" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorDivide"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
-                style="@style/ItemAttrs3"
-                attrs:gradlayoutSrc="@mipmap/icon_switch_64"
-                attrs:gradlayoutText="关" />
-
-        </LinearLayout>
-
+        <TextView
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暖白"/>
+        <SeekBar
+            android:id="@+id/lamp2_seek"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:progress="50"
+            android:max="100"
+            style="@style/Widget.AppCompat.SeekBar.Normal" />
 
     </LinearLayout>
 
