@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gta.administrator.infraredcontrol">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 允许程序改变网络链接状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Main1Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".setTopBoxes.HW_TV"
+            android:label="@string/hw_tv_activity" />
+        <activity
+            android:name=".satellite_tv.HW_TV"
+            android:label="品牌1" />
+        <activity
+            android:name=".AirConditionControlActivity"
+            android:label="空调"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".tv.TvBrandsListActivity"
+            android:label="@string/tv_brands_select" />
+        <activity
+            android:name=".setTopBoxes.SetTopBoxesBrandsListActivity"
+            android:label="@string/set_top_boxes_brands_select" />
+        <activity
+            android:name=".tv.CW_TvControlActivity"
+            android:label="@string/cw_tv_activity" />
+        <activity
+            android:name=".fan.FanBrandsListActivity"
+            android:label="@string/fan_brands_select" />
+        <activity
+            android:name=".fan.MD_FanControlActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".powerAmplification.PowerAmplification_BrandsActivity" />
+        <activity android:name=".powerAmplification.TL_PowerAmplificationControlActivity" />
+        <activity android:name=".dvd.DvdBrandsListActivity" />
+        <activity android:name=".dvd.BBG_DvdControlActivity" />
+        <activity
+            android:name=".bulb.BulbActivity"
+            android:label="@string/bulb_activity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".projectors.ProjectorsBrandsSelectActivity" />
+        <activity android:name=".projectors.ProjectorsBrands1Activity" />
+        <activity android:name=".satellite_tv.SatelliteTvBrandsActivity" />
+        <activity
+            android:name=".bulb.bulb_brands.XiaoZhiBrandsActivity"
+            android:label="晓智电子"
+            android:launchMode="singleTask" />
+        <activity android:name=".setting.NetWorkSettingActivity" />
+        <activity android:name=".setting.NetChooseActivity"
+            android:theme="@style/MyDialogStyle"></activity>
+    </application>
+
+</manifest>

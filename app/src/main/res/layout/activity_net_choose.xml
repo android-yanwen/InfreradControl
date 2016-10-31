@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gta.administrator.infraredcontrol.setting.NetChooseActivity">
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/internet_control_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="互联网控制"/>
+        <RadioButton
+            android:id="@+id/local_net_control_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="局域网控制"/>
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="确定"/>
+    </RadioGroup>
+
+</RelativeLayout>

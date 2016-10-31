@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
+    tools:context="com.gta.administrator.infraredcontrol.tv.CW_TvControlActivity">
+
+<!--上部布局-->
+    <FrameLayout
+        android:id="@+id/framelayout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivide"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                    style="@style/ItemAttrs"
+                    attrs:gradlayoutSrc="@mipmap/icon_on_off"
+                    attrs:gradlayoutText="开关"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorDivide"/>
+                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                    style="@style/ItemAttrs"
+                    attrs:gradlayoutSrc="@mipmap/icon_input"
+                    attrs:gradlayoutText="输入源"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorDivide"/>
+                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                    style="@style/ItemAttrs"
+                    attrs:gradlayoutSrc="@mipmap/icon_set_top_boxes_32"
+                    attrs:gradlayoutText="控制机顶盒"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivide"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                    style="@style/ItemAttrs"
+                    attrs:gradlayoutSrc="@mipmap/icon_menu"
+                    attrs:gradlayoutText="菜单"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorDivide"/>
+                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                    style="@style/ItemAttrs"
+                    attrs:gradlayoutSrc="@mipmap/icon_num_key_menu"
+                    attrs:gradlayoutText="数字键"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorDivide"/>
+                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                    style="@style/ItemAttrs"
+                    attrs:gradlayoutSrc="@mipmap/icon_tv_back"
+                    attrs:gradlayoutText="返回"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivide"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+    <!--中间布局-->
+    <ImageView
+        android:layout_margin="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/icon_etc"/>
+    <ImageView
+        android:layout_margin="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/icon_mute"/>
+
+
+
+    <!--中间布局-->
+    <RelativeLayout
+        android:background="@color/colorDivide"
+        android:layout_below="@id/framelayout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+<!--
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_home_page"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="主页"/>
+
+        </LinearLayout>
+-->
+
+        <include
+            android:layout_marginBottom="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            layout="@layout/direction_control_layout" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:src="@mipmap/icon_up"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="频道"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:src="@mipmap/icon_down"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:src="@mipmap/icon_plus_32"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="音量"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:src="@mipmap/icon_less_32"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
