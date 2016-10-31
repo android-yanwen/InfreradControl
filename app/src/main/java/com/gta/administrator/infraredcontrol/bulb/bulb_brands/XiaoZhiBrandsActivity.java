@@ -26,7 +26,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.io.UnsupportedEncodingException;
 
 public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnClickListener {
+<<<<<<< HEAD
     private static final String TAG = "XiaoZhiBrandsActivity";
+=======
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
 
     private Context mContext;
     private Button open_btn;
@@ -49,18 +52,31 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
         mContext = this;
 
         initView();
+<<<<<<< HEAD
 
+=======
+        initNetwork();
+    }
+
+    private void initNetwork() {
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         networkInterface = NetworkRequest.getInstance(mContext);
         networkInterface.setCallbackListener(new NetworkInterface.CallbackListener() {
             @Override
             public void connectionLost(Throwable cause) {
+<<<<<<< HEAD
                 networkInterface.openConnect();//异常断开后重新打开链接
                 Log.d(TAG, "Lost reconnected");
 
+=======
+                // 如果连接丢失则重新连接
+                networkInterface.openConnect();
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
             }
 
             @Override
             public void messageArrived(String topic, MqttMessage message) {
+<<<<<<< HEAD
                 String s_data = null;
                 try {
                     s_data = new String(message.getPayload(), "UTF-8");
@@ -68,21 +84,33 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
                     e.printStackTrace();
                 }
                 Log.d(TAG, "messageArrived: " + s_data);
+=======
+
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
             }
 
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
+<<<<<<< HEAD
                 toastMsg("发送成功");
+=======
+                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
             }
 
             @Override
             public void onSendError() {
+<<<<<<< HEAD
                 toastMsg("发送失败请检查网络连接");
                 networkInterface.openConnect();
+=======
+                Toast.makeText(mContext, "发送失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
             }
 
             @Override
             public void socketReceiveData(String data) {
+<<<<<<< HEAD
                 Log.d(TAG, "socketReceiveData: " + data);
             }
         });
@@ -117,6 +145,18 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
 //        }
 
 
+=======
+                Toast.makeText(mContext, "Socket发送成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        networkInterface.openConnect();
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     }
 
     private void initView() {
@@ -155,7 +195,10 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+<<<<<<< HEAD
 //            Intent intent = new Intent();
+=======
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
             setResult(2);
             finish();
         }
@@ -166,6 +209,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.open_btn:
+<<<<<<< HEAD
                 networkInterface.sendData(BulbCode.getOpenCode(), true);
                 break;
             case R.id.close_btn:
@@ -202,11 +246,49 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.section_btn:
                 networkInterface.sendData(BulbCode.getSectionCode(), true);
+=======
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.OpenCode), true);
+                break;
+            case R.id.close_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.CloseCode), true);
+                break;
+            case R.id.tv_up_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.UpCode), true);
+                break;
+            case R.id.tv_down_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.DownCode), true);
+
+                break;
+            case R.id.tv_left_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.LeftCode), true);
+                break;
+            case R.id.tv_right_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.RightCode), true);
+
+                break;
+            case R.id.tv_ok_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.BrightessCode), true);
+                break;
+
+            case R.id.light_source_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.LightSourceCode), true);
+                break;
+
+            case R.id.color_temp_reduce_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.ColorTempReduceCode), true);
+                break;
+            case R.id.color_temp_plus_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.ColorTempPlusCode), true);
+                break;
+            case R.id.section_btn:
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.SectionCode), true);
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                 break;
         }
     }
 
     
+<<<<<<< HEAD
     private void toastMsg(final String msg) {
         runOnUiThread(new Runnable() {
             @Override
@@ -216,6 +298,8 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
         });
     }
 
+=======
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

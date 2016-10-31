@@ -210,8 +210,11 @@ public class Bulb_ColorFragment extends Fragment {
 
             }
         });
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     }
 
     @Override

@@ -3,6 +3,7 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+<<<<<<< HEAD
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
 <<<<<<< HEAD
@@ -12,10 +13,16 @@
         <option name="gradleJvm" value="1.8" />
 >>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
 >>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
+=======
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="C:\Program Files\Android\Android Studio\gradle\gradle-2.14.1" />
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+<<<<<<< HEAD
           </set>
         </option>
 <<<<<<< HEAD
@@ -33,6 +40,12 @@
 =======
 >>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
 >>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
+=======
+            <option value="$PROJECT_DIR$/slideswitch" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
       </GradleProjectSettings>
     </option>
   </component>

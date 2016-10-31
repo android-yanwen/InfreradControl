@@ -85,15 +85,29 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 Main1Activity.wifiUtility.connectWiFi(hardwareSSID, SocketUlitity.ESP8266_PWD/*"GTA!@2016"*/);
 
 //                Log.d(TAG, "onItemClick: connectedSSID" + connectedSSID);
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
             }
         });
 
 
+<<<<<<< HEAD
         // 如果手机连接到了自家路由器，则获取到路由器的SSID
+=======
+        // 如果连接到了自家路由器，则获取到路由器的SSID
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         routerSSID = Main1Activity.wifiUtility.getConnectedSSID();
 
 //        wifiUtility.disconnectWifi();
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         myHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -120,7 +134,10 @@ public class NetWorkSettingActivity extends AppCompatActivity {
         super.onResume();
         // 进入网络设置页面时关闭MQTT
         NetworkRequest.getInstance(mContext).closeConnect();
+<<<<<<< HEAD
         // 每隔5s扫描周围Wi-Fi信号
+=======
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         if (timer == null) {
             timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -128,11 +145,21 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 public void run() {
 //                Log.d(TAG, "run: timer task");
                     Main1Activity.wifiUtility.startScanWifi();
+<<<<<<< HEAD
                     wifiList.clear();
                     for (String ssid : Main1Activity.wifiUtility.getEsp8266SSID()) {
                         wifiList.add(ssid);//保存8266发出的ssid到list
                     }
                     notifyDataSetChanged();
+=======
+
+                    wifiList.clear();
+                    for (String ssid : Main1Activity.wifiUtility.getSSIDList()) {
+                        wifiList.add(ssid);
+                    }
+                    notifyDataSetChanged();
+
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                 }
             }, 0, 5000);
         }

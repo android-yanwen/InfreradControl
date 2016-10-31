@@ -2,12 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
     <option name="DEFAULT_COMPILER" value="Javac" />
 =======
 >>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
 >>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
+=======
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
@@ -19,6 +22,7 @@
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <entry name="!?*.aj" />
 =======
 <<<<<<< HEAD
@@ -26,6 +30,9 @@
       <entry name="!?*.aj" />
 >>>>>>> 4d9f2c1157d09e511d2ee1a86bce3c2cb8562adf
 >>>>>>> 3a4a4aa915a6f1382913f0a677315ccff274a2be
+=======
+      <entry name="!?*.aj" />
+>>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">
