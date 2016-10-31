@@ -166,7 +166,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.open_btn:
-                networkInterface.sendData(BulbCode.getOpenCode(), true);
+                networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.OpenCode), true);
                 break;
             case R.id.close_btn:
                 networkInterface.sendData(BulbCode.get_ir_Code(BulbCode.CloseCode), true);
