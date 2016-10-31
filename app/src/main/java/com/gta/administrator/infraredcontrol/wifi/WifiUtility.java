@@ -262,14 +262,17 @@ public class WifiUtility {
                     // 销毁进度框
 //                    DebugMsg.getInstance(mContext).dismissProgressDialog();
 
+                    String ssid = getConnectedSSID();
                     // 判断是否连接的是硬件发出的Wi-Fi  ESP8266
+                    if (ssid.length() > 7) {
+                        String wifiSSID = ssid.substring(0, 7);
 //                    String wifiSSID = getConnectedSSID();
-                    String wifiSSID = getConnectedSSID().substring(0, 7);
-                    if (wifiSSID.equals(ESP8266/*"Netcore"*/)) {
-                        if (NetWorkSettingActivity.myHandler != null) {
-                            // 发送连接到硬件成功的标志到Activity
-                            NetWorkSettingActivity.myHandler.sendEmptyMessage(NetWorkSettingActivity.NET_STATUS_SUCCESS);
+                        if (wifiSSID.equals(ESP8266)) {
+                            if (NetWorkSettingActivity.myHandler != null) {
+                                // 发送连接到硬件成功的标志到Activity
+                                NetWorkSettingActivity.myHandler.sendEmptyMessage(NetWorkSettingActivity.NET_STATUS_SUCCESS);
 //                            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                     break;
