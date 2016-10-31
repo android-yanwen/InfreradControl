@@ -19,10 +19,6 @@ import android.widget.Toast;
 import com.gta.administrator.infraredcontrol.debug.DebugMsg;
 import com.gta.administrator.infraredcontrol.setting.NetWorkSettingActivity;
 
-<<<<<<< HEAD
-import java.lang.reflect.Array;
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +26,6 @@ import java.util.List;
  * Created by Administrator on 2016/10/18.
  */
 public class WifiUtility {
-<<<<<<< HEAD
     /**
      * 硬件发出的Wi-Fi名固定头
      */
@@ -38,8 +33,6 @@ public class WifiUtility {
     /**
      * WifiUtility 实例
      */
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     private static WifiUtility wifiUtility;
 
     private WifiManager wifiManager;
@@ -173,11 +166,7 @@ public class WifiUtility {
                 wifiCong.allowedProtocols.clear();
                 wifiCong.SSID = "\"" + wifi.SSID + "\"";//\"转义字符，代表"
 
-<<<<<<< HEAD
                 if (pwd == null || pwd.equals("")) { //无密码时的连接
-=======
-                if (pwd.equals("") || pwd == null) { //无密码时的连接
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
 //                    wifiCong.wepKeys[0] = "";
                     wifiCong.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 //                    wifiCong.wepTxKeyIndex = 0;
@@ -276,19 +265,11 @@ public class WifiUtility {
                     // 判断是否连接的是硬件发出的Wi-Fi  ESP8266
 //                    String wifiSSID = getConnectedSSID();
                     String wifiSSID = getConnectedSSID().substring(0, 7);
-<<<<<<< HEAD
                     if (wifiSSID.equals(ESP8266/*"Netcore"*/)) {
-=======
-                    if (wifiSSID.equals("ESP8266"/*"Netcore"*/)) {
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                         if (NetWorkSettingActivity.myHandler != null) {
                             // 发送连接到硬件成功的标志到Activity
                             NetWorkSettingActivity.myHandler.sendEmptyMessage(NetWorkSettingActivity.NET_STATUS_SUCCESS);
 //                            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-=======
-
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                         }
                     }
                     break;
@@ -321,7 +302,6 @@ public class WifiUtility {
     }
 
 
-<<<<<<< HEAD
     /**
      * 获得周围ssid，并匹配是否是硬件发出的ssid，如果是则取出并返回
      * @return  esp8266的ssid列表
@@ -337,8 +317,4 @@ public class WifiUtility {
         }
         return esp8266SSID;
     }
-
-
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
 }

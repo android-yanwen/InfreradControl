@@ -65,12 +65,9 @@ public class MainActivity extends AppCompatActivity {
     private RecycleViewAdapter adapter;
 
 
-<<<<<<< HEAD
     private ImageButton ari_condition_imgbtn;
     private ImageButton tv_imgbtn;
 
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     private static Context mContext;
 
     @Override
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
 /*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,17 +85,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
 
         mContext = MainActivity.this;
         activityManager = ActivityManager.getInstance(mContext);
 
-<<<<<<< HEAD
 //        initView();
 
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         initData();
 
         my_recycle_view = (RecyclerView) findViewById(R.id.my_recycle_view);
@@ -111,20 +102,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(MainActivity.this, "position=" + position, Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                 switch (position) {
                     case 0:
                         break;
                     case 1:
                         activityManager.startActivity(AirConditionControlActivity.class);
-<<<<<<< HEAD
-
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                         break;
                     case 2:
                         startActivity(new Intent(mContext, TvBrandsListActivity.class));
@@ -134,10 +116,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4:
                         startActivity(new Intent(mContext, FanBrandsListActivity.class));
-<<<<<<< HEAD
-//                        startActivity(FanBrandsListActivity.cla);
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                         break;
                     case 6:
                         startActivity(new Intent(mContext, PowerAmplification_BrandsActivity.class));
@@ -152,10 +130,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(mContext, SatelliteTvBrandsActivity.class));
                         break;
                     case 11:
-<<<<<<< HEAD
-//                        startActivity(new Intent(mContext, BulbActivity.class));
-=======
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
                         activityManager.startActivity(BulbActivity.class);
                         break;
 

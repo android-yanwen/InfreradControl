@@ -21,7 +21,6 @@ package com.gta.administrator.infraredcontrol.infrared_code;
  */
 public class BulbCode {
 
-<<<<<<< HEAD
 
     public static String getOpenCode() {
         return "ir.send(6,{9052,4491,602,561,576,560,577,559,578,558,579,557,580,556,571,566,572,1673,602,1670,605,1667,598,1674,601,1671,604,1669,606,1666,599,1673,602,561,576,1669,606,557,581,556,571,565,572,564,573,563,574,563,574,562,575,561,576,1669,606,1665,599,1673,602,1669,606,1666,599,1673,602,1669,606,39626,9046,2229,599,96383,9051,2224})";
@@ -62,25 +61,18 @@ public class BulbCode {
     private final static String len = "len:";
     private final static String command = "|command:";
     private final static String RGBW = "RGBW|";
-=======
-    private final static String len = "len:";
-    private final static String command = "|command:";
-    private final static String RGBW = "RGBW|";
     private final static String ir_send = "ir_send|";
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     private final static String lamp_power = "lamp_power|";
     public final static boolean SWITCH_ON = true;
     public final static boolean SWITCH_OFF = false;
 
-<<<<<<< HEAD
-    public static String getBulbColorCode(String s_R, String s_G, String s_B, String s_W) {
-        String code = null;
-//        String s_R = Integer.toString(R);
-//        String s_G = Integer.toString(G);
-//        String s_B = Integer.toString(B);
-//        String s_W = Integer.toString(W);
-        code = len + getProtocalLength(s_R, s_G, s_B, s_W) + command + RGBW + "{" + s_R + "," + s_G + "," + s_B + "," + s_W + "}";
-=======
+//    public static String getBulbColorCode(String s_R, String s_G, String s_B, String s_W) {
+//        String code = null;
+////        String s_R = Integer.toString(R);
+////        String s_G = Integer.toString(G);
+////        String s_B = Integer.toString(B);
+////        String s_W = Integer.toString(W);
+//        code = len + getProtocalLength(s_R, s_G, s_B, s_W) + command + RGBW + "{" + s_R + "," + s_G + "," + s_B + "," + s_W + "}";
     public static String OpenCode="{9052,4491,602,561,576,560,577,559,578,558,579,557,580,556,571,566,572,1673,602,1670,605,1667,598,1674,601,1671,604,1669,606,1666,599,1673,602,561,576,1669,606,557,581,556,571,565,572,564,573,563,574,563,574,562,575,561,576,1669,606,1665,599,1673,602,1669,606,1666,599,1673,602,1669,606,39626,9046,2229,599,96383,9051,2224}";
     public static String CloseCode="{9046,4488,605,530,607,529,597,538,599,537,600,535,602,534,603,533,604,1666,598,1672,603,1668,606,1664,600,1671,604,1668,607,1664,600,1670,605,531,606,1665,600,563,574,536,602,535,602,534,603,533,604,532,606,531,606,530,607,1664,600,1671,604,1667,607,1664,601,1670,604,1667,598,1673,602,39624,9047,2228,600,96383,9054,2217}";
     public static String BrightessCode="{9038,4496,597,566,572,564,573,563,574,562,575,560,577,559,578,557,580,1663,601,1669,605,1665,599,1671,604,1667,598,1673,602,1668,607,1664,601,561,576,1668,607,1664,601,1669,605,1665,600,1671,604,1666,598,1672,603,1667,597,565,572,563,574,562,575,560,577,559,578,558,579,556,581,555,572,39619,9042,2228,600,96362,9049,2220}";
@@ -111,7 +103,6 @@ public class BulbCode {
 
     public static String getBulbColorCode(String s_R, String s_G, String s_B, String s_W) {
         String code = len + getProtocalLength(s_R, s_G, s_B, s_W) + command + RGBW + "{" + s_R + "," + s_G + "," + s_B + "," + s_W + "}";
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         return code;
     }
 
@@ -144,8 +135,6 @@ public class BulbCode {
         return length;
     }
 
-<<<<<<< HEAD
-=======
     private static int getProtocalLen(String code) {
         int length ;
         length = len.length() +  code.length();
@@ -155,18 +144,13 @@ public class BulbCode {
         return length;
     }
 
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
     /**
      * 获取电源开关协议
      * @param isOn  true开灯  false关灯
      * @return
      */
     public static String getBulbColorSwitchCode(boolean isOn) {
-<<<<<<< HEAD
-        String cmd = null;
-=======
         String cmd;
->>>>>>> 69b4d62e4b216fb918b5c8416601d7fffb730416
         if (isOn) {
             // 开灯
             cmd = len + getProtocalLength("1") + command + lamp_power + "{" + "1" + "}";
@@ -176,8 +160,5 @@ public class BulbCode {
         }
         return cmd;
     }
-
-
-
 
 }
