@@ -85,18 +85,14 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 Main1Activity.wifiUtility.connectWiFi(hardwareSSID, SocketUlitity.ESP8266_PWD/*"GTA!@2016"*/);
 
 //                Log.d(TAG, "onItemClick: connectedSSID" + connectedSSID);
-
-
             }
         });
 
 
-        // 如果连接到了自家路由器，则获取到路由器的SSID
+        // 如果手机连接到了自家路由器，则获取到路由器的SSID
         routerSSID = Main1Activity.wifiUtility.getConnectedSSID();
 
 //        wifiUtility.disconnectWifi();
-
-
 
         myHandler = new Handler() {
             @Override
@@ -124,6 +120,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
         super.onResume();
         // 进入网络设置页面时关闭MQTT
         NetworkRequest.getInstance(mContext).closeConnect();
+        // 每隔5s扫描周围Wi-Fi信号
         if (timer == null) {
             timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -131,13 +128,11 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                 public void run() {
 //                Log.d(TAG, "run: timer task");
                     Main1Activity.wifiUtility.startScanWifi();
-
                     wifiList.clear();
-                    for (String ssid : Main1Activity.wifiUtility.getSSIDList()) {
-                        wifiList.add(ssid);
+                    for (String ssid : Main1Activity.wifiUtility.getEsp8266SSID()) {
+                        wifiList.add(ssid);//保存8266发出的ssid到list
                     }
                     notifyDataSetChanged();
-
                 }
             }, 0, 5000);
         }

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.gta.administrator.infraredcontrol.debug.DebugMsg;
 import com.gta.administrator.infraredcontrol.setting.NetWorkSettingActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,13 @@ import java.util.List;
  * Created by Administrator on 2016/10/18.
  */
 public class WifiUtility {
+    /**
+     * 硬件发出的Wi-Fi名固定头
+     */
+    public static final String ESP8266 = "ESP8266";
+    /**
+     * WifiUtility 实例
+     */
     private static WifiUtility wifiUtility;
 
     private WifiManager wifiManager;
@@ -159,7 +167,7 @@ public class WifiUtility {
                 wifiCong.allowedProtocols.clear();
                 wifiCong.SSID = "\"" + wifi.SSID + "\"";//\"转义字符，代表"
 
-                if (pwd.equals("") || pwd == null) { //无密码时的连接
+                if (pwd == null || pwd.equals("")) { //无密码时的连接
 //                    wifiCong.wepKeys[0] = "";
                     wifiCong.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 //                    wifiCong.wepTxKeyIndex = 0;
@@ -258,12 +266,11 @@ public class WifiUtility {
                     // 判断是否连接的是硬件发出的Wi-Fi  ESP8266
 //                    String wifiSSID = getConnectedSSID();
                     String wifiSSID = getConnectedSSID().substring(0, 7);
-                    if (wifiSSID.equals("ESP8266"/*"Netcore"*/)) {
+                    if (wifiSSID.equals(ESP8266/*"Netcore"*/)) {
                         if (NetWorkSettingActivity.myHandler != null) {
                             // 发送连接到硬件成功的标志到Activity
                             NetWorkSettingActivity.myHandler.sendEmptyMessage(NetWorkSettingActivity.NET_STATUS_SUCCESS);
 //                            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                     break;
@@ -293,6 +300,23 @@ public class WifiUtility {
 //                Toast.makeText(mContext, "您的网络连接已中断", Toast.LENGTH_LONG).show();
 //            }
         }
+    }
+
+
+    /**
+     * 获得周围ssid，并匹配是否是硬件发出的ssid，如果是则取出并返回
+     * @return  esp8266的ssid列表
+     */
+    public List<String> getEsp8266SSID() {
+        ArrayList<String> esp8266SSID = new ArrayList<>();
+        for (String ssid : getSSIDList()) {
+            if (ssid.length() >= 7) {
+                if (ssid.substring(0, 7).equals(ESP8266)) {
+                    esp8266SSID.add(ssid);
+                }
+            }
+        }
+        return esp8266SSID;
     }
 
 

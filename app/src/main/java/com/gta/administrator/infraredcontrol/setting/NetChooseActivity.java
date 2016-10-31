@@ -48,7 +48,7 @@ public class NetChooseActivity extends Activity {
                 String esp8266SSID = sharedPreferences.getString(NetConfig.KEY_ESP8266_SSID, "");
                 if (preferences.getInt(NET_TYPE_KEY, NET_TYPE_INTERNET) == NET_TYPE_INTERNET) {
                     if (routerSSID != null && routerPWD != null) {
-                        Main1Activity.wifiUtility.connectWiFi(NetWorkSettingActivity.routerSSID, NetWorkSettingActivity.routerPWD);
+                        Main1Activity.wifiUtility.connectWiFi(routerSSID, routerPWD);
                     }
                 }else if (preferences.getInt(NET_TYPE_KEY, NET_TYPE_INTERNET) == NET_TYPE_LOCAL_INTERNET) {
                     // 如果是局域网连接，则连接到8266硬件
@@ -56,8 +56,6 @@ public class NetChooseActivity extends Activity {
                         Main1Activity.wifiUtility.connectWiFi(esp8266SSID, SocketUlitity.ESP8266_PWD);
                     }
                 }
-
-
                 finish();
             }
         });
