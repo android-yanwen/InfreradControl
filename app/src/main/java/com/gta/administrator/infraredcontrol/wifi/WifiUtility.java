@@ -254,8 +254,8 @@ public class WifiUtility {
             boolean success = false;
             //获得网络连接服务
             ConnectivityManager connManager = (ConnectivityManager) mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
-            // State state = connManager.getActiveNetworkInfo().getState();
-            NetworkInfo.State state = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState(); // 获取网络连接状态
+             NetworkInfo.State state = connManager.getActiveNetworkInfo().getState();
+//            NetworkInfo.State state = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState(); // 获取网络连接状态
             switch (state) {
                 case CONNECTED:
                     Log.e("tag", "CONNECTED");

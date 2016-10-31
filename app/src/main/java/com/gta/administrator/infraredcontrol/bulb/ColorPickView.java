@@ -70,7 +70,7 @@ public class ColorPickView extends View {
         }
         // 将背景图片大小设置为属性设置的直径
         bitmapBack = BitmapFactory.decodeResource(getResources(),
-                R.drawable.piccolor);
+                R.mipmap.piccolor);
         bitmapBack = Bitmap.createScaledBitmap(bitmapBack, bigCircle * 2,
                 bigCircle * 2, false);
         // 中心位置坐标
