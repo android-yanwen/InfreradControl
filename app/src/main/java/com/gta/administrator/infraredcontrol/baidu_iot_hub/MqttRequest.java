@@ -41,9 +41,9 @@ public class MqttRequest implements NetworkInterface{
     String password = "898wvxTZXvcgwYQloume7M5QSTK4UD2J2rF5AG6ZGqc=";//"S1JKbYM1g4uyKGIPWp+XZcyp0NEe74Lb8ekX62I6NtU=";
     String userID = /*"b011b9e0888546ccb23f66388408f9bf";//*/"721b6157bff448978218bd5ca94c2461";
 
-    //订阅的消息主题
+    //发布消息主题
     final static String topicA = "topicA";//"policy_one/test-iot-service";
-    //订阅的消息主题
+    //订阅消息主题
     final static String topicB = "topicB";
 
     public static MqttRequest getInstance() {

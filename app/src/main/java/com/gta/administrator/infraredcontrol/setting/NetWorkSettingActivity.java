@@ -134,7 +134,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
                     }
                     notifyDataSetChanged();
                 }
-            }, 0, 5000);
+            }, 0, 2000);
         }
     }
 
