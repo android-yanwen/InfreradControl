@@ -8,6 +8,8 @@
     tools:showIn="@layout/activity_main"
     android:background="@mipmap/bg">
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycle_view"
         android:layout_width="match_parent"

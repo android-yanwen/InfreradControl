@@ -10,7 +10,9 @@
         <attr name="startText" format="string" />
         <attr name="middleText" format="string" />
         <attr name="endText" format="string" />
+        <attr name="textColor" format="color"/>
     </declare-styleable>
+
 
     <declare-styleable name="color_picker">
 

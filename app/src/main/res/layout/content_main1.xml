@@ -8,7 +8,6 @@
     tools:context="com.gta.administrator.infraredcontrol.Main1Activity"
     tools:showIn="@layout/activity_main1"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
     <LinearLayout

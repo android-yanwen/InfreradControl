@@ -82,7 +82,6 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         toolbar_start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
         toolbar_middle_text = (TextView) findViewById(R.id.toolbar_middle_text);
@@ -214,48 +213,48 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
 //    String endpointname = null;
     void baidu_api_test() {
         final Endpoint module = new Endpoint();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                DefaultBceCredentials BceCredentials = new DefaultBceCredentials("e03dff1a5d7049c5ab40650b655885b9", "f299118b5e7d474f84badea389c8d17d");
-                BceClientConfiguration config = new BceClientConfiguration();
-
-                config.setCredentials(BceCredentials);
-
-                URI uri = URI.create("http://iot.gz.baidubce.com/v1/endpoint");
-
-                final InternalRequest request = new InternalRequest(HttpMethodName.POST, uri);
-                request.addHeader("Content-Type", "application/json; charset=utf-8");
-                request.addHeader("Host", "iot.gz.baidubce.com");
-
-
-                String body = "{\"endpointName\":\"endpoint05\"}";
-                request.setContent(RestartableInputStream.wrap(body.getBytes()));
-
-                BceHttpClient client = new BceHttpClient(config, new BceV1Signer());
-
-                HttpResponseHandler hanlder1 = new BceJsonResponseHandler() {
-                    @Override
-                    public boolean handle(BceHttpResponse httpResponse, AbstractBceResponse response) throws Exception {
-                        InputStream content = httpResponse.getContent();
-                        if (content != null) {
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-                            StringBuffer buffer = new StringBuffer();
-//                    while ((buffer.append(reader.readLine())) != null) {
-                            buffer.append(reader.readLine());
-                            System.out.println(buffer.toString());
-//                        Log.d(tag, buffer.toString());
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                DefaultBceCredentials BceCredentials = new DefaultBceCredentials("e03dff1a5d7049c5ab40650b655885b9", "f299118b5e7d474f84badea389c8d17d");
+//                BceClientConfiguration config = new BceClientConfiguration();
+//
+//                config.setCredentials(BceCredentials);
+//
+//                URI uri = URI.create("http://iot.gz.baidubce.com/v1/endpoint");
+//
+//                final InternalRequest request = new InternalRequest(HttpMethodName.POST, uri);
+//                request.addHeader("Content-Type", "application/json; charset=utf-8");
+//                request.addHeader("Host", "iot.gz.baidubce.com");
+//
+//
+//                String body = "{\"endpointName\":\"endpoint05\"}";
+//                request.setContent(RestartableInputStream.wrap(body.getBytes()));
+//
+//                BceHttpClient client = new BceHttpClient(config, new BceV1Signer());
+//
+//                HttpResponseHandler hanlder1 = new BceJsonResponseHandler() {
+//                    @Override
+//                    public boolean handle(BceHttpResponse httpResponse, AbstractBceResponse response) throws Exception {
+//                        InputStream content = httpResponse.getContent();
+//                        if (content != null) {
+//                            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+//                            StringBuffer buffer = new StringBuffer();
+////                    while ((buffer.append(reader.readLine())) != null) {
+//                            buffer.append(reader.readLine());
+//                            System.out.println(buffer.toString());
+////                        Log.d(tag, buffer.toString());
+////                    }
+//                        }
+//                        return true;
 //                    }
-                        }
-                        return true;
-                    }
-                };
-                HttpResponseHandler hanler2 = new BceErrorResponseHandler();
-                client.execute(request, AbstractBceResponse.class, new HttpResponseHandler[]{hanlder1, hanler2});
-
-            }
-        }).start();
+//                };
+//                HttpResponseHandler hanler2 = new BceErrorResponseHandler();
+//                client.execute(request, AbstractBceResponse.class, new HttpResponseHandler[]{hanlder1, hanler2});
+//
+//            }
+//        }).start();
 
 
 
@@ -274,6 +273,14 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
 //                }
 //            }
 //        });
+
+        module.requestCreateEndpoint(new Endpoint.CreateEndpointCallbackListener() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "onResponse: " + response);
+            }
+        });
+
 
     }
 }

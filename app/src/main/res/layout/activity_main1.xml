@@ -11,15 +11,16 @@
     tools:context="com.gta.administrator.infraredcontrol.Main1Activity">
 
 
-        <com.gta.administrator.infraredcontrol.other.MyToolBar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            attrs:startText="扫描"
-            attrs:middleText="安家智能"
-            attrs:endText="添加"/>
+    <com.gta.administrator.infraredcontrol.other.MyToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        attrs:textColor="@color/colorWhite"
+        attrs:startText="扫描"
+        attrs:middleText="安家智能"
+        attrs:endText="添加"/>
 
     <include
         layout="@layout/content_main1" />

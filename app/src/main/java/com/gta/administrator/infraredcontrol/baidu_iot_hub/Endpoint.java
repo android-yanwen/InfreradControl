@@ -228,13 +228,12 @@ public class Endpoint {
         };
         final HttpResponseHandler hanler2 = new BceErrorResponseHandler();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-        client.execute(request, AbstractBceResponse.class, new HttpResponseHandler[]{hanlder1,
-                hanler2});
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client.execute(request, AbstractBceResponse.class, new HttpResponseHandler[]{hanlder1, hanler2});
+            }
+        }).start();
     }
 
     public interface CreateEndpointCallbackListener {
