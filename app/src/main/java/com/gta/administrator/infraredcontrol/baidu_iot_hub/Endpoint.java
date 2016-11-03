@@ -124,7 +124,7 @@ public class Endpoint {
      *  获取到数据回调此接口
      */
     public interface RequestEndpointListener {
-        void onResponse(StringBuffer result);
+        void onResponse(final StringBuffer result);
     }
 
 

@@ -156,11 +156,6 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         buttons.add(set_button);
         buttons.get(1).setSelected(true);
 
-
-        // 测试代码
-        baidu_api_test();
-
-
     }
 
 
@@ -211,23 +206,4 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
 
 
 
-    void baidu_api_test() {
-        final Endpoint module = new Endpoint();
-        module.requestEndpoint(HttpMethodName.GET, "", new Endpoint.RequestEndpointListener() {
-            @Override
-            public void onResponse(StringBuffer result) {
-                Log.d(TAG, "onResponse: " + result);
-            }
-        });
-        Thing thing = new Thing();
-        thing.requestThing(HttpMethodName.GET, "helloworld", "", new Thing.RequestEndpointListener() {
-
-            @Override
-            public void onResponse(StringBuffer result) {
-                Log.d(TAG, "onResponse: " + result);
-            }
-        });
-
-
-    }
 }
