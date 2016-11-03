@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.gta.administrator.infraredcontrol.MainActivity"
     tools:showIn="@layout/activity_main"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@mipmap/bg">
 
     <android.support.v7.widget.RecyclerView

@@ -15,9 +15,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import com.baidubce.http.DefaultRetryPolicy;
+import com.baidubce.BceClientConfiguration;
+import com.baidubce.auth.BceV1Signer;
+import com.baidubce.auth.DefaultBceCredentials;
+import com.baidubce.http.BceHttpClient;
+import com.baidubce.http.BceHttpResponse;
+import com.baidubce.http.HttpMethodName;
+import com.baidubce.http.handler.BceErrorResponseHandler;
+import com.baidubce.http.handler.BceJsonResponseHandler;
+import com.baidubce.http.handler.HttpResponseHandler;
+import com.baidubce.internal.InternalRequest;
+import com.baidubce.internal.RestartableInputStream;
+import com.baidubce.model.AbstractBceResponse;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.Baidu_IotHubModule;
+import com.gta.administrator.infraredcontrol.baidu_iot_hub.Endpoint;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.other.MyGradLayoutItem;
@@ -26,7 +40,11 @@ import com.gta.administrator.infraredcontrol.wifi.WifiUtility;
 //import org.slf4j.LoggerFactory;
 //import org.slf4j.helpers.SubstituteLoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +120,8 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         my_view_pager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         my_view_pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int
+                    positionOffsetPixels) {
                 Log.d(TAG, position + ":" + positionOffset + ":" + positionOffsetPixels);
 
             }
@@ -138,23 +157,9 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         buttons.get(1).setSelected(true);
 
 
+        // 测试代码
+        baidu_api_test();
 
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Baidu_IotHubModule module = new Baidu_IotHubModule();
-//                module.getEndpointList();
-////                new Baidu_IotHubModule().request();
-//
-//            }
-//        }).start();
-
-
-//        SharedPreferences preferences = getSharedPreferences("device", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        editor.putString("device", "test...");
-//        editor.commit();
 
     }
 
@@ -202,5 +207,73 @@ public class Main1Activity extends AppCompatActivity implements View.OnClickList
         networkInterface.closeConnect();//关闭Mqtt连接
 
         WifiUtility.getInstance(this).finish();
+    }
+
+
+
+//    String endpointname = null;
+    void baidu_api_test() {
+        final Endpoint module = new Endpoint();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                DefaultBceCredentials BceCredentials = new DefaultBceCredentials("e03dff1a5d7049c5ab40650b655885b9", "f299118b5e7d474f84badea389c8d17d");
+                BceClientConfiguration config = new BceClientConfiguration();
+
+                config.setCredentials(BceCredentials);
+
+                URI uri = URI.create("http://iot.gz.baidubce.com/v1/endpoint");
+
+                final InternalRequest request = new InternalRequest(HttpMethodName.POST, uri);
+                request.addHeader("Content-Type", "application/json; charset=utf-8");
+                request.addHeader("Host", "iot.gz.baidubce.com");
+
+
+                String body = "{\"endpointName\":\"endpoint05\"}";
+                request.setContent(RestartableInputStream.wrap(body.getBytes()));
+
+                BceHttpClient client = new BceHttpClient(config, new BceV1Signer());
+
+                HttpResponseHandler hanlder1 = new BceJsonResponseHandler() {
+                    @Override
+                    public boolean handle(BceHttpResponse httpResponse, AbstractBceResponse response) throws Exception {
+                        InputStream content = httpResponse.getContent();
+                        if (content != null) {
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+                            StringBuffer buffer = new StringBuffer();
+//                    while ((buffer.append(reader.readLine())) != null) {
+                            buffer.append(reader.readLine());
+                            System.out.println(buffer.toString());
+//                        Log.d(tag, buffer.toString());
+//                    }
+                        }
+                        return true;
+                    }
+                };
+                HttpResponseHandler hanler2 = new BceErrorResponseHandler();
+                client.execute(request, AbstractBceResponse.class, new HttpResponseHandler[]{hanlder1, hanler2});
+
+            }
+        }).start();
+
+
+
+//        module.requestGetEndpointList(new Endpoint.GetEndpointListCallbackListener() {
+//            @Override
+//            public void onResponse(List<String> endpoints) {
+////                endpointname = endpoints.get(0).toString();
+////                module.requestGetEndpointName(endpointname, new Endpoint.GetEndpointCallbackListener() {
+////                    @Override
+////                    public void onResponse(String name) {
+////                        Log.d(TAG, "onResponse: " + name);
+////                    }
+////                });
+//                for (String name : endpoints) {
+//                    Log.d(TAG, "onResponse: " + name);
+//                }
+//            }
+//        });
+
     }
 }

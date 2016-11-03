@@ -52,20 +52,19 @@ public class WifiUtility {
     public WifiUtility(Context context) {
         mContext = context;
         this.wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
-
-        if (statusListener == null) {
-            statusListener = new ConnectStatusListener();
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            mContext.registerReceiver(statusListener, filter);
-        }
     }
 
 
     public void openWifi() {
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
+
+            if (statusListener == null) {
+                statusListener = new ConnectStatusListener();
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                mContext.registerReceiver(statusListener, filter);
+            }
         }
 //        startScanWifi();
     }
@@ -253,8 +252,10 @@ public class WifiUtility {
         public void onReceive(Context context, Intent intent) {
             boolean success = false;
             //获得网络连接服务
-            ConnectivityManager connManager = (ConnectivityManager) mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
-             NetworkInfo.State state = connManager.getActiveNetworkInfo().getState();
+            ConnectivityManager connManager = (ConnectivityManager) mContext.getSystemService
+                    (mContext.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+            NetworkInfo.State state = networkInfo.getState();
 //            NetworkInfo.State state = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState(); // 获取网络连接状态
             switch (state) {
                 case CONNECTED:

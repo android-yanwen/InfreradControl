@@ -59,7 +59,7 @@ public class JsonUtiles {
 
     /**
      * 返回所有endpointName
-     * @return
+     * @return 所有的endpoint name
      */
     public String[] getEndpointsName() {
         int count = getEndpointCount();
@@ -78,6 +78,22 @@ public class JsonUtiles {
         }
         return names;
     }
+
+    /**
+     * 获取单个endpointName
+     * @return endpoint name
+     */
+    public String getEndpointName() {
+        String endpointname = null;
+        try {
+            endpointname = object.getString(EndpointName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return endpointname;
+    }
+
+
 
     public JSONObject[] getObjectArray() {
         JSONArray array = getResult();

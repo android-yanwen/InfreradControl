@@ -2,7 +2,6 @@ package com.gta.administrator.infraredcontrol.bulb;
 
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,8 +9,6 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,12 +21,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gta.administrator.infraredcontrol.ActivityManager;
 import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
-import com.gta.smart.slideswitch.SlideSwitch;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -94,7 +89,7 @@ public class Bulb_ColorFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                Resources resources = getActivity().getResources();
-//                Drawable drawable = resources.getDrawable(R.mipmap.power_off_icon);
+//                Drawable drawable = resources.getDrawable(R.mipmap.power_on_icon);
                 // on
                 if (powerIsOn) {
                     powerIsOn = false;

@@ -14,7 +14,6 @@ import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
-import com.gta.smart.slideswitch.SlideSwitch;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -73,11 +72,11 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
                 if (powerIsOn) {
                     powerIsOn = false;
                     networkInterface.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_OFF), true);
-                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_off_icon);
+                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_on_icon);
                 } else {
                     powerIsOn = true;
                     networkInterface.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
-                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_on_icon);
+                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_off_icon);
                 }
             }
         });
