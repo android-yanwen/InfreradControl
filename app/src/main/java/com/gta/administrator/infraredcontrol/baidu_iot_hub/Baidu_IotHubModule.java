@@ -81,7 +81,9 @@ public class Baidu_IotHubModule {
     // Host
     public static final String Host = "http://iot.gz.baidubce.com";
     // endpoint
-    public static final String URI_EndpointList = "/v1/endpoint";
+    public static final String URI_Endpoint = "/v1/endpoint";
+    // Thing
+    public static final String URI_Thing = "/thing";
 
     public static BceHttpClient initClient() {
         DefaultBceCredentials BceCredentials = new DefaultBceCredentials(AK, SK);
