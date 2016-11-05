@@ -44,12 +44,7 @@ public class Endpoint {
 
     private IotHubClient iotHubClient;
     public Endpoint() {
-        BceClientConfiguration configuration = new BceClientConfiguration()
-                .withCredentials(new DefaultBceCredentials(Baidu_IotHubModule.AK,
-                        Baidu_IotHubModule.SK))
-                .withEndpoint(Baidu_IotHubModule.HostBody);
-        iotHubClient = new IotHubClient(configuration);
-
+        iotHubClient = Baidu_IotHubModule.getInstance().getIotHubClient();
     }
 
 

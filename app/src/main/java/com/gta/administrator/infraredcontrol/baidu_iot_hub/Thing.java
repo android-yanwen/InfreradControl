@@ -33,12 +33,8 @@ public class Thing {
         DELETE_THING
     }
     public Thing() {
+        iotHubClient = Baidu_IotHubModule.getInstance().getIotHubClient();
 
-        BceClientConfiguration configuration = new BceClientConfiguration()
-                .withCredentials(new DefaultBceCredentials(Baidu_IotHubModule.AK,
-                        Baidu_IotHubModule.SK))
-                .withEndpoint(Baidu_IotHubModule.HostBody);
-        iotHubClient = new IotHubClient(configuration);
     }
 
 

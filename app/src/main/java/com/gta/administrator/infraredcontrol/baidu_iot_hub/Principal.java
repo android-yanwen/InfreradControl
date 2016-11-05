@@ -35,11 +35,7 @@ public class Principal {
         DELETE_PRINCIPAL
     }
     public Principal() {
-        BceClientConfiguration configuration = new BceClientConfiguration()
-                .withCredentials(new DefaultBceCredentials(Baidu_IotHubModule.AK,
-                        Baidu_IotHubModule.SK))
-                .withEndpoint(Baidu_IotHubModule.HostBody);
-        iotHubClient = new IotHubClient(configuration);
+        iotHubClient = Baidu_IotHubModule.getInstance().getIotHubClient();
     }
 
 
@@ -101,19 +97,24 @@ public class Principal {
 
     private void listPrincipals(final String endpointName, final String thingName,
                                final RequestPrincipalCallbakcListener callbakcListener) {
-        ListResponse response;
         if (callbakcListener == null) {
             return;
         }
         if (endpointName == null) {
             return;
         }
-        if (thingName == null) {
-            response = iotHubClient.listPrincipals(endpointName);
-        } else {
-            response = iotHubClient.listPrincipals(endpointName, thingName);
-        }
-        callbakcListener.listPrincipalCallback(response);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ListResponse response;
+                if (thingName == null) {
+                    response = iotHubClient.listPrincipals(endpointName);
+                } else {
+                    response = iotHubClient.listPrincipals(endpointName, thingName);
+                }
+                callbakcListener.listPrincipalCallback(response);
+            }
+        }).start();
     }
 
     private void attachThingToPrincipal(final String endpointName, final String thingName, String
