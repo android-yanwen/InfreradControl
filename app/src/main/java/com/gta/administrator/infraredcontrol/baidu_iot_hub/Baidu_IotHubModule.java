@@ -39,6 +39,7 @@ import com.baidubce.http.handler.BceJsonResponseHandler;
 import com.baidubce.http.handler.HttpResponseHandler;
 import com.baidubce.internal.InternalRequest;
 import com.baidubce.model.AbstractBceResponse;
+import com.baidubce.services.iothub.IotHubClient;
 import com.gta.administrator.infraredcontrol.json_utils.JsonUtiles;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -69,6 +70,8 @@ import javax.net.ssl.TrustManagerFactory;
  * Created by yanwen on 16/10/12.
  */
 public class Baidu_IotHubModule {
+    private static Baidu_IotHubModule baidu_iotHubModule = null;
+    private IotHubClient iotHubClient = null;
     private static final String TAG = "Baidu_IotHubModule";
     // Access Key ID
     public static final String AK = /*"af656357a5844e67b008b4b889ef207f";//*/"039557ee1e2b4c43956ee277288ef046";
@@ -89,16 +92,32 @@ public class Baidu_IotHubModule {
     // principal
     public static final String URI_Principal = "/principal";
 
-    public static BceHttpClient initClient() {
-        DefaultBceCredentials BceCredentials = new DefaultBceCredentials(AK, SK);
-        BceClientConfiguration config= new BceClientConfiguration();
-        config.setCredentials(BceCredentials);
-        BceV1Signer bcev1Signer = new BceV1Signer();
-        BceHttpClient client = new BceHttpClient(config, bcev1Signer);
-        return client;
+//    public static IotHubClient initClient() {
+////        DefaultBceCredentials BceCredentials = new DefaultBceCredentials(AK, SK);
+////        BceClientConfiguration config= new BceClientConfiguration();
+////        config.setCredentials(BceCredentials);
+////        BceV1Signer bcev1Signer = new BceV1Signer();
+////        BceHttpClient client = new BceHttpClient(config, bcev1Signer);
+//
+//        return iotHubClient;
+//    }
+
+    public static Baidu_IotHubModule getInstance() {
+        if (baidu_iotHubModule == null) {
+            baidu_iotHubModule = new Baidu_IotHubModule();
+        }
+        return baidu_iotHubModule;
     }
 
+    public Baidu_IotHubModule() {
+        BceClientConfiguration configuration = new BceClientConfiguration()
+                .withCredentials(new DefaultBceCredentials(Baidu_IotHubModule.AK,
+                        Baidu_IotHubModule.SK))
+                .withEndpoint(Baidu_IotHubModule.HostBody);
+        iotHubClient = new IotHubClient(configuration);
+    }
 
-
-
+    public IotHubClient getIotHubClient() {
+        return iotHubClient;
+    }
 }
