@@ -27,26 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="删除指定Endpoint"/>
-        <Button
-            android:id="@+id/get_thing_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="获取Thing列表"/>
-        <Button
-            android:id="@+id/get_thing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="获取指定Thing"/>
-        <Button
-            android:id="@+id/add_thing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="创建Thing"/>
-        <Button
-            android:id="@+id/delete_thing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="删除指定Thing"/>
 
         <TextView
             android:id="@+id/info_text"

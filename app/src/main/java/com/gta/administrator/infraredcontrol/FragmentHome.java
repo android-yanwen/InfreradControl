@@ -23,7 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidubce.http.HttpMethodName;
+import com.baidubce.services.iothub.model.BaseResponse;
+import com.baidubce.services.iothub.model.ListResponse;
+import com.baidubce.services.iothub.model.QueryEndpointResponse;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.Endpoint;
+import com.gta.administrator.infraredcontrol.baidu_iot_hub.Principal;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.Thing;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.debug.DebugMsg;
@@ -33,6 +37,7 @@ import com.gta.administrator.infraredcontrol.wifi.WifiUtility;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,10 +51,6 @@ public class FragmentHome extends Fragment {
     private Button get_endpoint;
     private Button add_endpoint;
     private Button delete_endpoint;
-    private Button get_thing_list;
-    private Button get_thing;
-    private Button add_thing;
-    private Button delete_thing;
     private TextView info_text;
 
     private View view;
@@ -63,14 +64,16 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
-
+    Endpoint endpoint;
     void initView() {
         info_text = (TextView) view.findViewById(R.id.info_text);
         get_endpoint_list = (Button) view.findViewById(R.id.get_endpoint_list);
         get_endpoint_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setGet_endpoint_list();
+//                setGet_endpoint_list();
+                endpoint = new Endpoint();
+                endpoint.requestEndpoint(Endpoint.Method.LIST_ENDPOINT, null, new EndpointCallback());
             }
         });
 
@@ -86,7 +89,9 @@ public class FragmentHome extends Fragment {
                 builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setGet_endpoint(editText.getText().toString());
+//                        setGet_endpoint(editText.getText().toString());
+                        new Endpoint().requestEndpoint(Endpoint.Method.QUERY_ENDPOINT, editText
+                                .getText().toString(), new EndpointCallback());
                     }
                 });
                 builder.show();
@@ -105,7 +110,9 @@ public class FragmentHome extends Fragment {
                 builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setAdd_endpoint(editText.getText().toString());
+//                        setAdd_endpoint(editText.getText().toString());
+                        new Endpoint().requestEndpoint(Endpoint.Method.CREATE_ENDPOINT, editText
+                                .getText().toString(), new EndpointCallback());
                     }
                 });
                 builder.show();
@@ -124,7 +131,9 @@ public class FragmentHome extends Fragment {
                 builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setDelete_endpoint(editText.getText().toString());
+//                        setDelete_endpoint(editText.getText().toString());
+                        new Endpoint().requestEndpoint(Endpoint.Method.DELETE_ENDPOINT, editText
+                                .getText().toString(), new EndpointCallback());
                     }
                 });
                 builder.show();
@@ -138,73 +147,57 @@ public class FragmentHome extends Fragment {
 
 
 
-    void setGet_endpoint_list() {
-        Endpoint module = new Endpoint();
-        module.requestEndpoint(HttpMethodName.GET, "", new Endpoint.RequestEndpointListener() {
+
+    private class EndpointCallback implements Endpoint.RequestEndpointCallbakcListener {
+
+        @Override
+        public void createEndpointCallback(QueryEndpointResponse response) {
+
+        }
+
+        @Override
+        public void listEndpointCallback(ListResponse response) {
+            Log.d(TAG, "listEndpointCallback: " + response.getTotalCount());
+            List<HashMap<String, String>> list = response.getResult();
+            clearText();
+            for (int i = 0; i < response.getTotalCount(); ++i) {
+                final String name = list.get(i).get("endpointName");
+                displayText(name);
+            }
+
+        }
+
+        @Override
+        public void queryEndpointCallback(QueryEndpointResponse response) {
+            clearText();
+            displayText(response.getEndpointName());
+            displayText(response.getWebsocketHostname());
+
+        }
+
+        @Override
+        public void deleteEndpointCallback(BaseResponse request) {
+
+        }
+    }
+
+
+    private void displayText(final String text) {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onResponse(final StringBuffer result) {
-                Log.d(TAG, "onResponse: " + result);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        info_text.setText(result);
-                    }
-                });
+            public void run() {
+                info_text.append(text + ";");
             }
         });
     }
 
-    void setGet_endpoint(String endpoint) {
-        Endpoint module = new Endpoint();
-        module.requestEndpoint(HttpMethodName.GET, endpoint, new Endpoint.RequestEndpointListener() {
+    private void clearText() {
+        getActivity().runOnUiThread(new Runnable() {
             @Override
-            public void onResponse(final StringBuffer result) {
-                Log.d(TAG, "onResponse: " + result);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        info_text.setText(result);
-                    }
-                });
+            public void run() {
+                info_text.setText("");
             }
         });
     }
-
-    void setAdd_endpoint(String endpoint) {
-        Endpoint module = new Endpoint();
-        module.requestEndpoint(HttpMethodName.POST, endpoint, new Endpoint
-                .RequestEndpointListener() {
-            @Override
-            public void onResponse(final StringBuffer result) {
-                Log.d(TAG, "onResponse: " + result);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        info_text.setText(result);
-                    }
-                });
-            }
-        });
-    }
-
-    void setDelete_endpoint(String endpoint) {
-        Endpoint module = new Endpoint();
-        module.requestEndpoint(HttpMethodName.DELETE, endpoint, new Endpoint
-                .RequestEndpointListener() {
-            @Override
-            public void onResponse(final StringBuffer result) {
-                Log.d(TAG, "onResponse: " + result);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        info_text.setText(result);
-                    }
-                });
-            }
-        });
-    }
-
-
-
 
 }

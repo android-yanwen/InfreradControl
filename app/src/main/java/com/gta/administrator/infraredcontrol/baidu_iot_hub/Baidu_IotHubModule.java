@@ -84,6 +84,10 @@ public class Baidu_IotHubModule {
     public static final String URI_Endpoint = "/v1/endpoint";
     // Thing
     public static final String URI_Thing = "/thing";
+    // thingName
+    public static final String URI_ThingName = "?thingName=";
+    // principal
+    public static final String URI_Principal = "/principal";
 
     public static BceHttpClient initClient() {
         DefaultBceCredentials BceCredentials = new DefaultBceCredentials(AK, SK);
