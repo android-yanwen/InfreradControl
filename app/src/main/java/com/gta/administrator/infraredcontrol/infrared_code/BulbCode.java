@@ -112,10 +112,11 @@ public class BulbCode {
         // 头的长度   +   命令字长度     +     关键字长度     +     内容
         length = len.length() + command.length() + RGBW.length() + s_R.length() + 1 + s_G.length() + 1 + s_B.length() + 1 + s_W.length() + 2;
         int length_len = Integer.toString(length).length();//得到length的长度的位数
-        length += length_len;//加上长度本身的位数长度
+        int n_pro_len = length_len + length;
+        int y_pro_len = Integer.toString(n_pro_len).length() + length;
 
         // 返回整条协议的长度数值
-        return length;
+        return y_pro_len;
     }
 
     /**
@@ -129,19 +130,20 @@ public class BulbCode {
         // 头的长度   +   命令字长度     +     关键字长度     +     内容
         length = len.length() + command.length() + lamp_power.length() + val.length() + 2;
         int length_len = Integer.toString(length).length();//得到length的长度的位数
-        length += length_len;//加上长度本身的位数长度
-
+        int n_pro_len = length_len + length;
+        int y_pro_len = Integer.toString(n_pro_len).length() + length;
         // 返回整条协议的长度数值
-        return length;
+        return y_pro_len;
     }
 
     private static int getProtocalLen(String code) {
         int length ;
         length = len.length() +  code.length();
         int length_len = Integer.toString(length).length();//得到length的长度的位数
-        length += length_len;//加上长度本身的位数长度
+        int n_pro_len = length_len + length;
+        int y_pro_len = Integer.toString(n_pro_len).length() + length;
         // 返回整条协议的长度数值
-        return length;
+        return y_pro_len;
     }
 
     /**
