@@ -75,14 +75,14 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
                 toastMsg("发送成功");
-                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onSendError() {
                 toastMsg("发送失败请检查网络连接");
                 networkInterface.openConnect();
-                Toast.makeText(mContext, "发送失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "发送失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -9,6 +9,10 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,11 +29,16 @@ import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
+import com.lukedeighton.wheelview.WheelView;
+import com.lukedeighton.wheelview.adapter.WheelArrayAdapter;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +47,7 @@ public class Bulb_ColorFragment extends Fragment {
     private Context mContext;
     private static final String TAG = "Bulb_ColorFragment";
     private TextView txtColor;
-    private ColorPickView myView;
+//    private ColorPickView myView;
     private SeekBar color_picker_brightness_seekbar;
     private View view;
 
@@ -49,20 +58,21 @@ public class Bulb_ColorFragment extends Fragment {
     private int n_color_B = 128;
     private float f_color_Alpha = 0.5f;
 
-
     private NetworkInterface network;
-
-
     private Bitmap afterBitmap, baseBitmap;
     private Paint paint;
     private Canvas canvas;
     private ImageView bulb_icon_img;
-
     //    private SlideSwitch on_off_slide;
     // 电源开关标志位
     private boolean powerIsOn = false;
-
     private ImageButton power_switch_button;
+
+
+
+    private static final int ITEM_COUNT = 24;
+
+
     public Bulb_ColorFragment() {
         // Required empty public constructor
         mContext = getActivity();
@@ -108,38 +118,38 @@ public class Bulb_ColorFragment extends Fragment {
 
         bulb_icon_img = (ImageView) view.findViewById(R.id.bulb_icon_img);
 
-        myView = (ColorPickView) view.findViewById(R.id.color_picker_view);
         txtColor = (TextView) view.findViewById(R.id.txt_color);
-        myView.setOnColorChangedListener(new ColorPickView.OnColorChangedListener() {
-            RGB rgba;
-
-            @Override
-            public void onActionDown() {
-                Log.d(TAG, "onActionDown: ");
-            }
-
-            @Override
-            public void onColorChange(int color) {
-
-//                Log.d(TAG, "color=" + color + ":" + Integer.toHexString(color));
-//                Toast.makeText(getActivity(), "color:" + Integer.toHexString(color), Toast.LENGTH_SHORT).show();
-                txtColor.setTextColor(color);
-
-                n_color_R = color >> 16 & 0xff;//取出颜色R值
-                n_color_G = color >> 8 & 0xff;//取出颜色G值
-                n_color_B = color & 0xff;//取出颜色B值
-
-                rgba = calcRGB(f_color_Alpha);
-                // 颜色显示在控件上
-                dispColor(rgba);
-            }
-
-            @Override
-            public void onActionUp() {
-                sendColorData(rgba);
-            }
-
-        });
+//        myView = (ColorPickView) view.findViewById(R.id.color_picker_view);
+//        myView.setOnColorChangedListener(new ColorPickView.OnColorChangedListener() {
+//            RGB rgba;
+//
+//            @Override
+//            public void onActionDown() {
+//                Log.d(TAG, "onActionDown: ");
+//            }
+//
+//            @Override
+//            public void onColorChange(int color) {
+//
+////                Log.d(TAG, "color=" + color + ":" + Integer.toHexString(color));
+////                Toast.makeText(getActivity(), "color:" + Integer.toHexString(color), Toast.LENGTH_SHORT).show();
+//                txtColor.setTextColor(color);
+//
+//                n_color_R = color >> 16 & 0xff;//取出颜色R值
+//                n_color_G = color >> 8 & 0xff;//取出颜色G值
+//                n_color_B = color & 0xff;//取出颜色B值
+//
+//                rgba = calcRGB(f_color_Alpha);
+//                // 颜色显示在控件上
+//                dispColor(rgba);
+//            }
+//
+//            @Override
+//            public void onActionUp() {
+//                sendColorData(rgba);
+//            }
+//
+//        });
 
         // 进度条可调节亮度
         color_picker_brightness_seekbar = (SeekBar) view.findViewById(R.id.color_picker_brightness_seekbar);
@@ -169,6 +179,46 @@ public class Bulb_ColorFragment extends Fragment {
             }
         });
         initColorBulb();
+
+
+
+        final WheelView wheelView = (WheelView) view.findViewById(R.id.wheelview);
+
+        //create data for the adapter
+        List<Map.Entry<String, Integer>> entries = new ArrayList<Map.Entry<String, Integer>>(ITEM_COUNT);
+        for (int i = 0; i < ITEM_COUNT; i++) {
+            Map.Entry<String, Integer> entry = MaterialColor.random(getActivity(), "\\D*_"+(i+1)+"$");
+            entries.add(entry);
+        }
+
+        //populate the adapter, that knows how to draw each item (as you would do with a ListAdapter)
+        wheelView.setAdapter(new MaterialColorAdapter(entries));
+
+        //a listener for receiving a callback for when the item closest to the selection angle changes
+        wheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectListener() {
+            RGB rgba;
+            @Override
+            public void onWheelItemSelected(WheelView parent, Drawable itemDrawable, int position) {
+                //get the item at this position
+                Map.Entry<String, Integer> selectedEntry = ((MaterialColorAdapter) parent
+                        .getAdapter()).getItem(position);
+                int color = getContrastColor(selectedEntry);
+                parent.setSelectionColor(getContrastColor(selectedEntry));
+
+//                Log.i(TAG, "onWheelItemSelected: " + getContrastColor(selectedEntry));
+                txtColor.setTextColor(color);
+
+                n_color_R = color >> 16 & 0xff;//取出颜色R值
+                n_color_G = color >> 8 & 0xff;//取出颜色G值
+                n_color_B = color & 0xff;//取出颜色B值
+
+                rgba = calcRGB(f_color_Alpha);
+                // 颜色显示在控件上
+                dispColor(rgba);
+                sendColorData(rgba);
+            }
+        });
+
     }
 
 
@@ -191,7 +241,7 @@ public class Bulb_ColorFragment extends Fragment {
 
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
-                toastMsg("发送成功");
+//                toastMsg("发送成功");
 
             }
 
@@ -300,4 +350,34 @@ public class Bulb_ColorFragment extends Fragment {
         return rgb;
     }
 
+
+
+
+    //get the materials darker contrast
+    private int getContrastColor(Map.Entry<String, Integer> entry) {
+        String colorName = MaterialColor.getColorName(entry);
+        // Log.d(TAG, "MainActivity_getContrastColor->colorName:"+colorName);
+        return MaterialColor.getContrastColor(colorName);
+    }
+
+    static class MaterialColorAdapter extends WheelArrayAdapter<Map.Entry<String, Integer>> {
+        MaterialColorAdapter(List<Map.Entry<String, Integer>> entries) {
+            super(entries);
+        }
+
+        @Override
+        public Drawable getDrawable(int position) {
+            Drawable[] drawable = new Drawable[] {
+                    createOvalDrawable(getItem(position).getValue()),
+                    // new TextDrawable(String.valueOf(position))
+            };
+            return new LayerDrawable(drawable);
+        }
+
+        private Drawable createOvalDrawable(int color) {
+            ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
+            shapeDrawable.getPaint().setColor(color);
+            return shapeDrawable;
+        }
+    }
 }

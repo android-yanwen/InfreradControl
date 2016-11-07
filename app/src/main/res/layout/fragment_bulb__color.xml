@@ -1,9 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:colorpicker="http://schemas.android.com/apk/res-auto"
     tools:context="com.gta.administrator.infraredcontrol.bulb.Bulb_ColorFragment">
+
+
 
     <ImageView
         android:id="@+id/image"
@@ -38,16 +41,35 @@
             android:layout_width="match_parent"
             android:layout_marginTop="50dp"
             android:layout_height="0dp"
-            android:layout_weight="2">
-            <com.gta.administrator.infraredcontrol.bulb.ColorPickView
-                android:id="@+id/color_picker_view"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                colorpicker:center_color="#FFFFFF"
-                colorpicker:center_radius="10dp"
-                colorpicker:circle_radius="100dp" />
+            android:layout_weight="3">
+            <!--<com.gta.administrator.infraredcontrol.bulb.ColorPickView-->
+                <!--android:id="@+id/color_picker_view"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--colorpicker:center_color="#FFFFFF"-->
+                <!--colorpicker:center_radius="10dp"-->
+                <!--colorpicker:circle_radius="100dp" />-->
 
+
+            <com.lukedeighton.wheelview.WheelView
+                android:id="@+id/wheelview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:emptyItemColor="@color/COLOR_background"
+                app:wheelColor="@android:color/transparent"
+                app:rotatableWheelDrawable="false"
+                app:selectionAngle="90.0"
+                app:selectionColor="@color/COLOR_select"
+                app:selectionPadding="3dp"
+                app:repeatItems="true"
+                app:wheelRadius="120dp"
+                app:wheelItemCount="12"
+                app:wheelPadding="10dp"
+                app:wheelItemRadius="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
         </RelativeLayout>
 
         <RelativeLayout
