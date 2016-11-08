@@ -14,6 +14,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,10 +59,10 @@ public class Bulb_ColorFragment extends Fragment {
 
 
     private static final String color_W = "0";
-    private int n_color_R = 128;
-    private int n_color_G = 128;
-    private int n_color_B = 128;
-    private float f_color_Alpha = 0.5f;
+    private int n_color_R = 0;
+    private int n_color_G = 0;
+    private int n_color_B = 0;
+    private float f_color_Alpha = 0f;
 
     private NetworkInterface network;
     private Bitmap afterBitmap, baseBitmap;
@@ -75,7 +77,12 @@ public class Bulb_ColorFragment extends Fragment {
 
 
     private static final int ITEM_COUNT = 24;
-
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+        }
+    };
 
     public Bulb_ColorFragment() {
         // Required empty public constructor
@@ -113,6 +120,15 @@ public class Bulb_ColorFragment extends Fragment {
                     powerIsOn = true;
                     network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
                     power_switch_button.setBackgroundResource(R.mipmap.power_on_icon);
+                    // 打开灯500ms之后发送一条控灯指令
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            RGB rgba = calcRGB(f_color_Alpha);
+                            dispColor(rgba);
+                            sendColorData(rgba);
+                        }
+                    }, 500);
                 }
 
             }
@@ -199,6 +215,7 @@ public class Bulb_ColorFragment extends Fragment {
         //a listener for receiving a callback for when the item closest to the selection angle changes
         wheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectListener() {
             RGB rgba;
+
             @Override
             public void onWheelItemSelected(WheelView parent, Drawable itemDrawable, int position) {
                 //get the item at this position
@@ -213,33 +230,39 @@ public class Bulb_ColorFragment extends Fragment {
                 n_color_R = color >> 16 & 0xff;//取出颜色R值
                 n_color_G = color >> 8 & 0xff;//取出颜色G值
                 n_color_B = color & 0xff;//取出颜色B值
-
                 rgba = calcRGB(f_color_Alpha);
                 // 颜色显示在控件上
                 dispColor(rgba);
                 sendColorData(rgba);
             }
         });
+        int color = getResources().getColor(R.color.COLOR_CIRCLE_1);
+        n_color_R = color >> 16 & 0xff;//取出颜色R值
+        n_color_G = color >> 8 & 0xff;//取出颜色G值
+        n_color_B = color & 0xff;//取出颜色B值
+
 
         // 球形控件调节亮度
         track_ball = (BallScrollView) view.findViewById(R.id.track_ball);
-        track_ball.initLight(128);
+        track_ball.initLight(BallScrollView.LIGHT_DEFAULT);
         track_ball.setIntensityBallListener(new BallScrollView.OnTrackballDidScrollListener() {
             RGB rgba;
 
             @Override
             public void notifyTrackBallHasScrolled(int paramInt1, int paramInt2, boolean
                     paramBoolean) {
-                Log.i(TAG, "notifyTrackBallHasScrolled: " + paramInt1 + ";" + paramInt2 + ";" +
-                        paramBoolean);
-                f_color_Alpha = paramInt1 / 100f;//计算透明度值
-                // 将亮度alpha计算到rgb值当中
-                rgba = calcRGB(f_color_Alpha);
-                // textview显示当前值
-                brightness_value_text.setText(paramInt1 + "%");
-                // 颜色显示在控件上
-                dispColor(rgba);
-                sendColorData(rgba);
+//                Log.i(TAG, "notifyTrackBallHasScrolled: " + paramInt1 + ";" + paramInt2 + ";" +
+//                        paramBoolean);
+                if (f_color_Alpha != paramInt1 / 100f) {
+                    f_color_Alpha = paramInt1 / 100f;//计算透明度值
+                    // 将亮度alpha计算到rgb值当中
+                    rgba = calcRGB(f_color_Alpha);
+                    // textview显示当前值
+                    brightness_value_text.setText(paramInt1 + "%");
+                    // 颜色显示在控件上
+                    dispColor(rgba);
+                    sendColorData(rgba);
+                }
             }
         });
         brightness_value_text = (TextView) view.findViewById(R.id.brightness_value_text);
@@ -266,12 +289,14 @@ public class Bulb_ColorFragment extends Fragment {
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
 //                toastMsg("发送成功");
+                Log.i(TAG, "deliveryComplete: " + "发送成功。");
 
             }
 
             @Override
             public void onSendError() {
-                toastMsg("网络超时，请退出后重试。");
+//                toastMsg("发送失败，请重试。");
+                Log.i(TAG, "deliveryComplete: " + "发送失败，请重试。");
             }
 
             @Override

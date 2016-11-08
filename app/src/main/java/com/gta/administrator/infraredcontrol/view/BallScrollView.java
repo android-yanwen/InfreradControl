@@ -25,6 +25,9 @@ import java.util.ArrayList;
 
 public class BallScrollView extends ScrollView
 {
+
+    public static final int LIGHT_DEFAULT = 128;
+
     private static ArrayList<Bitmap> frames;
     private int contentHeight = -1;
     private LinearLayout contentView;
