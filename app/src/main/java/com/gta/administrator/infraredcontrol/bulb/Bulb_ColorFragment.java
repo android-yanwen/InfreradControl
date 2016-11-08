@@ -29,6 +29,7 @@ import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
+import com.gta.administrator.infraredcontrol.view.BallScrollView;
 import com.lukedeighton.wheelview.WheelView;
 import com.lukedeighton.wheelview.adapter.WheelArrayAdapter;
 
@@ -49,6 +50,9 @@ public class Bulb_ColorFragment extends Fragment {
     private TextView txtColor;
 //    private ColorPickView myView;
     private SeekBar color_picker_brightness_seekbar;
+    private WheelView wheelView;
+    private BallScrollView track_ball;
+    private TextView brightness_value_text;
     private View view;
 
 
@@ -151,49 +155,47 @@ public class Bulb_ColorFragment extends Fragment {
 //
 //        });
 
-        // 进度条可调节亮度
-        color_picker_brightness_seekbar = (SeekBar) view.findViewById(R.id.color_picker_brightness_seekbar);
-//        int progress = color_picker_brightness_seekbar.getProgress();
-//        color_W = Integer.toHexString(progress);//获取颜色W值
-        color_picker_brightness_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            RGB rgba;
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                f_color_Alpha = progress / 100f;//计算透明度值
-                // 将亮度alpha计算到rgb值当中
-                rgba = calcRGB(f_color_Alpha);
-                // 颜色显示在控件上
-                dispColor(rgba);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-//                Log.d(TAG, "onStartTrackingTouch: " + seekBar);
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-//                Log.d(TAG, "onStopTrackingTouch: " + seekBar);
-                sendColorData(rgba);
-            }
-        });
+//        // 进度条可调节亮度
+//        color_picker_brightness_seekbar = (SeekBar) view.findViewById(R.id.color_picker_brightness_seekbar);
+////        int progress = color_picker_brightness_seekbar.getProgress();
+////        color_W = Integer.toHexString(progress);//获取颜色W值
+//        color_picker_brightness_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            RGB rgba;
+//
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                f_color_Alpha = progress / 100f;//计算透明度值
+//                // 将亮度alpha计算到rgb值当中
+//                rgba = calcRGB(f_color_Alpha);
+//                // 颜色显示在控件上
+//                dispColor(rgba);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+////                Log.d(TAG, "onStartTrackingTouch: " + seekBar);
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+////                Log.d(TAG, "onStopTrackingTouch: " + seekBar);
+//                sendColorData(rgba);
+//            }
+//        });
         initColorBulb();
 
 
-
-        final WheelView wheelView = (WheelView) view.findViewById(R.id.wheelview);
-
+        // 车轮环形控件
+        wheelView = (WheelView) view.findViewById(R.id.wheelview);
+        wheelView.setWheelColor(android.R.color.transparent);
         //create data for the adapter
         List<Map.Entry<String, Integer>> entries = new ArrayList<Map.Entry<String, Integer>>(ITEM_COUNT);
         for (int i = 0; i < ITEM_COUNT; i++) {
             Map.Entry<String, Integer> entry = MaterialColor.random(getActivity(), "\\D*_"+(i+1)+"$");
             entries.add(entry);
         }
-
         //populate the adapter, that knows how to draw each item (as you would do with a ListAdapter)
         wheelView.setAdapter(new MaterialColorAdapter(entries));
-
         //a listener for receiving a callback for when the item closest to the selection angle changes
         wheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectListener() {
             RGB rgba;
@@ -219,6 +221,28 @@ public class Bulb_ColorFragment extends Fragment {
             }
         });
 
+        // 球形控件调节亮度
+        track_ball = (BallScrollView) view.findViewById(R.id.track_ball);
+        track_ball.initLight(128);
+        track_ball.setIntensityBallListener(new BallScrollView.OnTrackballDidScrollListener() {
+            RGB rgba;
+
+            @Override
+            public void notifyTrackBallHasScrolled(int paramInt1, int paramInt2, boolean
+                    paramBoolean) {
+                Log.i(TAG, "notifyTrackBallHasScrolled: " + paramInt1 + ";" + paramInt2 + ";" +
+                        paramBoolean);
+                f_color_Alpha = paramInt1 / 100f;//计算透明度值
+                // 将亮度alpha计算到rgb值当中
+                rgba = calcRGB(f_color_Alpha);
+                // textview显示当前值
+                brightness_value_text.setText(paramInt1 + "%");
+                // 颜色显示在控件上
+                dispColor(rgba);
+                sendColorData(rgba);
+            }
+        });
+        brightness_value_text = (TextView) view.findViewById(R.id.brightness_value_text);
     }
 
 

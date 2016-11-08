@@ -1,4 +1,4 @@
-package com.gta.administrator.infraredcontrol.bulb;
+package com.gta.administrator.infraredcontrol.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
