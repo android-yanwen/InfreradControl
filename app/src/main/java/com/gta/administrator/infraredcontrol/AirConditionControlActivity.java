@@ -1,18 +1,27 @@
 package com.gta.administrator.infraredcontrol;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
+import com.gta.administrator.infraredcontrol.mysql.Ir_code;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AirConditionControlActivity extends AppCompatActivity {
     private Context mContext;
@@ -20,6 +29,7 @@ public class AirConditionControlActivity extends AppCompatActivity {
     private static final String tag = "AirConditionControlActivity";
 
     private Button power_switch_button;
+    private TextView current_temperature_disp_textview;
 
     private NetworkInterface networkInterface;
 
@@ -63,8 +73,8 @@ public class AirConditionControlActivity extends AppCompatActivity {
     private void initView() {
         power_switch_button = (Button) findViewById(R.id.power_switch_button);
         power_switch_button.setOnClickListener(new ButtonListener());
-
-    }
+        current_temperature_disp_textview = (TextView) findViewById(R.id.current_temperature_disp_textview);
+     }
 
 
     private class ButtonListener implements View.OnClickListener {
@@ -74,9 +84,23 @@ public class AirConditionControlActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.power_switch_button:
                     // 发送开空调电源码
-//                    mqttRequest.publishMessage(AirConditionCode.getOpenCode(),null);
-                    networkInterface.sendData(AirConditionCode.getOpenCode(), false);
-
+                  //  networkInterface.sendData(AirConditionCode.getOpenCode(), false);
+                    new Thread(new Runnable(){
+                        ArrayList<Ir_code.Ir_codes> results = new ArrayList<Ir_code.Ir_codes>();
+                        public void run(){
+                            Ir_code code = new Ir_code();
+                            try {
+                                results=code.getIr_code("AIR_GELI-01");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            current_temperature_disp_textview.post(new Runnable(){
+                                public void run(){
+                                    current_temperature_disp_textview.setText(results.get(1).getIr_code());
+                                }
+                            });
+                        }
+                    }).start();
                     break;
             }
         }
@@ -85,6 +109,5 @@ public class AirConditionControlActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mqttRequest.closeConnect();
     }
 }

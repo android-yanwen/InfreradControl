@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp">
         <TextView
+            android:id="@+id/current_temperature_disp_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="当前温度:27摄氏度"/>
