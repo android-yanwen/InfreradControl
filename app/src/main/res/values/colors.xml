@@ -10,4 +10,7 @@
     <color name="colorBk_0">#EFFBF8</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorNormalBack">#FCFCFC</color>
+    <color name="colorTranslate">#88ffffff</color>
+    <color name="colorSplitTrans">#88EED5B7</color>
+    <color name="colorBlueTrans">#881C86EE</color>
 </resources>
