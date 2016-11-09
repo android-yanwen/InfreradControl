@@ -1,4 +1,4 @@
-package com.gta.administrator.infraredcontrol;
+package com.gta.administrator.infraredcontrol.air_condition;
 
 import android.content.Context;
 import android.os.Handler;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gta.administrator.infraredcontrol.NetworkRequest;
+import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;

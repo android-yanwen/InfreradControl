@@ -199,7 +199,7 @@ public class MqttRequest implements NetworkInterface{
         options.setUserName(username);
         options.setPassword(password.toCharArray());
         options.setConnectionTimeout(10);
-        options.setKeepAliveInterval(20); //设置心跳链接次数
+        options.setKeepAliveInterval(60); //设置心跳链接次数
 
 //        options.setSocketFactory(ctx.getSocketFactory());
 
