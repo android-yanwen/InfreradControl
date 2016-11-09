@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.adapter.DividerGridItemDecoration;
 import com.gta.administrator.infraredcontrol.adapter.RecycleViewAdapter;
+import com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity;
 import com.gta.administrator.infraredcontrol.bean.DevicesModule;
 import com.gta.administrator.infraredcontrol.bulb.BulbActivity;
 import com.gta.administrator.infraredcontrol.dvd.DvdBrandsListActivity;
