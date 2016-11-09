@@ -70,7 +70,7 @@
             android:name=".satellite_tv.HW_TV"
             android:label="品牌1"/>
         <activity
-            android:name=".AirConditionControlActivity"
+            android:name=".air_condition.AirConditionControlActivity"
             android:label="空调"
             android:launchMode="singleTask"/>
         <activity
