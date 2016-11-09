@@ -103,7 +103,7 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
                         public void run() {
                             sendData();
                         }
-                    }, 500);
+                    }, 1000);
                 }
             }
         });

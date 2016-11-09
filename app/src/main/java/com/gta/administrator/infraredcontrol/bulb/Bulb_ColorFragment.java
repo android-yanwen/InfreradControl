@@ -128,7 +128,7 @@ public class Bulb_ColorFragment extends Fragment {
                             dispColor(rgba);
                             sendColorData(rgba);
                         }
-                    }, 500);
+                    }, 1000);
                 }
 
             }
