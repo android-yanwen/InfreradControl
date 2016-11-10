@@ -40,7 +40,7 @@ public class EntryAppWindow extends AppCompatActivity {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(EntryAppWindow.this, RegisterIdentificationWin.class));
+                startActivity(new Intent(EntryAppWindow.this, RegisterIdentificationWindow.class));
             }
         });
         load_btn = (Button) findViewById(R.id.load_btn);

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.gta.administrator.infraredcontrol.NetworkActivity;
 import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
@@ -24,7 +25,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
 
-public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnClickListener {
+public class XiaoZhiBrandsActivity extends NetworkActivity implements View.OnClickListener {
     private static final String TAG = "XiaoZhiBrandsActivity";
 
     private Context mContext;
@@ -39,7 +40,7 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
     private ImageButton tv_left_btn;
     private ImageButton tv_right_btn;
     private ImageButton tv_ok_btn;
-    private NetworkInterface networkInterface;
+//    private NetworkInterface networkInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,70 +49,49 @@ public class XiaoZhiBrandsActivity extends AppCompatActivity implements View.OnC
         mContext = this;
 
         initView();
-        initNetwork();
+//        initNetwork();
     }
-
-    private void initNetwork() {
-        networkInterface = NetworkRequest.getInstance(mContext);
-        networkInterface.setCallbackListener(new NetworkInterface.CallbackListener() {
-            @Override
-            public void connectionLost(Throwable cause) {
-                networkInterface.openConnect();//异常断开后重新打开链接
-                Log.d(TAG, "Lost reconnected");
-
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage message) {
-                String s_data = null;
-                try {
-                    s_data = new String(message.getPayload(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Log.d(TAG, "messageArrived: " + s_data);
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
-                toastMsg("发送成功");
-//                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSendError() {
-                toastMsg("发送失败请检查网络连接");
-                networkInterface.openConnect();
-//                Toast.makeText(mContext, "发送失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void socketReceiveData(String data) {
-                Log.d(TAG, "socketReceiveData: " + data);
-            }
-        });
-//        ((MqttRequest)mqttRequest).setCallbackListener(new MqttRequest.MqttCallbackListener() {
+//
+//    private void initNetwork() {
+//        networkInterface = NetworkRequest.getInstance(mContext);
+//        networkInterface.setCallbackListener(new NetworkInterface.CallbackListener() {
 //            @Override
 //            public void connectionLost(Throwable cause) {
+//                networkInterface.openConnect();//异常断开后重新打开链接
+//                Log.d(TAG, "Lost reconnected");
 //
 //            }
 //
 //            @Override
 //            public void messageArrived(String topic, MqttMessage message) {
-//
+//                String s_data = null;
+//                try {
+//                    s_data = new String(message.getPayload(), "UTF-8");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//                Log.d(TAG, "messageArrived: " + s_data);
 //            }
 //
 //            @Override
 //            public void deliveryComplete(IMqttDeliveryToken token) {
-//                showErrorMsg("发送成功");
+//                toastMsg("发送成功");
+////                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
 //            }
 //
 //            @Override
 //            public void onSendError() {
-//                showErrorMsg("，发送失败请检查网络连接");
+//                toastMsg("发送失败请检查网络连接");
+//                networkInterface.openConnect();
+////                Toast.makeText(mContext, "发送失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void socketReceiveData(String data) {
+//                Log.d(TAG, "socketReceiveData: " + data);
 //            }
 //        });
-    }
+//    }
 
 
     @Override

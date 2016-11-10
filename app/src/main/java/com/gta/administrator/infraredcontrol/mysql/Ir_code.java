@@ -36,7 +36,7 @@ public class Ir_code {
         String MYSQL_USERNAME = "user";
         String MYSQL_PASSWORD = "userpassword";
         String path = "jdbc:mysql://" + MYSQL_IP + "/" + MYSQL_DBNAME + "?" + "user=" + MYSQL_USERNAME + "&password=" + MYSQL_PASSWORD;
-        String script = "SELECT * FROM IR_CODE WHERE Brand_models = '"+this.ir_device+"' and key = '"+this.ir_fun+"'" ;
+        String script = "SELECT * FROM IR_CODE WHERE Brand_models = '"+this.ir_device+"' and IR_fun = '"+this.ir_fun+"'" ;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = (Connection) DriverManager.getConnection(path);
@@ -107,6 +107,7 @@ public class Ir_code {
         private String Brand_models = "";
         private String key = "";
         private String ir_code = "";
+        private String ir_fun = "";
 
         public String getKey() {
             return key;
@@ -130,6 +131,10 @@ public class Ir_code {
 
         public void setBrand_models(String brand_models) {
             Brand_models = brand_models;
+        }
+
+        public String getIr_fun() {
+            return ir_fun;
         }
     }
 }
