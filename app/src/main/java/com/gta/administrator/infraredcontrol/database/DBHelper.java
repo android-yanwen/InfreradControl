@@ -21,12 +21,12 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 创建IR_CODE表格，将从远程mysql获取到的红外码保存到本地
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+ IR_CODE +" Brand_models VARCHAR, IR_fun VARCHAR, " +
-                "IR_code VARCHAR, id INTEGER PRIMARY KEY AUTOINCREMENT");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + IR_CODE + " (id INTEGER PRIMARY KEY " +
+                "AUTOINCREMENT, Brand_models VARCHAR, IR_fun VARCHAR, " + "IR_code VARCHAR)");
         // 创建USER_REG表格，用户保存但的当前用户信息
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + USER_REG + " idUSER_REG INTEGER PRIMARY KEY " +
-                "AUTOINCREMENT USER_REG_PHONE VARCHAR, USER_REG_PASSWORD VARCHAR, " +
-                "USER_REG_PRODUCT VARCHAR");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + USER_REG + " (idUSER_REG INTEGER PRIMARY KEY " +
+                "AUTOINCREMENT, USER_REG_PHONE VARCHAR, USER_REG_PASSWORD VARCHAR, " +
+                "USER_REG_PRODUCT VARCHAR)");
     }
 
     @Override

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".air_condition.AirConditionControlActivity">
+    tools:context="com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity">
 
 
     <RelativeLayout
@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="250dp">
         <TextView
-            android:id="@+id/current_temperature_disp_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="当前温度:27摄氏度"/>
@@ -27,21 +26,13 @@
                 android:id="@+id/linearlayout"
                 android:layout_width="wrap_content"
                 android:layout_height="85dp">
-
                 <TextView
+                    android:id="@+id/air_temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:text="3"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="80sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:text="3"
+                    android:text="26"
                     android:textColor="@color/colorAccent"
                     android:textSize="80sp" />
                 <ImageView
@@ -54,13 +45,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="85dp">
                 <ImageView
+                    android:id="@+id/air_mode_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@mipmap/icon_refrageretion_tempereture"/>
+                    android:layout_gravity="bottom" />
                 <TextView
+                    android:id="@+id/air_mode_type"
                     android:gravity="bottom"
-                    android:layout_width="wrap_content"
+                    android:layout_width="41dp"
                     android:layout_height="match_parent"
                     android:text="制冷"/>
 
@@ -71,18 +63,29 @@
 <!--**********************************************************************-->
 
         <TextView
+            android:id="@+id/air_text_wind_speed"
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:text="风速:自动"/>
         <TextView
+            android:id="@+id/air_mode_wind_angle"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:text="自动风向"/>
+
+        <TextView
+            android:id="@+id/air_name"
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_alignEnd="@+id/air_mode_wind_angle" />
 
     </RelativeLayout>
 
@@ -106,13 +109,14 @@
                 android:textColor="@color/colorRed"
                 android:gravity="center"
                 android:background="@drawable/tv_num_bg_selector"
-                android:text="开关"/>
+                android:text="开启"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorDivide"/>
             <Button
+                android:id="@+id/air_mode_switch_button"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -130,6 +134,7 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <Button
+                android:id="@+id/air_button_wind_speed"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -141,6 +146,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorDivide"/>
             <Button
+                android:id="@+id/air_button_WIND_SWEEP_MAN"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -153,6 +159,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorDivide"/>
             <Button
+                android:id="@+id/air_button_WIND_SWEEP_AUTO"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -170,6 +177,7 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <ImageButton
+                android:id="@+id/air_button_TEMP_DEC"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -184,6 +192,7 @@
                 android:hint="温度"/>
 
             <ImageButton
+                android:id="@+id/air_button_TEMP_ADD"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -228,6 +237,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorDivide"/>
             <Button
+                android:id="@+id/air_button_MORE_FUN"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"

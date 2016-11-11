@@ -13,6 +13,13 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.gta.administrator.infraredcontrol.database.DBManager;
+import com.gta.administrator.infraredcontrol.mysql.Ir_code;
+import com.gta.administrator.infraredcontrol.user.UserInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/6/13.
  */
@@ -96,6 +103,7 @@ public class EntryAppWindow extends AppCompatActivity {
 //                }
 //            }
 //        }, 0, 100);
+
     }
 
     @Override
@@ -118,4 +126,8 @@ public class EntryAppWindow extends AppCompatActivity {
         background_img.setAnimation((TranslateAnimation) localObject);
         ((TranslateAnimation) localObject).startNow();
     }
+
+
+
+
 }

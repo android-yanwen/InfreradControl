@@ -78,7 +78,7 @@ public class FragmentDevices extends Fragment {
                     if (getName().equals( v.getTag())) {
                         Log.d(TAG, "onClick: " + v.getTag());
 
-                        activityManager.startActivity(XiaoZhiBrandsActivity.class);
+                        activityManager.startActivity(XiaoZhiBrandsActivity.class, null);
 //                        startActivityForResult(new Intent(getActivity(), XiaoZhiBrandsActivity.class), 1);
                         isDeviceBack = true;
                     }

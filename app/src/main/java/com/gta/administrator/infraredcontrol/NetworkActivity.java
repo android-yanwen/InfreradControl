@@ -9,6 +9,9 @@ import android.widget.Toast;
 import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
+import com.gta.administrator.infraredcontrol.database.DBManager;
+import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
+import com.gta.administrator.infraredcontrol.mysql.Ir_code;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -46,13 +49,11 @@ public class NetworkActivity  extends AppCompatActivity {
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
                 toastMsg("发送成功");
-//                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onSendError() {
                 toastMsg("发送失败请重试");
                 networkInterface.openConnect();
-//                Toast.makeText(mContext, "发送失败，请检查网络连接。", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void socketReceiveData(String data) {
@@ -67,5 +68,44 @@ public class NetworkActivity  extends AppCompatActivity {
                 Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public void  Send_ircode(String Brand_models,String key) {
+        class Get_ir_code extends Thread{
+            private String Brand_models;
+            private String key;
+            private String results;
+            public Get_ir_code(String Brand_models,String key) {
+                this.Brand_models=Brand_models;
+                this.key=key;
+            }
+            public void run()
+            {
+            //    DBManager sqliteDB = new DBManager(mContext);
+                Ir_code code = new Ir_code();
+                try {
+                    Log.d(TAG, "Send_ircode Brand_models:"+Brand_models+"Send_ircode key:"+key);
+              //      results=sqliteDB.query(Brand_models,key);
+                    if (results==null)
+                    {
+                        results=code.getIr_code(Brand_models,key);
+                        /*
+                        if (results!=null){
+                            Ir_code.Ir_codes ir_codes = code.new Ir_codes();
+                            ir_codes.setBrand_models(Brand_models);
+                            ir_codes.setIr_fun(key);
+                            ir_codes.setIr_code(results);
+                            sqliteDB.insert(ir_codes);
+                        }
+                        */
+                    }
+                    Log.d(TAG, "run: "+results);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                networkInterface.sendData(AirConditionCode.get_ir_Code(results), true);
+            }
+        }
+        Get_ir_code get_ir_code = new Get_ir_code(Brand_models,key);
+        get_ir_code.start();
     }
 }

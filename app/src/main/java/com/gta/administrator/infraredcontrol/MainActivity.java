@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         break;
                     case 1:
-                        activityManager.startActivity(AirConditionControlActivity.class);
+                        activityManager.startActivity(AirConditionControlActivity.class,null);
                         break;
                     case 2:
                         startActivity(new Intent(mContext, TvBrandsListActivity.class));
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(mContext, SatelliteTvBrandsActivity.class));
                         break;
                     case 11:
-                        activityManager.startActivity(BulbActivity.class);
+                        activityManager.startActivity(BulbActivity.class,null);
                         break;
 
                 }

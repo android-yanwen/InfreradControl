@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,11 +20,12 @@ public class ActivityManager {
     private static ActivityManager activityManager;
 
     private static Context mContext;
+    private Intent intent=new Intent();
     private ProgressDialog progressDialog;
 
     private NetworkInterface networkInterface;
     private Class jumpActivity;// 跳转到的activity
-
+    private String parameter;  // 跳转到新的activity所携带的参数，如果没有可以转送""空字符串
     private NetworkConnectListener connectListener;
 
     public static ActivityManager getInstance(Context mContext) {
@@ -38,13 +40,21 @@ public class ActivityManager {
         connectListener = new NetworkConnectListener();
     }
 
-    public void startActivity(final Class activity) {
-        jumpActivity = activity;
+    public void startActivity(final Class activity,String parameter) {
+        this.jumpActivity = activity;
+        this.parameter=parameter;
+        Log.d(TAG, "startActivity: "+parameter);
         // 获取MqttRequest实例
         networkInterface = NetworkRequest.getInstance(mContext);
         // 检查是否处于连接状态
+
+        intent.setClass(mContext, activity);
+        Bundle bundle = new Bundle();
+        bundle.putString("parameter", parameter);
+        intent.putExtras(bundle);
+        Log.d(TAG, "startActivity: "+parameter);
         if (networkInterface.isConnected()) {
-            mContext.startActivity(new Intent(mContext, activity));
+            mContext.startActivity(intent);
         } else {
             // 第一次需要打开连接
             networkInterface.openConnect();
@@ -106,7 +116,7 @@ public class ActivityManager {
         public void onSuccess() {
             Log.d(TAG, "onSuccess: 链接成功");
             progressDismiss();
-            mContext.startActivity(new Intent(mContext, jumpActivity));
+            mContext.startActivity(intent);
         }
 
         @Override
