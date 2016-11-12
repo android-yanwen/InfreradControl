@@ -28,6 +28,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
     }
+
 }
 repositories {
     flatDir {
@@ -59,5 +60,10 @@ dependencies {
     compile 'org.slf4j:slf4j-android:1.7.7'
     compile(name: 'WheelViewLib-release', ext: 'aar')
     //    compile project(':WheelViewLib-release')
-    compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
+    //    compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
+//    compile 'mysql:mysql-connector-java:6.0.5'
+//        compile 'mysql:mysql-connector-mxj:5.0.12'
+//    compile 'mysql:mysql-connector-mxj-db-files:5.0.12'
+//    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'org.sqldroid:sqldroid:1.0.3'
 }

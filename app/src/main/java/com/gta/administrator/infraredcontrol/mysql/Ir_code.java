@@ -3,16 +3,16 @@ package com.gta.administrator.infraredcontrol.mysql;
 import android.util.Log;
 import android.view.View;
 
-import com.gta.administrator.infraredcontrol.R;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.ResultSet;
-import com.mysql.jdbc.Statement;
+//import com.mysql.jdbc.Connection;
+//import com.mysql.jdbc.ResultSet;
+//import com.mysql.jdbc.Statement;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
-
 
 
 /**

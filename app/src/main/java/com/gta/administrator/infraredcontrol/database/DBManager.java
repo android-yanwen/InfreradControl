@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.gta.administrator.infraredcontrol.mysql.Ir_code;
 import com.gta.administrator.infraredcontrol.user.UserInfo;
+//import com.gta.yanwen.mysqllibrary.Ir_code;
 
 import java.util.List;
 

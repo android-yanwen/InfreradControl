@@ -6,12 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.gta.administrator.infraredcontrol.NetworkRequest;
-import com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
-import com.gta.administrator.infraredcontrol.database.DBManager;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
 import com.gta.administrator.infraredcontrol.mysql.Ir_code;
+//import com.gta.yanwen.mysqllibrary.Ir_code;
+//import com.gta.yanwen.mysqllibrary.Ir_code;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
