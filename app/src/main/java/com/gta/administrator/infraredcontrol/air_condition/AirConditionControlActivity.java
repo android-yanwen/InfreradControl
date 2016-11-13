@@ -37,16 +37,11 @@ public class AirConditionControlActivity extends NetworkActivity {
     Button air_button_WIND_SWEEP_AUTO;                    //扫风
     ImageButton temp_add_button;
     ImageButton temp_dec_button;
-    @BindView(R.id.air_text_wind_speed)
-    TextView airTextWindSpeed;
-    @BindView(R.id.air_mode_wind_angle)
-    TextView airModeWindAngle;
-    @BindView(R.id.air_button_addhot)
-    Button airButtonAddhot;
-    @BindView(R.id.air_mode_wind_to)
-    TextView airModeWindTo;
-    @BindView(R.id.air_sleep)
-    Button airSleep;
+    @BindView(R.id.air_text_wind_speed) TextView airTextWindSpeed;
+    @BindView(R.id.air_mode_wind_angle) TextView airModeWindAngle;
+    @BindView(R.id.air_button_addhot) Button airButtonAddhot;
+    @BindView(R.id.air_mode_wind_to) TextView airModeWindTo;
+    @BindView(R.id.air_sleep) Button airSleep;
 
 
     protected void onCreate(Bundle savedInstanceState) {
