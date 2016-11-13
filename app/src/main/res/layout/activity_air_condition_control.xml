@@ -20,7 +20,8 @@
         <RelativeLayout
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout">
 
             <LinearLayout
                 android:id="@+id/linearlayout"
@@ -68,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
-            android:text="风速:自动"/>
+            android:text="风速自动"/>
         <TextView
             android:id="@+id/air_mode_wind_angle"
             android:layout_alignParentBottom="true"
@@ -76,16 +77,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
-            android:text="自动风向"/>
+            android:text="扫风自动"/>
 
         <TextView
             android:id="@+id/air_name"
-            android:text="1"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
             android:layout_alignEnd="@+id/air_mode_wind_angle" />
+
+        <TextView
+            android:id="@+id/air_mode_wind_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="风向下"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_alignBaseline="@+id/air_mode_wind_angle"
+            android:layout_alignBottom="@+id/air_mode_wind_angle"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -214,17 +226,19 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <Button
+                android:id="@+id/air_button_addhot"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:background="@drawable/tv_num_bg_selector"
-                android:text="定时"/>
+                android:text="辅热"/>
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorDivide"/>
             <Button
+                android:id="@+id/air_sleep"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"

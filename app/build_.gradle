@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -28,9 +27,6 @@ android {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
-
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
     }
 
 }
@@ -46,9 +42,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:gridlayout-v7:23.1.1'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
-    compile files('libs/bce-java-sdk.jar')
-    //    compile files('libs/bce-java-sdk-0.10.15.jar')
-    //    compile files('libs/bce-java-sdk-0.10.13.jar')
+    compile files('libs/bce-java-sdk-0.10.13.jar')
+    compile files('libs/bce-java-sdk-0.10.13-javadoc.jar')
     compile files('libs/commons-codec-1.9.jar')
     compile files('libs/commons-io-2.4.jar')
     compile files('libs/guava-17.0.jar')
@@ -56,20 +51,18 @@ dependencies {
     compile files('libs/jackson-annotations-2.1.1.jar')
     compile files('libs/jackson-core-2.1.1.jar')
     compile files('libs/jackson-databind-2.1.1.jar')
-    //    compile files('libs/jcl-over-slf4j-1.7.7.jar')
-    //    compile files('libs/joda-time-2.3.jar')
+    compile files('libs/jcl-over-slf4j-1.7.7.jar')
+    compile files('libs/joda-time-2.3.jar')
+    //    compile files('libs/logback-classic-1.1.2.jar')
     compile files('libs/logback-core-1.1.2.jar')
-    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
-    //    compile 'org.slf4j:slf4j-android:1.7.7'
-    compile(name: 'WheelViewLib-release', ext: 'aar')
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    //    compile files('libs/mysql-connector-java-2.0.14-bin.jar')
     //    compile files('libs/slf4j-api-1.7.7.jar')
-    //    compile 'org.slf4j:slf4j-android:1.7.21'
-    //    compile 'org.slf4j:slf4j-api:1.7.21'
-    //    compile files('libs/ksoap2-android-assembly-2.5.4-jar-with-dependencies.jar')
-    //    compile files('libs/mysql-connector-java-2.0.14-bin.jar')
-    compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
-    //    compile 'net.danlew:android.joda:2.9.5'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    compile 'org.slf4j:slf4j-android:1.7.7'
+    compile(name: 'WheelViewLib-release', ext: 'aar')
+    //    compile project(':WheelViewLib-release')
+    //    compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
+//    compile 'mysql:mysql-connector-java:6.0.5'
+//        compile 'mysql:mysql-connector-mxj:5.0.12'
+//    compile 'mysql:mysql-connector-mxj-db-files:5.0.12'
+//    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }

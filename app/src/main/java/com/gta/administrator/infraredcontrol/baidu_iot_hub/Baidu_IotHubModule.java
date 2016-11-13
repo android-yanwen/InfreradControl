@@ -110,10 +110,16 @@ public class Baidu_IotHubModule {
     }
 
     public Baidu_IotHubModule() {
-        BceClientConfiguration configuration = new BceClientConfiguration()
-                .withCredentials(new DefaultBceCredentials(Baidu_IotHubModule.AK,
-                        Baidu_IotHubModule.SK))
-                .withEndpoint(Baidu_IotHubModule.HostBody);
+//        BceClientConfiguration configuration = new BceClientConfiguration()
+//                .withCredentials(new DefaultBceCredentials(Baidu_IotHubModule.AK,
+//                        Baidu_IotHubModule.SK))
+//                .withEndpoint(Baidu_IotHubModule.HostBody);
+
+        BceClientConfiguration configuration = new BceClientConfiguration();
+        DefaultBceCredentials BceCredentials = new DefaultBceCredentials(Baidu_IotHubModule.AK,
+                Baidu_IotHubModule.SK);
+        configuration.setCredentials(BceCredentials);
+        configuration.setEndpoint(Baidu_IotHubModule.HostBody);
         iotHubClient = new IotHubClient(configuration);
     }
 

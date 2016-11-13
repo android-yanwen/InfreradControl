@@ -84,19 +84,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         mContext = MainActivity.this;
         activityManager = ActivityManager.getInstance(mContext);
 
-//        initView();
 
         initData();
 
@@ -113,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         break;
                     case 1:
-                        activityManager.startActivity(AirConditionControlActivity.class,null);
+                        activityManager.startActivity(AirConditionControlActivity.class,"格力空调-1");
                         break;
                     case 2:
                         startActivity(new Intent(mContext, TvBrandsListActivity.class));

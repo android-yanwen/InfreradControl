@@ -13,6 +13,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
+//import net.danlew.android.joda.JodaTimeAndroid;
+
 /**
  * Created by Administrator on 2016/6/13.
  */
@@ -35,6 +37,10 @@ public class EntryAppWindow extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry_app_window);
+
+
+//        JodaTimeAndroid.init(this);
+
         background_img = (ImageView) findViewById(R.id.background_img);
         register_btn = (Button) findViewById(R.id.register_btn);
         register_btn.setOnClickListener(new View.OnClickListener() {
