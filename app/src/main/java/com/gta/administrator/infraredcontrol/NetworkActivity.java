@@ -7,16 +7,20 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
+import com.gta.administrator.infraredcontrol.database.DBManager;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
 import com.gta.administrator.infraredcontrol.mysql.Ir_code;
-//import com.gta.yanwen.mysqllibrary.Ir_code;
-//import com.gta.yanwen.mysqllibrary.Ir_code;
+import com.gta.administrator.infraredcontrol.socket.SocketUlitity;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.ContentValues.TAG;
+
 
 /**
  * Created by Administrator on 2016/11/10.
@@ -79,29 +83,73 @@ public class NetworkActivity  extends AppCompatActivity {
             }
             public void run()
             {
-            //    DBManager sqliteDB = new DBManager(mContext);
+                DBManager sqliteDB = new DBManager(mContext);
                 Ir_code code = new Ir_code();
                 try {
                     Log.d(TAG, "Send_ircode Brand_models:"+Brand_models+"Send_ircode key:"+key);
-              //      results=sqliteDB.query(Brand_models,key);
+                    results=sqliteDB.query(Brand_models,key);
+                    Log.d(TAG, "get ir_code form sqlite: "+results);
                     if (results==null)
                     {
                         results=code.getIr_code(Brand_models,key);
-                        /*
+                        Log.d(TAG, "get ir_code form mysql: "+results);
                         if (results!=null){
                             Ir_code.Ir_codes ir_codes = code.new Ir_codes();
+                            List<Ir_code.Ir_codes> list_ir_codes = new ArrayList<Ir_code.Ir_codes>();
                             ir_codes.setBrand_models(Brand_models);
                             ir_codes.setIr_fun(key);
                             ir_codes.setIr_code(results);
-                            sqliteDB.insert(ir_codes);
+                            list_ir_codes.add(ir_codes);
+                            sqliteDB.insert(list_ir_codes);
                         }
-                        */
                     }
-                    Log.d(TAG, "run: "+results);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 networkInterface.sendData(AirConditionCode.get_ir_Code(results), true);
+            }
+        }
+        Get_ir_code get_ir_code = new Get_ir_code(Brand_models,key);
+        get_ir_code.start();
+    }
+
+    public void socketSend_ircode(String Brand_models,String key) {
+        class Get_ir_code extends Thread{
+            private String Brand_models;
+            private String key;
+            private String results;
+            public Get_ir_code(String Brand_models,String key) {
+                this.Brand_models=Brand_models;
+                this.key=key;
+            }
+            public void run()
+            {
+                DBManager sqliteDB = new DBManager(mContext);
+                Ir_code code = new Ir_code();
+                try {
+                    Log.d(TAG, "Send_ircode Brand_models:"+Brand_models+"Send_ircode key:"+key);
+                    results=sqliteDB.query(Brand_models,key);
+                    Log.d(TAG, "get ir_code form sqlite: "+results);
+                    if (results==null)
+                    {
+                        results=code.getIr_code(Brand_models,key);
+                        Log.d(TAG, "get ir_code form mysql: "+results);
+                        if (results!=null){
+                            Ir_code.Ir_codes ir_codes = code.new Ir_codes();
+                            List<Ir_code.Ir_codes> list_ir_codes = new ArrayList<Ir_code.Ir_codes>();
+                            ir_codes.setBrand_models(Brand_models);
+                            ir_codes.setIr_fun(key);
+                            ir_codes.setIr_code(results);
+                            list_ir_codes.add(ir_codes);
+                            sqliteDB.insert(list_ir_codes);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                SocketUlitity socketUlitity = SocketUlitity.getInstance();
+                socketUlitity.sendData(AirConditionCode.get_ir_Code(results), true);
+                socketUlitity.closeConnect();
             }
         }
         Get_ir_code get_ir_code = new Get_ir_code(Brand_models,key);

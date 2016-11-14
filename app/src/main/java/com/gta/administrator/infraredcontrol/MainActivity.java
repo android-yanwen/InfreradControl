@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.adapter.DividerGridItemDecoration;
 import com.gta.administrator.infraredcontrol.adapter.RecycleViewAdapter;
+import com.gta.administrator.infraredcontrol.air_condition.AirConditionBrandsListActivity;
 import com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity;
 import com.gta.administrator.infraredcontrol.bean.DevicesModule;
 import com.gta.administrator.infraredcontrol.bulb.BulbActivity;
@@ -104,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         break;
                     case 1:
-                        activityManager.startActivity(AirConditionControlActivity.class,"格力空调-1");
+//                        activityManager.startActivity(AirConditionControlActivity.class,"格力空调-1");
+                        startActivity(new Intent(mContext, AirConditionBrandsListActivity.class));
                         break;
                     case 2:
                         startActivity(new Intent(mContext, TvBrandsListActivity.class));

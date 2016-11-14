@@ -8,6 +8,38 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+<!--***********************************自定义ActionBar样式*******************************************-->
+    <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat.Light">
+        <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
+        <!--<item name="android:actionBarDivider">@null</item>-->
+        <!--<item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>-->
+        <!--         <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item> -->
+        <!--<item name="android:actionBarTabBarStyle">@style/MyActionBarTabBars</item>-->
+        <!--<item name="android:actionMenuTextColor">@android:color/holo_green_light</item>-->
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="actionBarDivider">@null</item>
+        <!--<item name="actionBarTabTextStyle">@style/MyActionBarTabText</item>-->
+        <!--         <item name="actionBarTabStyle">@style/MyActionBarTabs</item> -->
+        <!--<item name="actionBarTabBarStyle">@style/MyActionBarTabBars</item>-->
+        <!--<item name="actionMenuTextColor">@android:color/holo_green_light</item>-->
+    </style>
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <!--<item name="android:background">@android:color/holo_orange_light</item>-->
+        <!--<item name="android:titleTextStyle">@style/MyActionBarTitleText</item>-->
+        <!--<item name="android:backgroundStacked">@android:color/holo_green_dark</item>-->
+
+        <!-- Support library compatibility -->
+        <item name="background">@mipmap/bg_program_kinds</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText</item>
+        <!--<item name="backgroundStacked">@android:color/holo_green_dark</item>-->
+    </style>
+    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+<!--***********************************自定义ActionBar样式*******************************************-->
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

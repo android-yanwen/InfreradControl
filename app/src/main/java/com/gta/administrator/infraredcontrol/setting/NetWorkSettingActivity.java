@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -129,7 +130,7 @@ public class NetWorkSettingActivity extends AppCompatActivity {
 //                Log.d(TAG, "run: timer task");
                     Main1Activity.wifiUtility.startScanWifi();
                     wifiList.clear();
-                    for (String ssid : Main1Activity.wifiUtility.getEsp8266SSID()) {
+                    for (String ssid : Main1Activity.wifiUtility.getSSIDList()) {
                         wifiList.add(ssid);//保存8266发出的ssid到list
                     }
                     notifyDataSetChanged();
@@ -142,14 +143,14 @@ public class NetWorkSettingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
-        timer = null;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 //        wifiUtility.finish();
+        timer.cancel();
+        timer = null;
     }
 
 
@@ -173,24 +174,23 @@ public class NetWorkSettingActivity extends AppCompatActivity {
 
         }else if (id == R.id.action_send_config) {//发送配置
             initSocket();
-
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle("配置Wi-Fi");
-            LinearLayout linearlayout = new LinearLayout(mContext);
-            LinearLayout.LayoutParams paranms = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT);
-            linearlayout.setLayoutParams(paranms);
-            linearlayout.setOrientation(LinearLayout.VERTICAL);
-            final EditText s_ssid = new EditText(mContext);
-            s_ssid.setHint("Wi-Fi名称");
+            View view = LayoutInflater.from(mContext).inflate(R.layout.network_config_dialog, null);
+            final EditText s_ssid = (EditText) view.findViewById(R.id.ssid_edit);
+            final EditText s_pwd = (EditText) view.findViewById(R.id.password_edit);
+            ListView wifi_list = (ListView) view.findViewById(R.id.wifi_list);
+            wifi_list.setAdapter(adapter);
             if (routerSSID != null && !routerSSID.equals("")) {
                 s_ssid.setText(routerSSID);
             }
-            final EditText s_pwd = new EditText(mContext);
-            s_pwd.setHint("Wi-Fi密码");
-            linearlayout.addView(s_ssid);
-            linearlayout.addView(s_pwd);
-            builder.setView(linearlayout);
+            wifi_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    s_ssid.setText(wifiList.get(position));
+                }
+            });
+            builder.setView(view);
             builder.setNegativeButton("发送配置", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
