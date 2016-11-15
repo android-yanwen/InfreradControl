@@ -103,7 +103,12 @@
         </activity>
         <activity
             android:name=".air_condition.AirConditionBrandsListActivity"
+            android:label="空调品牌列表"
             android:theme="@style/CustomActionBarTheme">
+        </activity>
+        <activity android:name=".air_condition.AddTelecontrolActivity"
+                  android:label="奥克斯"
+                  android:theme="@style/CustomActionBarTheme">
         </activity>
     </application>
 

@@ -37,6 +37,7 @@
     </style>
     <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
     </style>
 <!--***********************************自定义ActionBar样式*******************************************-->
 

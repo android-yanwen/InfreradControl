@@ -1,6 +1,7 @@
 package com.gta.administrator.infraredcontrol.other;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -45,6 +46,14 @@ public class MyGradLayoutItem extends LinearLayout {
         String text = a.getString(R.styleable.MyGradLayoutItem_gradlayoutText);
         textView = (TextView) view.findViewById(R.id.item_text);
         textView.setText(text);
+
+        ColorStateList colorStateList = a.getColorStateList(R.styleable.MyGradLayoutItem_gradlayoutTextColor);
+        if (colorStateList != null) {
+            textView.setTextColor(colorStateList);
+        }
+
+        int size = a.getDimensionPixelSize(R.styleable.MyGradLayoutItem_gradlayoutTextSize, 15);
+        textView.setTextSize(size);
 
         a.recycle();
         addView(view);

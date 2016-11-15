@@ -1,6 +1,7 @@
 package com.gta.administrator.infraredcontrol.air_condition;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,7 @@ public class AirConditionBrandsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_air_condition_brands_list);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        actionBar.setHomeAsUpIndicator(R.mipmap.yk_ctrl_item_menu);
 
         ButterKnife.bind(this);
 
@@ -59,7 +60,8 @@ public class AirConditionBrandsListActivity extends AppCompatActivity {
         air_condition_brands_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                activityManager.startActivity(AirConditionControlActivity.class, air_condition_brands.get(position));
+//                activityManager.startActivity(AirConditionControlActivity.class, air_condition_brands.get(position));
+                startActivity(new Intent(AirConditionBrandsListActivity.this, AddTelecontrolActivity.class));
             }
         });
     }

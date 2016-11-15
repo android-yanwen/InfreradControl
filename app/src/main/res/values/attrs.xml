@@ -3,6 +3,8 @@
     <declare-styleable name="MyGradLayoutItem" >
         <attr name="gradlayoutSrc" format="reference"/>
         <attr name="gradlayoutText" format="string" />
+        <attr name="gradlayoutTextColor" format="color"/>
+        <attr name="gradlayoutTextSize" format="dimension"/>
 
     </declare-styleable>
 
