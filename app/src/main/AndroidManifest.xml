@@ -62,8 +62,9 @@
             android:label="品牌1"/>
         <activity
             android:name=".air_condition.AirConditionControlActivity"
-            android:label="空调"
-            android:launchMode="singleTask"/>
+            android:label="格力空调"
+            android:launchMode="singleTask"
+            android:theme="@style/CustomActionBarTheme"/>
         <activity
             android:name=".tv.TvBrandsListActivity"
             android:label="@string/tv_brands_select"/>

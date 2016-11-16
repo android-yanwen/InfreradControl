@@ -1,30 +1,19 @@
 package com.gta.administrator.infraredcontrol.bulb;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.gta.administrator.infraredcontrol.R;
-import com.gta.administrator.infraredcontrol.adapter.DividerGridItemDecoration;
-import com.gta.administrator.infraredcontrol.adapter.RecycleViewAdapter;
-import com.gta.administrator.infraredcontrol.bean.DevicesModule;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,7 +21,7 @@ import java.util.List;
  */
 public class Bulb_DoubleColorFragment extends Fragment {
 
-    private static final String TAG = "Bulb_DoubleColorFragment";
+    private static final String TAG = "Bulb_DoubleColor";
     private View view;
     private BulbActivity mActivity;
 
@@ -45,12 +34,8 @@ public class Bulb_DoubleColorFragment extends Fragment {
     private MyViewPager myViewPager;
 
     public Bulb_DoubleColorFragment() {
-        // Required empty public constructor
+       // Required empty public constructor
         mActivity = (BulbActivity) getActivity();
-
-//        my_viewpager = (ViewPager) mActivity.obtainAdcitivtyWidget(R.id.my_viewpage);
-        Log.d(TAG, "Bulb_DoubleColorFragment()");
-
         fragments.add(bulb_doubleColorFragmentSub1);
         fragments.add(bulb_doubleColorFragmentSub2);
         fragments.add(bulb_doubleColorFragmentSub3);

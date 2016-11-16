@@ -1,6 +1,7 @@
 package com.gta.administrator.infraredcontrol.socket;
 
 import android.util.Log;
+
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class SocketUlitity implements NetworkInterface{
     private OutputStream outputStream = null;
     private InputStream inputStream = null;
     private static Socket mSocket = null;
+
+    private static Socket[] mSocket_pool =null;
 
     private static final String IP_ADDRESS = "10.0.0.1";//硬件的SSID
     private static final int PORT = 6666;//端口
@@ -44,17 +47,18 @@ public class SocketUlitity implements NetworkInterface{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (outputStream == null) ;
                 try {
+                    Log.d(TAG, "write socket now ! data:"+data);
                     outputStream.write(data.getBytes("UTF-8"));
                 } catch (IOException e) {
                     e.printStackTrace();
+                    closeConnect();
                     callbackListener.onSendError();
-
                 }
+                Log.d(TAG, "发送数据完毕，开启接收线程 ! ");
+                receive();
             }
         }).start();
-
     }
 
     private void receive() {
@@ -64,21 +68,33 @@ public class SocketUlitity implements NetworkInterface{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (inputStream == null) ;
-                byte[] b_data = new byte[1024];
                 try {
-                    int len = inputStream.read(b_data);
-
-                    if (len > 0) {
-                        byte[] a_data = Arrays.copyOf(b_data, len);
+                    byte[] b_data = new byte[1024];
+                    int length = -1;
+                    int i=0;
+                    //等待数据到来，250ms超时，断开连接，放弃接收！
+                    while ((length=inputStream.read(b_data)) == -1)
+                    {
+                        i++;
+                        Thread.sleep(1);
+                        Log.d(TAG, "receive wait time :"+i);
+                        if (i>5) {
+                            closeConnect();
+                            Log.d(TAG, "receive out of time !: ");
+                            return;
+                        }
+                    }
+                        byte[] a_data = Arrays.copyOf(b_data, length);
                         data = new String(a_data, "UTF-8");
-//                        while (receive == null) ;
-//                        receive.receive(data);
                         if (callbackListener != null) {
                             callbackListener.socketReceiveData(data);
                         }
-                    }
+                    Log.d(TAG, "receive over ! 准备关闭连接！");
+                    closeConnect();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    closeConnect();
                     e.printStackTrace();
                 }
             }
@@ -88,24 +104,19 @@ public class SocketUlitity implements NetworkInterface{
 
     @Override
     public void openConnect() {
-//        Log.d(TAG, "openConnect: networkInterface");
-        if (mSocket == null) {
+        if (mSocket==null) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     // 延时100ms
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    Log.d(TAG, "socket:openConnect start!");
                     try {
                         connectListener.onStartConn();//开始创建socket
                         mSocket = new Socket(IP_ADDRESS, PORT);
                         outputStream = mSocket.getOutputStream();
                         inputStream = mSocket.getInputStream();
                         connectListener.onSuccess();// 创建socket成功
-                    } catch (IOException e) {
+                     } catch (IOException e) {
                         e.printStackTrace();
                         Log.d(TAG, "socket open failed");
                         connectListener.onFaild();// 创建socket失败
@@ -115,18 +126,50 @@ public class SocketUlitity implements NetworkInterface{
         }
     }
 
+    public void openConnect(String data) {
+        class OpenConnect extends Thread{
+            private String data;
+            public OpenConnect(String data) {
+                this.data=data;
+            }
+            public void run()
+            {
+                Log.d(TAG, "socket:openConnect !");
+                try {
+                    connectListener.onStartConn();//开始创建socket
+                    mSocket = new Socket(IP_ADDRESS, PORT);
+                    outputStream = mSocket.getOutputStream();
+                    inputStream = mSocket.getInputStream();
+                    connectListener.onSuccess();// 创建socket成功
+                    Log.d(TAG, "run: 创建socket成功,并准备写出socket"+data);
+                    write(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "socket open failed");
+                    connectListener.onFaild();// 创建socket失败
+                }
+            }
+        }
+        if (mSocket==null) {
+            OpenConnect openconnet = new OpenConnect(data);
+            openconnet.start();
+        }
+    }
+
     @Override
     public void closeConnect() {
-        if (mSocket == null) {
-            socketUlitity = null;
-            return;
-        }
         try {
-            mSocket.close();
-            outputStream.close();
-            mSocket = null;
-            outputStream = null;
+            if (mSocket!=null){
+                mSocket.close();
+                mSocket = null;
+            }
+            if (outputStream != null){
+                outputStream.close();
+                outputStream = null;
+            }
+            Log.d(TAG, "closeConnect: 关闭成功！");
         } catch (IOException e) {
+            Log.d(TAG, "closeConnect: 关闭失败！");
             e.printStackTrace();
         }
     }
@@ -138,11 +181,16 @@ public class SocketUlitity implements NetworkInterface{
      */
     @Override
     public void sendData(String data, boolean isReceived) {
+        if (mSocket==null) {
+            Log.d(TAG, "open connect and sendData: "+data);
+            openConnect(data);
+            return;
+        }
+        Log.d(TAG, "sendData: "+data);
         write(data);
-        // 是否接收消息
+        // 接收消息写这里可能会引起冲突,必须要等写完才能接收
         if (isReceived) {
-            receive();//发送完数据，立马开启线程等待接收
-//        receiveData();
+     //       receive();//发送完数据，立马开启线程等待接收
         }
     }
 
@@ -150,12 +198,6 @@ public class SocketUlitity implements NetworkInterface{
     public boolean isConnected() {
         return mSocket != null ? mSocket.isConnected() : false;
     }
-
-//    @Override
-//    private void receiveData() {
-////        Log.d(TAG, "receiveData: ");
-//        receive();
-//    }
 
 
     private CallbackListener callbackListener = null;
@@ -170,13 +212,5 @@ public class SocketUlitity implements NetworkInterface{
         connectListener = callbackConnectListener;
     }
 
-
-//    private Receive receive;
-//    public void setReceiveListener(Receive receiveListener) {
-//        receive = receiveListener;
-//    }
-//    public interface Receive {
-//        void receive(final String val);
-//    }
 
 }

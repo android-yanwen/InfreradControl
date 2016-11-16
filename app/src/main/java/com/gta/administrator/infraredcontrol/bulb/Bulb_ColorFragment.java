@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +24,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.gta.administrator.infraredcontrol.NetworkRequest;
 import com.gta.administrator.infraredcontrol.R;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
 import com.gta.administrator.infraredcontrol.view.BallScrollView;
 import com.lukedeighton.wheelview.WheelView;
 import com.lukedeighton.wheelview.adapter.WheelArrayAdapter;
-
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,6 +42,7 @@ import java.util.Map;
  */
 public class Bulb_ColorFragment extends Fragment {
     private Context mContext;
+    private BulbActivity bulbActivity;
     private static final String TAG = "Bulb_ColorFragment";
     private TextView txtColor;
 //    private ColorPickView myView;
@@ -63,7 +58,6 @@ public class Bulb_ColorFragment extends Fragment {
     private int n_color_G = 0;
     private int n_color_B = 0;
     private float f_color_Alpha = 0f;
-
     private NetworkInterface network;
     private Bitmap afterBitmap, baseBitmap;
     private Paint paint;
@@ -75,7 +69,6 @@ public class Bulb_ColorFragment extends Fragment {
     private ImageButton power_switch_button;
 
 
-
     private static final int ITEM_COUNT = 24;
     private Handler handler = new Handler(){
         @Override
@@ -85,8 +78,7 @@ public class Bulb_ColorFragment extends Fragment {
     };
 
     public Bulb_ColorFragment() {
-        // Required empty public constructor
-        mContext = getActivity();
+        this.mContext = getActivity();
     }
 
 
@@ -109,9 +101,7 @@ public class Bulb_ColorFragment extends Fragment {
         power_switch_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Resources resources = getActivity().getResources();
-//                Drawable drawable = resources.getDrawable(R.mipmap.power_on_icon);
-                // on
+
                 if (powerIsOn) {
                     powerIsOn = false;
                     power_switch_button.setBackgroundResource(R.mipmap.power_off_icon);
@@ -120,13 +110,13 @@ public class Bulb_ColorFragment extends Fragment {
                     powerIsOn = true;
                     network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
                     power_switch_button.setBackgroundResource(R.mipmap.power_on_icon);
-                    // 打开灯500ms之后发送一条控灯指令
+
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             RGB rgba = calcRGB(f_color_Alpha);
                             dispColor(rgba);
-                            sendColorData(rgba);
+                            bulbActivity.sendColorData(Integer.toString(rgba.f_r),Integer.toString(rgba.f_g) ,Integer.toString(rgba.f_b),color_W);
                         }
                     }, 1000);
                 }
@@ -139,65 +129,6 @@ public class Bulb_ColorFragment extends Fragment {
         bulb_icon_img = (ImageView) view.findViewById(R.id.bulb_icon_img);
 
         txtColor = (TextView) view.findViewById(R.id.txt_color);
-//        myView = (ColorPickView) view.findViewById(R.id.color_picker_view);
-//        myView.setOnColorChangedListener(new ColorPickView.OnColorChangedListener() {
-//            RGB rgba;
-//
-//            @Override
-//            public void onActionDown() {
-//                Log.d(TAG, "onActionDown: ");
-//            }
-//
-//            @Override
-//            public void onColorChange(int color) {
-//
-////                Log.d(TAG, "color=" + color + ":" + Integer.toHexString(color));
-////                Toast.makeText(getActivity(), "color:" + Integer.toHexString(color), Toast.LENGTH_SHORT).show();
-//                txtColor.setTextColor(color);
-//
-//                n_color_R = color >> 16 & 0xff;//取出颜色R值
-//                n_color_G = color >> 8 & 0xff;//取出颜色G值
-//                n_color_B = color & 0xff;//取出颜色B值
-//
-//                rgba = calcRGB(f_color_Alpha);
-//                // 颜色显示在控件上
-//                dispColor(rgba);
-//            }
-//
-//            @Override
-//            public void onActionUp() {
-//                sendColorData(rgba);
-//            }
-//
-//        });
-
-//        // 进度条可调节亮度
-//        color_picker_brightness_seekbar = (SeekBar) view.findViewById(R.id.color_picker_brightness_seekbar);
-////        int progress = color_picker_brightness_seekbar.getProgress();
-////        color_W = Integer.toHexString(progress);//获取颜色W值
-//        color_picker_brightness_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            RGB rgba;
-//
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                f_color_Alpha = progress / 100f;//计算透明度值
-//                // 将亮度alpha计算到rgb值当中
-//                rgba = calcRGB(f_color_Alpha);
-//                // 颜色显示在控件上
-//                dispColor(rgba);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-////                Log.d(TAG, "onStartTrackingTouch: " + seekBar);
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-////                Log.d(TAG, "onStopTrackingTouch: " + seekBar);
-//                sendColorData(rgba);
-//            }
-//        });
         initColorBulb();
 
 
@@ -233,7 +164,7 @@ public class Bulb_ColorFragment extends Fragment {
                 rgba = calcRGB(f_color_Alpha);
                 // 颜色显示在控件上
                 dispColor(rgba);
-                sendColorData(rgba);
+                bulbActivity.sendColorData(Integer.toString(rgba.f_r),Integer.toString(rgba.f_g) ,Integer.toString(rgba.f_b),color_W);
             }
         });
         int color = getResources().getColor(R.color.COLOR_CIRCLE_1);
@@ -261,7 +192,7 @@ public class Bulb_ColorFragment extends Fragment {
                     brightness_value_text.setText(paramInt1 + "%");
                     // 颜色显示在控件上
                     dispColor(rgba);
-                    sendColorData(rgba);
+                    bulbActivity.sendColorData(Integer.toString(rgba.f_r),Integer.toString(rgba.f_g) ,Integer.toString(rgba.f_b),color_W);
                 }
             }
         });
@@ -270,59 +201,9 @@ public class Bulb_ColorFragment extends Fragment {
 
 
     private void initNetwork() {
-        network = NetworkRequest.getInstance(getActivity());
-        network.setCallbackListener(new NetworkInterface.CallbackListener() {
-            @Override
-            public void connectionLost(Throwable cause) {
-                network.openConnect();//异常断开后重新打开链接
-                Log.d(TAG, "Lost reconnected");
-//                Toast.makeText(getActivity(), "连接丢失，网络不稳定！", Toast.LENGTH_SHORT).show();
-//                network.closeConnect();
-//                getActivity().finish();
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage message) {
-
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
-//                toastMsg("发送成功");
-                Log.i(TAG, "deliveryComplete: " + "发送成功。");
-
-            }
-
-            @Override
-            public void onSendError() {
-//                toastMsg("发送失败，请重试。");
-                Log.i(TAG, "deliveryComplete: " + "发送失败，请重试。");
-            }
-
-            @Override
-            public void socketReceiveData(String data) {
-
-            }
-        });
+        this.bulbActivity = (BulbActivity)getActivity();
+        network = this.bulbActivity.networkInterface;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        network.openConnect();
-    }
-
-
-
-    private void toastMsg(final String msg) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
     private void initColorBulb() {
         baseBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_color_bulb);
@@ -362,10 +243,6 @@ public class Bulb_ColorFragment extends Fragment {
         txtColor.setText(command);
     }
 
-    private void sendColorData(RGB rgba) {
-        String command = BulbCode.getBulbColorCode(Integer.toString(rgba.f_r), Integer.toString(rgba.f_g), Integer.toString(rgba.f_b), color_W);
-        network.sendData(command, true);
-    }
 
 
     /**

@@ -1,6 +1,7 @@
 package com.gta.administrator.infraredcontrol;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.baidu_iot_hub.MqttRequest;
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
+
+import dmax.dialog.SpotsDialog;
 
 /**
  * Created by yanwen on 16/10/15.
@@ -21,7 +24,8 @@ public class ActivityManager {
 
     private static Context mContext;
     private Intent intent=new Intent();
-    private ProgressDialog progressDialog;
+    //    private ProgressDialog progressDialog;
+    private AlertDialog progressDialog;
 
     private NetworkInterface networkInterface;
     private Class jumpActivity;// 跳转到的activity
@@ -70,8 +74,10 @@ public class ActivityManager {
         ((Activity) mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressDialog = new ProgressDialog(mContext);
-                progressDialog.setMessage("连接中...");
+//                progressDialog = new ProgressDialog(mContext);
+//                progressDialog.setMessage("连接中...");
+//                progressDialog.show();
+                progressDialog = new SpotsDialog(mContext);
                 progressDialog.show();
             }
         });
@@ -85,7 +91,8 @@ public class ActivityManager {
             @Override
             public void run() {
                 if (progressDialog != null) {
-                    progressDialog.cancel();
+//                    progressDialog.cancel();
+                    progressDialog.dismiss();
                 }
             }
         });

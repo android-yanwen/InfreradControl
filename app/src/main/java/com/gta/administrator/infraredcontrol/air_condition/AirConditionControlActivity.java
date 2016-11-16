@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,27 +28,27 @@ public class AirConditionControlActivity extends NetworkActivity {
 
     Context mContext;
     TextView air_name;
-    Button air_button_MORE_FUN;
-    Button power_switch_button;
+    ImageButton air_button_MORE_FUN;
+    CheckBox power_switch_button;
     TextView air_temp;
-    Button mode_button;
+    ImageButton mode_button;
     TextView air_mode_type;
     ImageView air_mode_pic;
-    Button air_button_wind_speed;                         //风速
-    Button air_button_WIND_SWEEP_MAN;                     //风向
-    Button air_button_WIND_SWEEP_AUTO;                    //扫风
+    ImageButton air_button_wind_speed;                         //风速
+    ImageButton air_button_WIND_SWEEP_MAN;                     //风向
+    ImageButton air_button_WIND_SWEEP_AUTO;                    //扫风
     ImageButton temp_add_button;
     ImageButton temp_dec_button;
     @BindView(R.id.air_text_wind_speed) TextView airTextWindSpeed;
     @BindView(R.id.air_mode_wind_angle) TextView airModeWindAngle;
-    @BindView(R.id.air_button_addhot) Button airButtonAddhot;
+    @BindView(R.id.air_button_addhot) ImageButton airButtonAddhot;
     @BindView(R.id.air_mode_wind_to) TextView airModeWindTo;
-    @BindView(R.id.air_sleep) Button airSleep;
+    @BindView(R.id.air_sleep) ImageButton airSleep;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_air_condition_control);
+        setContentView(R.layout.activity_air_condition_control_1);
         ButterKnife.bind(this);
         mContext = this;
         initView();
@@ -55,28 +57,31 @@ public class AirConditionControlActivity extends NetworkActivity {
     private void initView() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.mipmap.yk_ctrl_item_menu);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String brand_models = bundle.getString("parameter");
-        power_switch_button = (Button) findViewById(R.id.power_switch_button);
-        power_switch_button.setOnClickListener(new Air_OnClickListener(brand_models));
+        power_switch_button = (CheckBox) findViewById(R.id.power_switch_button);
+//        power_switch_button.setOnClickListener(new Air_OnClickListener(brand_models));
+        power_switch_button.setOnCheckedChangeListener(new AirPowerOpen_OnClickListener(brand_models));
+
         temp_add_button = (ImageButton) findViewById(R.id.air_button_TEMP_ADD);
         temp_add_button.setOnClickListener(new Air_OnClickListener(brand_models));
         temp_dec_button = (ImageButton) findViewById(R.id.air_button_TEMP_DEC);
         temp_dec_button.setOnClickListener(new Air_OnClickListener(brand_models));
         air_temp = (TextView) findViewById(R.id.air_temp);
         air_temp.setOnClickListener(new Air_OnClickListener(brand_models));
-        air_button_MORE_FUN = (Button) findViewById(R.id.air_button_MORE_FUN);
+        air_button_MORE_FUN = (ImageButton) findViewById(R.id.air_button_MORE_FUN);
         air_button_MORE_FUN.setOnClickListener(new Air_OnClickListener(brand_models));
-        air_button_wind_speed = (Button) findViewById(R.id.air_button_wind_speed);
+        air_button_wind_speed = (ImageButton) findViewById(R.id.air_button_wind_speed);
         air_button_wind_speed.setOnClickListener(new Air_OnClickListener(brand_models));
-        air_button_WIND_SWEEP_MAN = (Button) findViewById(R.id.air_button_WIND_SWEEP_MAN);
+        air_button_WIND_SWEEP_MAN = (ImageButton) findViewById(R.id.air_button_WIND_SWEEP_MAN);
         air_button_WIND_SWEEP_MAN.setOnClickListener(new Air_OnClickListener(brand_models));
-        air_button_WIND_SWEEP_AUTO = (Button) findViewById(R.id.air_button_WIND_SWEEP_AUTO);
+        air_button_WIND_SWEEP_AUTO = (ImageButton) findViewById(R.id.air_button_WIND_SWEEP_AUTO);
         air_button_WIND_SWEEP_AUTO.setOnClickListener(new Air_OnClickListener(brand_models));
         air_name = (TextView) findViewById(R.id.air_name);
         air_name.setText(brand_models);
-        mode_button = (Button) findViewById(R.id.air_mode_switch_button);
+        mode_button = (ImageButton) findViewById(R.id.air_mode_switch_button);
         mode_button.setOnClickListener(new Air_OnClickListener(brand_models));
         air_mode_type = (TextView) findViewById(R.id.air_mode_type);
         air_mode_pic = (ImageView) findViewById(R.id.air_mode_pic);
@@ -96,17 +101,17 @@ public class AirConditionControlActivity extends NetworkActivity {
         public void onClick(View v) {
             int temp;
             switch (v.getId()) {
-                case R.id.power_switch_button:
-                    if (power_switch_button.getText().equals("开启")) {
-                        Send_ircode(this.brand_models, "开电源");
-                        power_switch_button.setText("关闭");
-                        power_switch_button.setTextColor(Color.BLACK);
-                    } else {
-                        Send_ircode(this.brand_models, "关电源");
-                        power_switch_button.setText("开启");
-                        power_switch_button.setTextColor(Color.RED);
-                    }
-                    break;
+//                case R.id.power_switch_button:
+//                    if (power_switch_button.getText().equals("开启")) {
+//                        Send_ircode(this.brand_models, "开电源");
+//                        power_switch_button.setText("关闭");
+//                        power_switch_button.setTextColor(Color.BLACK);
+//                    } else {
+//                        Send_ircode(this.brand_models, "关电源");
+//                        power_switch_button.setText("开启");
+//                        power_switch_button.setTextColor(Color.RED);
+//                    }
+//                    break;
                 case R.id.air_button_TEMP_ADD:
                     Log.d(TAG, "onClick: Brand_models:::" + this.brand_models);
                     temp = Integer.parseInt(air_temp.getText().toString());
@@ -221,5 +226,22 @@ public class AirConditionControlActivity extends NetworkActivity {
             }
         }
     }
+
+    private class AirPowerOpen_OnClickListener implements CompoundButton.OnCheckedChangeListener {
+        String brand_models;
+        public AirPowerOpen_OnClickListener(String brand_models) {
+            this.brand_models = brand_models;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                Send_ircode(this.brand_models, "关电源");
+            } else {
+                Send_ircode(this.brand_models, "开电源");
+            }
+        }
+    }
+
 }
 
