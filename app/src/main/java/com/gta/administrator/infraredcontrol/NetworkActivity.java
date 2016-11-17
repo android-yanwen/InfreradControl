@@ -35,7 +35,7 @@ public class NetworkActivity  extends AppCompatActivity {
     private Context mContext;
     public NetworkInterface networkInterface;
     private MyCustomDialog alertDialog;
-    public boolean colorIsSentSuccessfully = true;
+    public volatile boolean colorIsSentSuccessfully = true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +76,7 @@ public class NetworkActivity  extends AppCompatActivity {
             @Override
             public void socketReceiveData(String data) {
                 Log.d(TAG, "socketReceiveData: " + data);
+                handler.post(postRunnable);
             }
         });
         networkInterface.setCallbackConnectListener(new NetworkConnectListener());

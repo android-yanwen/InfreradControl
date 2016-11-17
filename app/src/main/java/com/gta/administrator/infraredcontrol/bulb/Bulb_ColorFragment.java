@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gta.administrator.infraredcontrol.R;
@@ -45,8 +44,6 @@ public class Bulb_ColorFragment extends Fragment {
     private BulbActivity bulbActivity;
     private static final String TAG = "Bulb_ColorFragment";
     private TextView txtColor;
-//    private ColorPickView myView;
-    private SeekBar color_picker_brightness_seekbar;
     private WheelView wheelView;
     private BallScrollView track_ball;
     private TextView brightness_value_text;
@@ -63,8 +60,6 @@ public class Bulb_ColorFragment extends Fragment {
     private Paint paint;
     private Canvas canvas;
     private ImageView bulb_icon_img;
-    //    private SlideSwitch on_off_slide;
-    // 电源开关标志位
     private boolean powerIsOn = false;
     private ImageButton power_switch_button;
 
@@ -86,7 +81,6 @@ public class Bulb_ColorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_bulb__color, container, false);
-        // Inflate the layout for this fragment
         initView();
         initNetwork();
         return view;
@@ -101,26 +95,18 @@ public class Bulb_ColorFragment extends Fragment {
         power_switch_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                RGB rgba = calcRGB(f_color_Alpha);
+                dispColor(rgba);
                 if (powerIsOn) {
                     powerIsOn = false;
                     power_switch_button.setBackgroundResource(R.mipmap.power_off_icon);
-                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_OFF), true);
+                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_OFF,Integer.toString(rgba.f_r),Integer.toString(rgba.f_g),Integer.toString(rgba.f_b),color_W), true);
                 } else {//off
                     powerIsOn = true;
-                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
+
+                    network.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON,Integer.toString(rgba.f_r),Integer.toString(rgba.f_g),Integer.toString(rgba.f_b),color_W), true);
                     power_switch_button.setBackgroundResource(R.mipmap.power_on_icon);
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            RGB rgba = calcRGB(f_color_Alpha);
-                            dispColor(rgba);
-                            bulbActivity.sendColorData(Integer.toString(rgba.f_r),Integer.toString(rgba.f_g) ,Integer.toString(rgba.f_b),color_W);
-                        }
-                    }, 1000);
                 }
-
             }
 
         });
@@ -184,12 +170,12 @@ public class Bulb_ColorFragment extends Fragment {
                     paramBoolean) {
 //                Log.i(TAG, "notifyTrackBallHasScrolled: " + paramInt1 + ";" + paramInt2 + ";" +
 //                        paramBoolean);
-                // textview显示当前值
-                brightness_value_text.setText(paramInt1 + "%");
                 if (f_color_Alpha != paramInt1 / 100f) {
                     f_color_Alpha = paramInt1 / 100f;//计算透明度值
                     // 将亮度alpha计算到rgb值当中
                     rgba = calcRGB(f_color_Alpha);
+                    // textview显示当前值
+                    brightness_value_text.setText(paramInt1 + "%");
                     // 颜色显示在控件上
                     dispColor(rgba);
                     bulbActivity.sendColorData(Integer.toString(rgba.f_r),Integer.toString(rgba.f_g) ,Integer.toString(rgba.f_b),color_W);

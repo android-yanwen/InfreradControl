@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
 import com.gta.administrator.infraredcontrol.view.BallScrollView;
 
 import java.math.BigDecimal;
+
+import static java.lang.Math.abs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +44,8 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
     private int n_color_B = 255;
     private int n_color_W = 255;
     private float f_color_temperature = 0f;
-    private float f_brightness = 0f;
+    private float f_brightness = 0.5f;
+    private float f_brightness_bak = 0f;
 
     private NetworkInterface networkInterface;
 
@@ -70,30 +74,6 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
 
 
     private void initView() {
-        on_off_switch_btn = (ImageButton) view.findViewById(R.id.on_off_switch_btn);
-        on_off_switch_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (powerIsOn) {
-                    powerIsOn = false;
-                    networkInterface.sendData(BulbCode.getBulbColorSwitchCode(BulbCode
-                            .SWITCH_OFF), true);
-                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_on_icon);
-                } else {
-                    powerIsOn = true;
-                    networkInterface.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON), true);
-                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_off_icon);
-                    // 500ms过后发送一条灯控指令
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            sendData();
-                        }
-                    }, 1000);
-                }
-            }
-        });
-
         brightness_value_text = (TextView) view.findViewById(R.id.brightness_value_text);
         brightness_value_ballscrollview = (BallScrollView) view.findViewById(R.id
                 .brightness_value_ballscrollview);
@@ -106,13 +86,17 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
                 if (f_brightness != paramInt1 / 100f) {
                     f_brightness = paramInt1 / 100f;
                     brightness_value_text.setText("亮度：" + paramInt1 + "%");
-                    sendData();
+                    if (abs(f_brightness-f_brightness_bak)>0.05){
+                        f_brightness_bak = f_brightness;
+                        sendData();
+                    }
+                    else
+                    {
+                        Log.d(TAG, "亮度调整: 变态太小放弃发送！");
+                    }
                 }
             }
         });
-
-
-
         color_temperature_seek = (SeekBar) view.findViewById(R.id.color_temperature_seek);
         f_color_temperature = color_temperature_seek.getProgress() / 100f;
         color_temperature_seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -132,6 +116,33 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
                 sendData();
             }
         });
+
+        on_off_switch_btn = (ImageButton) view.findViewById(R.id.on_off_switch_btn);
+        on_off_switch_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                f_color_temperature = color_temperature_seek.getProgress() / 100f;
+                int n_color_r = reserveTwoDeciamls(n_color_R * f_brightness * (1 - f_color_temperature));
+                int n_color_g = reserveTwoDeciamls(n_color_G * f_brightness * (1 - f_color_temperature));
+                int n_color_b = reserveTwoDeciamls(n_color_B * f_brightness * (1 - f_color_temperature));
+                int n_color_w = reserveTwoDeciamls(n_color_W * f_brightness * f_color_temperature);
+                if (powerIsOn) {
+                    powerIsOn = false;
+                    networkInterface.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_OFF,Integer.toString(n_color_r),Integer.toString(n_color_g),Integer.toString(n_color_b),Integer.toString(n_color_w)), true);
+                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_off_icon);
+                } else {
+                    powerIsOn = true;
+                    networkInterface.sendData(BulbCode.getBulbColorSwitchCode(BulbCode.SWITCH_ON,Integer.toString(n_color_r),Integer.toString(n_color_g),Integer.toString(n_color_b),Integer.toString(n_color_w)), true);
+                    on_off_switch_btn.setBackgroundResource(R.mipmap.power_on_icon);
+                }
+            }
+        });
+
+
+
+
+
+
     }
 
     private void initNetwork() {
@@ -173,11 +184,11 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
 
 
     private void sendData() {
+
         int n_color_r = reserveTwoDeciamls(n_color_R * f_brightness * (1 - f_color_temperature));
         int n_color_g = reserveTwoDeciamls(n_color_G * f_brightness * (1 - f_color_temperature));
         int n_color_b = reserveTwoDeciamls(n_color_B * f_brightness * (1 - f_color_temperature));
         int n_color_w = reserveTwoDeciamls(n_color_W * f_brightness * f_color_temperature);
-        bulbActivity.sendColorData(Integer.toString(n_color_r), Integer.toString(n_color_g), Integer.toString(n_color_b), Integer.toString(n_color_w));
-//        networkInterface.sendData(, true);
+        networkInterface.sendData(BulbCode.getBulbColorCode(Integer.toString(n_color_r), Integer.toString(n_color_g), Integer.toString(n_color_b), Integer.toString(n_color_w)), true);
     }
 }

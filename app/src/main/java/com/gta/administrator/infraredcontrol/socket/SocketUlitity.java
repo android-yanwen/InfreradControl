@@ -15,7 +15,6 @@ import java.util.Arrays;
  */
 public class SocketUlitity implements NetworkInterface{
     private static final String TAG = "SocketUlitity";
-
     private static SocketUlitity socketUlitity;
 
 //    private InputStream inputStream;
@@ -23,7 +22,6 @@ public class SocketUlitity implements NetworkInterface{
     private InputStream inputStream = null;
     private static Socket mSocket = null;
 
-    private static Socket[] mSocket_pool =null;
 
     private static final String IP_ADDRESS = "10.0.0.1";//硬件的SSID
     private static final int PORT = 6666;//端口
@@ -86,11 +84,11 @@ public class SocketUlitity implements NetworkInterface{
                     }
                         byte[] a_data = Arrays.copyOf(b_data, length);
                         data = new String(a_data, "UTF-8");
-                        if (callbackListener != null) {
-                            callbackListener.socketReceiveData(data);
-                        }
                     Log.d(TAG, "receive over ! 准备关闭连接！");
                     closeConnect();
+                    if (callbackListener != null) {
+                        callbackListener.socketReceiveData(data);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -104,26 +102,7 @@ public class SocketUlitity implements NetworkInterface{
 
     @Override
     public void openConnect() {
-        if (mSocket==null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // 延时100ms
-                    Log.d(TAG, "socket:openConnect start!");
-                    try {
-                        connectListener.onStartConn();//开始创建socket
-                        mSocket = new Socket(IP_ADDRESS, PORT);
-                        outputStream = mSocket.getOutputStream();
-                        inputStream = mSocket.getInputStream();
-                        connectListener.onSuccess();// 创建socket成功
-                     } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d(TAG, "socket open failed");
-                        connectListener.onFaild();// 创建socket失败
-                    }
-                }
-            }).start();
-        }
+//  短连接不允许外部自己打开连接
     }
 
     public void openConnect(String data) {
@@ -172,6 +151,7 @@ public class SocketUlitity implements NetworkInterface{
             Log.d(TAG, "closeConnect: 关闭失败！");
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -184,13 +164,6 @@ public class SocketUlitity implements NetworkInterface{
         if (mSocket==null) {
             Log.d(TAG, "open connect and sendData: "+data);
             openConnect(data);
-            return;
-        }
-        Log.d(TAG, "sendData: "+data);
-        write(data);
-        // 接收消息写这里可能会引起冲突,必须要等写完才能接收
-        if (isReceived) {
-     //       receive();//发送完数据，立马开启线程等待接收
         }
     }
 
@@ -211,6 +184,4 @@ public class SocketUlitity implements NetworkInterface{
     public void setCallbackConnectListener(CallbackConnectListener callbackConnectListener) {
         connectListener = callbackConnectListener;
     }
-
-
 }
