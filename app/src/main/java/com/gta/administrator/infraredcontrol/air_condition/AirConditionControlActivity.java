@@ -3,12 +3,10 @@ package com.gta.administrator.infraredcontrol.air_condition;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -62,7 +60,7 @@ public class AirConditionControlActivity extends NetworkActivity {
         Bundle bundle = intent.getExtras();
         String brand_models = bundle.getString("parameter");
         power_switch_button = (CheckBox) findViewById(R.id.power_switch_button);
-//        power_switch_button.setOnClickListener(new Air_OnClickListener(brand_models));
+        power_switch_button.setOnClickListener(new Air_OnClickListener(brand_models));
         power_switch_button.setOnCheckedChangeListener(new AirPowerOpen_OnClickListener(brand_models));
 
         temp_add_button = (ImageButton) findViewById(R.id.air_button_TEMP_ADD);
@@ -101,17 +99,6 @@ public class AirConditionControlActivity extends NetworkActivity {
         public void onClick(View v) {
             int temp;
             switch (v.getId()) {
-//                case R.id.power_switch_button:
-//                    if (power_switch_button.getText().equals("开启")) {
-//                        Send_ircode(this.brand_models, "开电源");
-//                        power_switch_button.setText("关闭");
-//                        power_switch_button.setTextColor(Color.BLACK);
-//                    } else {
-//                        Send_ircode(this.brand_models, "关电源");
-//                        power_switch_button.setText("开启");
-//                        power_switch_button.setTextColor(Color.RED);
-//                    }
-//                    break;
                 case R.id.air_button_TEMP_ADD:
                     Log.d(TAG, "onClick: Brand_models:::" + this.brand_models);
                     temp = Integer.parseInt(air_temp.getText().toString());
@@ -236,9 +223,9 @@ public class AirConditionControlActivity extends NetworkActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
-                Send_ircode(this.brand_models, "关电源");
-            } else {
                 Send_ircode(this.brand_models, "开电源");
+            } else {
+                Send_ircode(this.brand_models, "关电源");
             }
         }
     }
