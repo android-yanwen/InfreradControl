@@ -103,4 +103,15 @@ public class DBManager {
         return info;
     }
 
+    public void Close() {
+        if (db!=null)
+        {
+            db.close();
+            db=null;
+        }
+        if (helper!=null){
+            helper.close();
+            helper=null;
+        }
+    }
 }
