@@ -1,9 +1,11 @@
 package com.gta.administrator.infraredcontrol;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
@@ -11,6 +13,7 @@ import com.gta.administrator.infraredcontrol.database.DBManager;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
 import com.gta.administrator.infraredcontrol.mysql.Ir_code;
+import com.gta.administrator.infraredcontrol.view.MyCustomDialog;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -29,9 +32,12 @@ import static android.content.ContentValues.TAG;
 public class NetworkActivity  extends AppCompatActivity {
     private Context mContext;
     public NetworkInterface networkInterface;
+    private MyCustomDialog alertDialog;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext=this;
+        alertDialog = new MyCustomDialog(mContext);
         networkInterface = NetworkRequest.getInstance(mContext);
         networkInterface.setCallbackListener(new NetworkInterface.CallbackListener() {
             @Override
@@ -52,13 +58,15 @@ public class NetworkActivity  extends AppCompatActivity {
             }
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
-                toastMsg("发送成功");
+//                toastMsg("发送成功");
+                dismissDialog();
             }
             @Override
             public void onSendError() {
-                toastMsg("发送失败请重试");
+//                toastMsg("发送失败请重试");
                 networkInterface.closeConnect();
                 networkInterface.openConnect();
+                dismissDialog();
             }
             @Override
             public void socketReceiveData(String data) {
@@ -70,14 +78,14 @@ public class NetworkActivity  extends AppCompatActivity {
             networkInterface.openConnect();
         }
     }
-    private void toastMsg(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void toastMsg(final String msg) {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
     public void  Send_ircode(String Brand_models,String key) {
         class Get_ir_code extends Thread{
             private String Brand_models;
@@ -89,6 +97,7 @@ public class NetworkActivity  extends AppCompatActivity {
             }
             public void run()
             {
+                showDialog();
                 DBManager sqliteDB = new DBManager(mContext);
                 Ir_code code = new Ir_code();
                 try {
@@ -145,6 +154,25 @@ public class NetworkActivity  extends AppCompatActivity {
             Log.d(TAG, "onFaild: 链接失败，请检查网络");
             networkInterface.closeConnect();
         }
+    }
+
+
+    private void showDialog() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.buildProgressDialog();
+            }
+        });
+    }
+
+    private void dismissDialog() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog.cancelProgressDialog();
+            }
+        });
     }
 
 }
