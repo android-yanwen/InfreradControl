@@ -65,6 +65,10 @@ public class NetworkActivity  extends AppCompatActivity {
                 Log.d(TAG, "socketReceiveData: " + data);
             }
         });
+        networkInterface.setCallbackConnectListener(new NetworkConnectListener());
+        if (!networkInterface.isConnected()){
+            networkInterface.openConnect();
+        }
     }
     private void toastMsg(final String msg) {
         runOnUiThread(new Runnable() {
@@ -88,7 +92,7 @@ public class NetworkActivity  extends AppCompatActivity {
                 DBManager sqliteDB = new DBManager(mContext);
                 Ir_code code = new Ir_code();
                 try {
-                    Log.d(TAG, "Send_ircode Brand_models:"+Brand_models+"Send_ircode key:"+key);
+                    Log.d(TAG, "Send_ircode 厂家型号:"+Brand_models+"功能按键:"+key);
                     results=sqliteDB.query(Brand_models,key);
                     Log.d(TAG, "get ir_code form sqlite: "+results);
                     if (results==null)
@@ -103,6 +107,7 @@ public class NetworkActivity  extends AppCompatActivity {
                             ir_codes.setIr_code(results);
                             list_ir_codes.add(ir_codes);
                             sqliteDB.insert(list_ir_codes);
+                            sqliteDB.Close();
                         }
                     }
                 } catch (Exception e) {
@@ -121,4 +126,25 @@ public class NetworkActivity  extends AppCompatActivity {
         networkInterface.sendData(command, true);
         Log.d(TAG, "sendColorData: "+command);
     }
+
+
+    private class NetworkConnectListener implements NetworkInterface.CallbackConnectListener {
+
+        @Override
+        public void onStartConn() {
+            Log.d(TAG, "onStartConn: 启动链接");
+        }
+
+        @Override
+        public void onSuccess() {
+            Log.d(TAG, "onSuccess: 链接成功");
+        }
+
+        @Override
+        public void onFaild() {
+            Log.d(TAG, "onFaild: 链接失败，请检查网络");
+            networkInterface.closeConnect();
+        }
+    }
+
 }
