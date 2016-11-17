@@ -95,7 +95,7 @@ public class AddTelecontrolActivity extends AppCompatActivity {
                 hideView();
                 break;
             case R.id.yes_button:
-                activityManager.startActivity(AirConditionControlActivity.class, "code");
+                activityManager.startActivity(AirConditionControlActivity.class, "格力空调-1");
 
                 break;
         }
