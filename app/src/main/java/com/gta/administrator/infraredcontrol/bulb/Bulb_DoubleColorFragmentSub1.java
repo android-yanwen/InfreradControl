@@ -177,6 +177,7 @@ public class Bulb_DoubleColorFragmentSub1 extends Fragment {
         int n_color_g = reserveTwoDeciamls(n_color_G * f_brightness * (1 - f_color_temperature));
         int n_color_b = reserveTwoDeciamls(n_color_B * f_brightness * (1 - f_color_temperature));
         int n_color_w = reserveTwoDeciamls(n_color_W * f_brightness * f_color_temperature);
-        networkInterface.sendData(BulbCode.getBulbColorCode(Integer.toString(n_color_r), Integer.toString(n_color_g), Integer.toString(n_color_b), Integer.toString(n_color_w)), true);
+        bulbActivity.sendColorData(Integer.toString(n_color_r), Integer.toString(n_color_g), Integer.toString(n_color_b), Integer.toString(n_color_w));
+//        networkInterface.sendData(, true);
     }
 }

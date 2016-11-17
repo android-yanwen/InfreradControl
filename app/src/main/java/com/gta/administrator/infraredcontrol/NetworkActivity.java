@@ -3,6 +3,7 @@ package com.gta.administrator.infraredcontrol;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,9 +31,11 @@ import static android.content.ContentValues.TAG;
  */
 
 public class NetworkActivity  extends AppCompatActivity {
+    private static final String TAG = "NetworkActivity";
     private Context mContext;
     public NetworkInterface networkInterface;
     private MyCustomDialog alertDialog;
+    public boolean colorIsSentSuccessfully = true;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,8 @@ public class NetworkActivity  extends AppCompatActivity {
             public void deliveryComplete(IMqttDeliveryToken token) {
 //                toastMsg("发送成功");
                 dismissDialog();
+                handler.post(postRunnable);
+//                Log.i(TAG, "run: "  + "deliveryComplete");
             }
             @Override
             public void onSendError() {
@@ -130,10 +135,30 @@ public class NetworkActivity  extends AppCompatActivity {
     }
 
 
-    public void sendColorData(String f_r,String f_g,String f_b,String f_w) {
-        String command = BulbCode.getBulbColorCode(f_r,f_g,f_b, f_w);
-        networkInterface.sendData(command, true);
-        Log.d(TAG, "sendColorData: "+command);
+    public void sendColorData(String f_r, String f_g, String f_b, String f_w) {
+        if (colorIsSentSuccessfully) {
+            colorIsSentSuccessfully = false;
+            String command = BulbCode.getBulbColorCode(f_r, f_g, f_b, f_w);
+            networkInterface.sendData(command, true);
+//            Log.d(TAG, "sendColorData: " + command);
+            // 设置发送间隔时间
+            setSentIntervalTime(500);
+//            Log.i(TAG, "run: " + "sendColorData");
+        }
+    }
+
+    Handler handler = new Handler();
+    PostRunnable postRunnable = new PostRunnable();
+    private void setSentIntervalTime(int time) {
+        handler.removeCallbacks(postRunnable);
+        handler.postDelayed(postRunnable, time);
+    }
+    class PostRunnable implements Runnable {
+        @Override
+        public void run() {
+            colorIsSentSuccessfully = true;
+//            Log.i(TAG, "run: " +colorIsSentSuccessfully + "");
+        }
     }
 
 

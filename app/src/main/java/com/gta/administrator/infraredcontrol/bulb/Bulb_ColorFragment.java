@@ -184,12 +184,12 @@ public class Bulb_ColorFragment extends Fragment {
                     paramBoolean) {
 //                Log.i(TAG, "notifyTrackBallHasScrolled: " + paramInt1 + ";" + paramInt2 + ";" +
 //                        paramBoolean);
+                // textview显示当前值
+                brightness_value_text.setText(paramInt1 + "%");
                 if (f_color_Alpha != paramInt1 / 100f) {
                     f_color_Alpha = paramInt1 / 100f;//计算透明度值
                     // 将亮度alpha计算到rgb值当中
                     rgba = calcRGB(f_color_Alpha);
-                    // textview显示当前值
-                    brightness_value_text.setText(paramInt1 + "%");
                     // 颜色显示在控件上
                     dispColor(rgba);
                     bulbActivity.sendColorData(Integer.toString(rgba.f_r),Integer.toString(rgba.f_g) ,Integer.toString(rgba.f_b),color_W);
