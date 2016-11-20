@@ -1,32 +1,9 @@
 package com.gta.administrator.infraredcontrol.baidu_iot_hub;
 
-import android.util.Log;
-
-import com.baidubce.BceClientConfiguration;
-import com.baidubce.auth.BceV1Signer;
-import com.baidubce.auth.DefaultBceCredentials;
-import com.baidubce.http.BceHttpClient;
-import com.baidubce.http.BceHttpResponse;
-import com.baidubce.http.HttpMethodName;
-import com.baidubce.http.handler.BceErrorResponseHandler;
-import com.baidubce.http.handler.BceJsonResponseHandler;
-import com.baidubce.http.handler.HttpResponseHandler;
-import com.baidubce.internal.InternalRequest;
-import com.baidubce.internal.RestartableInputStream;
-import com.baidubce.model.AbstractBceResponse;
 import com.baidubce.services.iothub.IotHubClient;
-import com.baidubce.services.iothub.model.BaseRequest;
 import com.baidubce.services.iothub.model.BaseResponse;
 import com.baidubce.services.iothub.model.ListResponse;
 import com.baidubce.services.iothub.model.QueryEndpointResponse;
-import com.gta.administrator.infraredcontrol.json_utils.JsonUtiles;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by yanwen on 16/11/1.

@@ -1,6 +1,4 @@
 package com.gta.administrator.infraredcontrol.baidu_iot_hub;
-import android.os.Handler;
-import android.util.Log;
 
 //import com.baidubce.BceClientConfiguration;
 //import com.baidubce.auth.BceV1Signer;
@@ -28,43 +26,11 @@ import android.util.Log;
 //import com.baidubce.model.AbstractBceResponse;
 
 import com.baidubce.BceClientConfiguration;
-import com.baidubce.auth.BceV1Signer;
-import com.baidubce.auth.DefaultBceCredentials;
-import com.baidubce.http.BceHttpClient;
-import com.baidubce.http.BceHttpResponse;
-import com.baidubce.http.DefaultRetryPolicy;
-import com.baidubce.http.HttpMethodName;
-import com.baidubce.http.handler.BceErrorResponseHandler;
-import com.baidubce.http.handler.BceJsonResponseHandler;
-import com.baidubce.http.handler.HttpResponseHandler;
-import com.baidubce.internal.InternalRequest;
-import com.baidubce.model.AbstractBceResponse;
-import com.baidubce.services.iothub.IotHubClient;
-import com.gta.administrator.infraredcontrol.json_utils.JsonUtiles;
+        import com.baidubce.auth.DefaultBceCredentials;
+        import com.baidubce.services.iothub.IotHubClient;
 
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 //import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 
 /**
  * Created by yanwen on 16/10/12.
