@@ -1,19 +1,16 @@
 package com.gta.administrator.infraredcontrol;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.widget.Toast;
 
 import com.gta.administrator.infraredcontrol.bean.NetworkInterface;
 import com.gta.administrator.infraredcontrol.database.DBManager;
 import com.gta.administrator.infraredcontrol.infrared_code.AirConditionCode;
 import com.gta.administrator.infraredcontrol.infrared_code.BulbCode;
-import com.gta.administrator.infraredcontrol.mysql.Ir_code;
+import com.gta.administrator.infraredcontrol.database.Ir_code;
 import com.gta.administrator.infraredcontrol.view.MyCustomDialog;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -22,8 +19,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 
 /**

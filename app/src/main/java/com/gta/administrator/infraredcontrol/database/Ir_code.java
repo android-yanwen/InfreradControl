@@ -1,4 +1,4 @@
-package com.gta.administrator.infraredcontrol.mysql;
+package com.gta.administrator.infraredcontrol.database;
 
 
 import android.util.Log;
