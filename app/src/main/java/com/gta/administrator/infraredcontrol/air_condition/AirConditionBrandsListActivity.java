@@ -33,10 +33,10 @@ public class AirConditionBrandsListActivity extends AppCompatActivity {
     TextView dialog;
     private Context mContext;
     @BindView(R.id.air_condition_brands_list)
-    ListView air_condition_brands_list;
+    ListView air_condition_brands_listview;
 
     //    private List<String> air_condition_brands;
-    private List<DataSortModel> air_condition_brands;
+    private List<DataSortModel> air_condition_brands_list;
     //    private ArrayAdapter adapter;
     private SortAdapter adapter;
     private ActivityManager activityManager;
@@ -69,10 +69,10 @@ public class AirConditionBrandsListActivity extends AppCompatActivity {
 
     private void initView() {
 //        adapter = new ArrayAdapter(mContext, R.layout.my_list_item_text_1, air_condition_brands);
-        adapter = new SortAdapter(mContext, air_condition_brands);
-        air_condition_brands_list.setAdapter(adapter);
+        adapter = new SortAdapter(mContext, air_condition_brands_list);
+        air_condition_brands_listview.setAdapter(adapter);
         //ListView的点击事件
-        air_condition_brands_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        air_condition_brands_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -99,7 +99,7 @@ public class AirConditionBrandsListActivity extends AppCompatActivity {
                 //该字母首次出现的位置
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    air_condition_brands_list.setSelection(position + 1);
+                    air_condition_brands_listview.setSelection(position + 1);
                 }
             }
         });
@@ -112,7 +112,7 @@ public class AirConditionBrandsListActivity extends AppCompatActivity {
 //            air_condition_brands.add(airConditionBrands[i]);
 //        }
 //        air_condition_brands = filledData(getResources().getStringArray(R.array.city));
-        air_condition_brands = filledData(airConditionBrands);
+        air_condition_brands_list = filledData(airConditionBrands);
 
         activityManager = ActivityManager.getInstance(mContext);
     }
