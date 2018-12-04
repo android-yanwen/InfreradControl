@@ -26,19 +26,14 @@ public class EntryAppWindow extends AppCompatActivity {
     private int start = 0;
 //    private Bitmap bitmap;
     private ImageView background_img;
-//    private App myApplication;
-//    private Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//            background_img.setBackground(new BitmapDrawable((Bitmap)msg.obj));
-//            super.handleMessage(msg);
-//        }
-//    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        myApplication = (App) getApplication();
         setContentView(R.layout.entry_app_window);
+
+        setContentView(R.layout.entry_app_window);
+
 
 //        JodaTimeAndroid.init(this);
 
