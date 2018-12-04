@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gta.administrator.infraredcontrol.Main1Activity"
+    tools:showIn="@layout/activity_main1"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/my_viewpage"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                android:id="@+id/home_button"
+                style="@style/ItemAttrs2"
+                attrs:gradlayoutSrc="@mipmap/icon_rom"
+                attrs:gradlayoutText="房间"/>
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                android:id="@+id/device_button"
+                style="@style/ItemAttrs2"
+                attrs:gradlayoutSrc="@mipmap/icon_device"
+                attrs:gradlayoutText="设备"/>
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                android:id="@+id/set_button"
+                style="@style/ItemAttrs2"
+                attrs:gradlayoutSrc="@mipmap/icon_setting"
+                attrs:gradlayoutText="设置"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

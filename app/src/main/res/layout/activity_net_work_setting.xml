@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gta.administrator.infraredcontrol.setting.NetWorkSettingActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorRed"
+        android:textSize="20sp"
+        android:text="1、将设备接上电源；\n2、点击ESP8266开头的Wi-Fi名进行连接；\n3、连接成功后点击发送配置按钮；\n4、发送成功后点击联网方式选择，确定后退出。"/>
+
+    <View
+        android:layout_below="@id/text"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivide"/>
+
+    <ListView
+        android:id="@+id/my_listview"
+        android:layout_below="@id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <LinearLayout
+        android:layout_below="@id/framelayout_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                style="@style/ItemNumberAttrs"
+                attrs:gradlayoutSrc="@mipmap/icon_on_off"
+                attrs:gradlayoutText="开关"/>
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                style="@style/ItemNumberAttrs"
+                attrs:gradlayoutSrc="@mipmap/icon_menu"
+                attrs:gradlayoutText="菜单"/>
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                style="@style/ItemNumberAttrs"
+                attrs:gradlayoutSrc="@mipmap/icon_mute_32"
+                attrs:gradlayoutText="静音"/>
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorDivide"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageButton
+                style="@style/ItemNumberAttrs"
+                android:src="@mipmap/icon_plus_32"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="音量"/>
+            <ImageButton
+                style="@style/ItemNumberAttrs"
+                android:src="@mipmap/icon_less_32"/>
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorDivide"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageButton
+                style="@style/ItemNumberAttrs"
+                android:src="@mipmap/icon_up"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="频道"/>
+            <ImageButton
+                style="@style/ItemNumberAttrs"
+                android:src="@mipmap/icon_down"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

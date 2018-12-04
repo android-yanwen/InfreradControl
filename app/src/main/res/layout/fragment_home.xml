@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/get_endpoint_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取Endpoint列表"/>
+        <Button
+            android:id="@+id/get_endpoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取指定Endpoint"/>
+        <Button
+            android:id="@+id/add_endpoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="创建Endpoint"/>
+        <Button
+            android:id="@+id/delete_endpoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="删除指定Endpoint"/>
+
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorAccent"/>
+    </LinearLayout>
+
+
+</ScrollView>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:attrs="http://schemas.android.com/apk/res-auto"
+    tools:context="com.gta.administrator.infraredcontrol.powerAmplification.TL_PowerAmplificationControlActivity">
+
+    <FrameLayout
+        android:id="@+id/framelayout_1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/colorDivide">
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/direction_control_layout" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_below="@id/framelayout_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                style="@style/ItemAttrs2"
+                attrs:gradlayoutSrc="@mipmap/icon_on_off"
+                attrs:gradlayoutText="开关"/>
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                style="@style/ItemAttrs2"
+                attrs:gradlayoutSrc="@mipmap/icon_menu"
+                attrs:gradlayoutText="菜单"/>
+            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                style="@style/ItemAttrs2"
+                attrs:gradlayoutSrc="@mipmap/icon_mute_32"
+                attrs:gradlayoutText="静音"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivide"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="音量"/>
+            <ImageButton
+                style="@style/ItemAttrs2"
+                android:src="@mipmap/icon_less_32"/>
+            <ImageButton
+                style="@style/ItemAttrs2"
+                android:src="@mipmap/icon_plus_32"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

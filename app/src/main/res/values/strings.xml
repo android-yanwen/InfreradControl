@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">安家智能</string>
+    <string name="hw_tv_activity">华为IPTV</string>
+    <string name="cw_tv_activity">创维电视</string>
+    <string name="tv_brands_select">电视品牌选择</string>
+    <string name="set_top_boxes_brands_select">机顶盒品牌选择</string>
+    <string name="fan_brands_select">风扇品牌选择</string>
+    <string name="bulb_activity">灯泡</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_recycle_view">RecycleViewActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_md__fan_control">MD_FanControlActivity</string>
+</resources>

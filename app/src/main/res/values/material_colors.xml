@@ -1,0 +1,29 @@
+<resources>
+    <!-- 24COLOR_CIRCLE -->
+    <color name="COLOR_CIRCLE_1">#00ff00</color>
+    <color name="COLOR_CIRCLE_2">#40ff00</color>
+    <color name="COLOR_CIRCLE_3">#80ff00</color>
+    <color name="COLOR_CIRCLE_4">#bfff00</color>
+    <color name="COLOR_CIRCLE_5">#ffff00</color>
+    <color name="COLOR_CIRCLE_6">#ffbf00</color>
+    <color name="COLOR_CIRCLE_7">#ff8000</color>
+    <color name="COLOR_CIRCLE_8">#ff4000</color>
+    <color name="COLOR_CIRCLE_9">#ff0000</color>
+    <color name="COLOR_CIRCLE_10">#ff0040</color>
+    <color name="COLOR_CIRCLE_11">#ff0080</color>
+    <color name="COLOR_CIRCLE_12">#ff00bf</color>
+    <color name="COLOR_CIRCLE_13">#ff00ff</color>
+    <color name="COLOR_CIRCLE_14">#bf00ff</color>
+    <color name="COLOR_CIRCLE_15">#8000ff</color>
+    <color name="COLOR_CIRCLE_16">#4000ff</color>
+    <color name="COLOR_CIRCLE_17">#0000ff</color>
+    <color name="COLOR_CIRCLE_18">#0040ff</color>
+    <color name="COLOR_CIRCLE_19">#0080ff</color>
+    <color name="COLOR_CIRCLE_20">#00bfff</color>
+    <color name="COLOR_CIRCLE_21">#00ffff</color>
+    <color name="COLOR_CIRCLE_22">#00ffbf</color>
+    <color name="COLOR_CIRCLE_23">#00ff80</color>
+    <color name="COLOR_CIRCLE_24">#00ff40</color>
+    <color name="COLOR_background">#c0c0c0</color>
+    <color name="COLOR_select">#ffffff</color>
+</resources>

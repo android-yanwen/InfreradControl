@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/yk_ctrl_background"
+    tools:context="com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/layout_1"
+        android:background="#d8d8d8"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="当前温度:27摄氏度"/>
+
+<!--**********************************************************************-->
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout">
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="85dp">
+                <TextView
+                    android:id="@+id/air_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text="26"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="80sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/icon_temp_symbol"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_toRightOf="@id/linearlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="85dp">
+                <ImageView
+                    android:id="@+id/air_mode_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom" />
+                <TextView
+                    android:id="@+id/air_mode_type"
+                    android:gravity="bottom"
+                    android:layout_width="41dp"
+                    android:layout_height="match_parent"
+                    android:text="制冷"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+<!--**********************************************************************-->
+
+        <TextView
+            android:id="@+id/air_text_wind_speed"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:text="风速自动"/>
+        <TextView
+            android:id="@+id/air_mode_wind_angle"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:text="扫风自动"/>
+
+        <TextView
+            android:id="@+id/air_name"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_alignEnd="@+id/air_mode_wind_angle" />
+
+        <TextView
+            android:id="@+id/air_mode_wind_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="风向下"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_alignBaseline="@+id/air_mode_wind_angle"
+            android:layout_alignBottom="@+id/air_mode_wind_angle"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+<!--**********************************************************************-->
+
+
+    <LinearLayout
+        android:layout_below="@id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/power_switch_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorRed"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="开启"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDivide"/>
+            <Button
+                android:id="@+id/air_mode_switch_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="模式"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivide"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/air_button_wind_speed"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="风速"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDivide"/>
+            <Button
+                android:id="@+id/air_button_WIND_SWEEP_MAN"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="风向"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDivide"/>
+            <Button
+                android:id="@+id/air_button_WIND_SWEEP_AUTO"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="扫风"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivide"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/air_button_TEMP_DEC"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:src="@mipmap/icon_temp_sub"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="温度"/>
+
+            <ImageButton
+                android:id="@+id/air_button_TEMP_ADD"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:src="@mipmap/icon_temp_add"
+                android:background="@drawable/tv_num_bg_selector" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivide"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/air_button_addhot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="辅热"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDivide"/>
+            <Button
+                android:id="@+id/air_sleep"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="睡眠"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDivide"/>
+            <Button
+                android:id="@+id/air_button_MORE_FUN"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/tv_num_bg_selector"
+                android:text="更多功能"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

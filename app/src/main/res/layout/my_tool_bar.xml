@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/toolbar_start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/tv_num_bg_selector"
+        android:text="左边"/>
+
+    <TextView
+        android:id="@+id/toolbar_middle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:textColor="@color/colorWhite"
+        android:text="中间" />
+    <Button
+        android:id="@+id/toolbar_end_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/tv_num_bg_selector"
+        android:layout_alignParentEnd="true"
+        android:text="右边" />
+
+</RelativeLayout>

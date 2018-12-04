@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_send_config"
+        android:orderInCategory="100"
+        android:title="发送配置"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_net_choose"
+        android:orderInCategory="100"
+        android:title="网络访问方式选择"
+        app:showAsAction="always" />
+
+</menu>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EntryAppWindow">
+    <!--添加了ImageView作为移动的背景图!-->
+    <ImageView
+        android:id="@+id/background_img"
+        android:src="@mipmap/entry_window_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_marginBottom="70dp">
+        <Button
+            android:id="@+id/register_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/entry_btn_selector"
+            android:text="注册"/>
+        <Button
+            android:id="@+id/load_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/entry_btn_selector"
+            android:layout_marginLeft="20dp"
+            android:text="登录"/>
+    </LinearLayout>
+</FrameLayout>
