@@ -1,0 +1,61 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+	package
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:3:5-37
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:1-15:12
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:5:5-13:19
+	android:supportsRtl
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:8:9-35
+	android:label
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:7:9-41
+	android:allowBackup
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:6:9-35
+activity#com.lsh.packagelibrary.WebActivity
+ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:9:9-58
+	android:name
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:9:19-46
+activity#com.lsh.packagelibrary.TempActivity
+ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:10:9-59
+	android:name
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:10:19-47
+activity#com.lsh.packagelibrary.WebTwoActivity
+ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:11:9-61
+	android:name
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:11:19-49
+activity#com.lsh.packagelibrary.MarqueeActivity
+ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:12:9-62
+	android:name
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml:12:19-50
+uses-sdk
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/yanwen/AndroidStudioProjects/InfreradControl/packagelibrary/src/main/AndroidManifest.xml
