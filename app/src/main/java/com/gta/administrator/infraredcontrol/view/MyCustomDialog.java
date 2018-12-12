@@ -36,7 +36,7 @@ public class MyCustomDialog {
 			progressDialog = new Dialog(mContext, R.style.progress_dialog);
 		}
 		progressDialog.setContentView(R.layout.dialog_my);
-		progressDialog.setCancelable(false);
+		progressDialog.setCancelable(true);
 		progressDialog.getWindow().setBackgroundDrawableResource(
 				android.R.color.transparent);
 		TextView msg = (TextView) progressDialog

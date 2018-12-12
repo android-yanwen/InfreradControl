@@ -2,6 +2,7 @@ package com.gta.administrator.infraredcontrol;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,8 +26,9 @@ public class RegisterIdentificationWindow extends AppCompatActivity {
     private CheckBox register_accept_protocol_checkbox;
     private Button register_confirm_btn;
     private TextView register_service_protocol;
-    private TextView register_input_phone_number_edittext, register_again_input_password_edittext;
+    private EditText register_input_phone_number_edittext, register_again_input_password_edittext;
     private Context context;
+    private EditText register_input_password_edittext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class RegisterIdentificationWindow extends AppCompatActivity {
                 register_confirm_btn.setEnabled(isChecked);
                 register_input_phone_number_edittext.setEnabled(isChecked);
                 register_again_input_password_edittext.setEnabled(isChecked);
+                register_input_password_edittext.setEnabled(isChecked);
             }
         });
         register_confirm_btn = (Button) findViewById(R.id.register_confirm_btn);
@@ -50,6 +55,20 @@ public class RegisterIdentificationWindow extends AppCompatActivity {
             public void onClick(View v) {
                 String phoneNumber = register_input_phone_number_edittext.getText().toString();
                 if (checkPhone(phoneNumber)) {
+                    if (!register_input_password_edittext.getText().toString().equals(register_again_input_password_edittext.getText().toString())) {
+                        Toast.makeText(context, "两次输入密码不一样", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (register_input_password_edittext.getText().toString().isEmpty() ||
+                            register_again_input_password_edittext.getText().toString().isEmpty()) {
+                        Toast.makeText(context, "密码不能为空", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("phone", phoneNumber);
+                    editor.putString("password", register_again_input_password_edittext.getText().toString());
+                    editor.commit();
                     finish();
                 } else {
 //                    Toast.makeText(context, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
@@ -68,8 +87,9 @@ public class RegisterIdentificationWindow extends AppCompatActivity {
                 builder.show();
             }
         });
-        register_input_phone_number_edittext = (TextView) findViewById(R.id.register_input_phone_number_edittext);
-        register_again_input_password_edittext = (TextView) findViewById(R.id.register_again_input_password_edittext);
+        register_input_phone_number_edittext = (EditText) findViewById(R.id.register_input_phone_number_edittext);
+        register_again_input_password_edittext = (EditText) findViewById(R.id.register_again_input_password_edittext);
+        register_input_password_edittext = findViewById(R.id.register_input_password_edittext);
     }
 
     @Override

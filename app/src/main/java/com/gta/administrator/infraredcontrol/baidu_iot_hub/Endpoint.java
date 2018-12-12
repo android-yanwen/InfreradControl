@@ -83,8 +83,8 @@ public class Endpoint {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ListResponse response = iotHubClient.listEndpoints();
-                callbakcListener.listEndpointCallback(response);
+//                ListResponse response = iotHubClient.listEndpoints();
+//                callbakcListener.listEndpointCallback(response);
             }
         }).start();
     }

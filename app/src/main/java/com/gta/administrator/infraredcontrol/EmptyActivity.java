@@ -22,7 +22,9 @@ public class EmptyActivity extends TempActivity {
     @Override
     public int getAppId() {
 //        return Integer.parseInt(getResources().getString(R.string.app_id)); //自定义的APPID
-        return 990003; //自定义的APPID
+//        return 990003; //自定义的APPID
+//        return 912092220;
+        return 912122039;
     }
 
     @Override

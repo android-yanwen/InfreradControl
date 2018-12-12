@@ -7,6 +7,7 @@
               android:background="@mipmap/login_main_bg"
               tools:context=".LoadingWin">
     <EditText
+        android:id="@+id/id_phone_edit"
         android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
