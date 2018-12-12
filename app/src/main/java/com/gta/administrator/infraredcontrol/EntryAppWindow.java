@@ -32,7 +32,6 @@ public class EntryAppWindow extends AppCompatActivity {
 //        myApplication = (App) getApplication();
         setContentView(R.layout.entry_app_window);
 
-        setContentView(R.layout.entry_app_window);
 
 
 //        JodaTimeAndroid.init(this);

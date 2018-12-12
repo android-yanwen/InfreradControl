@@ -2,15 +2,15 @@ apply plugin: 'com.android.application'
 //apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 27
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "com.gta.administrator.infraredcontrol"
         minSdkVersion 17
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.4"
 
         multiDexEnabled true
     }
@@ -39,6 +39,11 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
+    //Add the following configuration
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 repositories {
     flatDir {
@@ -46,30 +51,35 @@ repositories {
     }
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:gridlayout-v7:23.1.1'
-    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
-    compile files('libs/bce-sdk-java.jar')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+//    implementation 'com.android.support:appcompat-v7:23.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+//    implementation 'com.android.support:recyclerview-v7:23.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+//    implementation 'com.android.support:gridlayout-v7:23.1.1'
+    implementation 'com.android.support:gridlayout-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2'
+    implementation files('libs/bce-sdk-java.jar')
     //    compile files('libs/bce-java-sdk-0.10.15.jar')
     //    compile files('libs/bce-java-sdk-0.10.13.jar')
-    compile files('libs/commons-codec-1.9.jar')
-    compile files('libs/commons-io-2.4.jar')
-    compile files('libs/guava-17.0.jar')
-    compile files('libs/httpcore-nio-4.3.2.jar')
-    compile files('libs/jackson-annotations-2.1.1.jar')
-    compile files('libs/jackson-core-2.1.1.jar')
-    compile files('libs/jackson-databind-2.1.1.jar')
+    implementation files('libs/commons-codec-1.9.jar')
+    implementation files('libs/commons-io-2.4.jar')
+    implementation files('libs/guava-17.0.jar')
+    implementation files('libs/httpcore-nio-4.3.2.jar')
+    implementation files('libs/jackson-annotations-2.1.1.jar')
+    implementation files('libs/jackson-core-2.1.1.jar')
+    implementation files('libs/jackson-databind-2.1.1.jar')
     //    compile files('libs/jcl-over-slf4j-1.7.7.jar')
     //    compile files('libs/joda-time-2.3.jar')
-    compile files('libs/logback-core-1.1.2.jar')
-    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    implementation files('libs/logback-core-1.1.2.jar')
+    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     //    compile 'org.slf4j:slf4j-android:1.7.7'
-    compile(name: 'WheelViewLib-release', ext: 'aar')
-    compile 'com.jakewharton:butterknife:8.4.0'
-//    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation(name: 'WheelViewLib-release', ext: 'aar')
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    //    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //    compile files('libs/mysql-connector-java-2.0.14-bin.jar')
     //    compile files('libs/slf4j-api-1.7.7.jar')
@@ -77,9 +87,12 @@ dependencies {
     //    compile 'org.slf4j:slf4j-api:1.7.21'
     //    compile files('libs/ksoap2-android-assembly-2.5.4-jar-with-dependencies.jar')
     //    compile files('libs/mysql-connector-java-2.0.14-bin.jar')
-    compile files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
+    implementation files('libs/mysql-connector-java-3.0.17-ga-bin.jar')
     //    compile 'net.danlew:android.joda:2.9.5'
-    compile 'com.github.d-max:spots-dialog:0.7@aar'
-    compile files('libs/pinyin4j-2.5.0.jar')
-//    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
+    implementation 'com.github.d-max:spots-dialog:0.7@aar'
+    implementation files('libs/pinyin4j-2.5.0.jar')
+    //    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
+    //    implementation 'com.github.adonggit:CasePackage:1.74'
+    //    implementation 'com.github.adonggit:CasePackage:1.1'
+    implementation project(':packagelibrary')
 }
