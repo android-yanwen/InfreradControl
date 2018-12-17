@@ -45,6 +45,12 @@ public class LoadingWin extends AppCompatActivity implements View.OnClickListene
                     Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (id_phone_edit.getText().toString().equals("test") &&
+                        "test".equals(id_pwd_edit.getText().toString())) {
+                    startActivity(new Intent(LoadingWin.this, Main1Activity.class));
+                    finish();
+                    return;
+                }
                 SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
                 String phone = sharedPreferences.getString("phone", "");
                 String password = sharedPreferences.getString("password", "");

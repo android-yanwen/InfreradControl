@@ -16,7 +16,8 @@
         android:drawableStart="@mipmap/name"
         android:drawablePadding="10dp"
         android:maxLines="1"
-        android:hint="请填写账号"/>
+        android:hint="请填写账号"
+        android:text="test"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +33,8 @@
             android:drawableStart="@mipmap/lock_1"
             android:drawablePadding="13dp"
             android:inputType="textPassword"
-            android:hint="请输入密码"/>
+            android:hint="请输入密码"
+            android:text="test"/>
         <EditText
             android:id="@+id/id_disp_pwd_edit"
             android:layout_width="wrap_content"

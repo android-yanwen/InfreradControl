@@ -35,31 +35,31 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final int[] devicesImg = {
-            R.mipmap.icon_mi_tv,
+//            R.mipmap.icon_mi_tv,
             R.mipmap.icon_ari_condition,
             R.mipmap.icon_tv,
             R.mipmap.icon_set_top_boxes,
             R.mipmap.icon_ari_fan,
-            R.mipmap.icon_box,
+//            R.mipmap.icon_box,
             R.mipmap.icon_sound,
             R.mipmap.icon_dvd,
             R.mipmap.icon_projector,
             R.mipmap.icon_satellite_tv,
-            R.mipmap.icon_camaro,
+//            R.mipmap.icon_camaro,
             R.mipmap.icon_bulb
     };
     private static final String[] devicesName = {
-            "小米电视/盒子",
+//            "小米电视/盒子",
             "空调",
             "电视",
             "电视机顶盒",
             "风扇",
-            "盒子",
+//            "盒子",
             "功放",
             "DVD",
             "投影仪",
             "卫星电视",
-            "单反",
+//            "单反",
             "灯泡"
     };
 
@@ -100,37 +100,44 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "position=" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "position=" + position, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
+//                        startActivity(new Intent(mContext, AirConditionBrandsListActivity.class));
+                        startActivity(new Intent(mContext, AirConditionBrandsListActivity.class));
                         break;
                     case 1:
 //                        activityManager.startActivity(AirConditionControlActivity.class,"格力空调-1");
-                        startActivity(new Intent(mContext, AirConditionBrandsListActivity.class));
-                        break;
-                    case 2:
                         startActivity(new Intent(mContext, TvBrandsListActivity.class));
                         break;
-                    case 3:
+                    case 2:
                         startActivity(new Intent(mContext, SetTopBoxesBrandsListActivity.class));
                         break;
-                    case 4:
+                    case 3:
                         startActivity(new Intent(mContext, FanBrandsListActivity.class));
                         break;
-                    case 6:
+                    case 4:
                         startActivity(new Intent(mContext, PowerAmplification_BrandsActivity.class));
                         break;
-                    case 7:
+                    case 5:
+//                        startActivity(new Intent(mContext, FanBrandsListActivity.class));
                         startActivity(new Intent(mContext, DvdBrandsListActivity.class));
                         break;
-                    case 8:
+                    case 6:
                         startActivity(new Intent(mContext, ProjectorsBrandsSelectActivity.class));
                         break;
-                    case  9:
+                    case 7:
                         startActivity(new Intent(mContext, SatelliteTvBrandsActivity.class));
                         break;
-                    case 11:
+                    case 8:
                         activityManager.startActivity(BulbActivity.class,null);
+                        break;
+                    case 9:
+                        break;
+                    case 10:
+//                        startActivity(new Intent(mContext, SatelliteTvBrandsActivity.class));
+                        break;
+                    case 11:
                         break;
 
                 }

@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/item_selector"
             android:clickable="true"
+            android:visibility="gone"
             android:padding="10dp">
 
             <ImageView

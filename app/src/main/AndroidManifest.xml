@@ -116,7 +116,7 @@
             android:theme="@style/CustomActionBarTheme"></activity>
         <activity
             android:name=".EmptyActivity"
-            android:label="@string/title_activity_empty"
+
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -135,3 +135,5 @@
     </application>
 
 </manifest>
+
+    <!--android:label="@string/title_activity_empty"-->
