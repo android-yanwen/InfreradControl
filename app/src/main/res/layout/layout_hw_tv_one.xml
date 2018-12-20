@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/hw_one_fragment"
-        android:name="com.gta.administrator.infraredcontrol.setTopBoxes.HwOneFragment"
+        android:name="com.gta.administrator.infraredcontrol_apk.setTopBoxes.HwOneFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

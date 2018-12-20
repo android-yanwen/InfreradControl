@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/yk_ctrl_background"
-    tools:context="com.gta.administrator.infraredcontrol.air_condition.AirConditionControlActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.air_condition.AirConditionControlActivity">
 
 
     <RelativeLayout

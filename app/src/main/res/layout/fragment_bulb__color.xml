@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:colorpicker="http://schemas.android.com/apk/res-auto"
-    tools:context="com.gta.administrator.infraredcontrol.bulb.Bulb_ColorFragment">
+    tools:context="com.gta.administrator.infraredcontrol_apk.bulb.Bulb_ColorFragment">
 
 
 
@@ -74,7 +74,7 @@
                 app:wheelPadding="10dp"
                 app:wheelItemRadius="30dp"/>
 
-            <com.gta.administrator.infraredcontrol.view.BallScrollView
+            <com.gta.administrator.infraredcontrol_apk.view.BallScrollView
                 android:id="@+id/track_ball"
                 android:scrollbars="none"
                 android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                         android:layout_height="700.0dip"
                         android:src="@mipmap/trackball0000_black2x" />
                 </LinearLayout>
-            </com.gta.administrator.infraredcontrol.view.BallScrollView>
+            </com.gta.administrator.infraredcontrol_apk.view.BallScrollView>
 
         </RelativeLayout>
     </RelativeLayout>

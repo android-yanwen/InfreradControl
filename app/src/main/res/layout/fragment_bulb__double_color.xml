@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gta.administrator.infraredcontrol.bulb.Bulb_DoubleColorFragment">
+    tools:context="com.gta.administrator.infraredcontrol_apk.bulb.Bulb_DoubleColorFragment">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/my_viewpage"

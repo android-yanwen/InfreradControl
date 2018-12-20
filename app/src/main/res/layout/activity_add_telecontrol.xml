@@ -7,12 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/yk_ctrl_background"
-    tools:context="com.gta.administrator.infraredcontrol.air_condition.AddTelecontrolActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.air_condition.AddTelecontrolActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="170dp">
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+        <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
             android:id="@+id/air_condition_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

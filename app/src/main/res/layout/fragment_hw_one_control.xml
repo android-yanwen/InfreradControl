@@ -19,15 +19,15 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1">
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 style="@style/ItemNumberAttrs"
                 attrs:gradlayoutSrc="@mipmap/icon_on_off"
                 attrs:gradlayoutText="开关"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 style="@style/ItemNumberAttrs"
                 attrs:gradlayoutSrc="@mipmap/icon_menu"
                 attrs:gradlayoutText="菜单"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 style="@style/ItemNumberAttrs"
                 attrs:gradlayoutSrc="@mipmap/icon_mute_32"
                 attrs:gradlayoutText="静音"/>

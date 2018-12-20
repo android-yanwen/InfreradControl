@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/yk_ctrl_background"
-    tools:context="com.gta.administrator.infraredcontrol.air_condition.AirConditionBrandsListActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.air_condition.AirConditionBrandsListActivity">
 <!--
 
     <ListView
@@ -39,7 +39,7 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <com.gta.administrator.infraredcontrol.view.SideBar
+        <com.gta.administrator.infraredcontrol_apk.view.SideBar
             android:id="@+id/sidrbar"
             android:layout_width="24dp"
             android:layout_height="match_parent"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/wallpaper"
     android:fitsSystemWindows="true"
-    tools:context="com.gta.administrator.infraredcontrol.bulb.BulbActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.bulb.BulbActivity">
 <!--
 
     <android.support.design.widget.AppBarLayout

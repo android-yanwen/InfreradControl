@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/hw_tow_fragment"
-        android:name="com.gta.administrator.infraredcontrol.setTopBoxes.HwTowFragment"
+        android:name="com.gta.administrator.infraredcontrol_apk.setTopBoxes.HwTowFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

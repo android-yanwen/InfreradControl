@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gta.administrator.infraredcontrol.Main1Activity"
+    tools:context="com.gta.administrator.infraredcontrol_apk.Main1Activity"
     tools:showIn="@layout/activity_main1"
     android:orientation="vertical"
     >
@@ -27,17 +27,17 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 android:id="@+id/home_button"
                 style="@style/ItemAttrs2"
                 attrs:gradlayoutSrc="@mipmap/icon_rom"
                 attrs:gradlayoutText="房间"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 android:id="@+id/device_button"
                 style="@style/ItemAttrs2"
                 attrs:gradlayoutSrc="@mipmap/icon_device"
                 attrs:gradlayoutText="设备"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 android:id="@+id/set_button"
                 style="@style/ItemAttrs2"
                 attrs:gradlayoutSrc="@mipmap/icon_setting"

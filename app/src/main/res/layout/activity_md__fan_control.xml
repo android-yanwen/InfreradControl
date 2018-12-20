@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gta.administrator.infraredcontrol.fan.MD_FanControlActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.fan.MD_FanControlActivity">
 
 
     <FrameLayout

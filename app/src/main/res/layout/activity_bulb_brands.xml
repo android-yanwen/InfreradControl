@@ -8,7 +8,7 @@
     tools:showIn="@layout/activity_bulb"
     xmlns:app="http://schemas.android.com/tools"
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
-    tools:context="com.gta.administrator.infraredcontrol.bulb.BulbActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.bulb.BulbActivity">
 
 
     <LinearLayout
@@ -19,25 +19,25 @@
         android:background="@color/colorDivide"
         android:layout_height="60dp">
 
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+        <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
             android:id="@+id/id_color_item"
             style="@style/ItemAttrs3"
             attrs:gradlayoutSrc="@mipmap/icon_tree_32"
             attrs:gradlayoutText="彩色"
             />
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+        <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
             android:id="@+id/id_ct_item"
             style="@style/ItemAttrs3"
             attrs:gradlayoutSrc="@mipmap/icon_ct_32"
             attrs:gradlayoutText="双色灯"
             />
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+        <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
             android:id="@+id/id_mode_item"
             style="@style/ItemAttrs3"
             attrs:gradlayoutSrc="@mipmap/icon_mode_32"
             attrs:gradlayoutText="内置模式"
             />
-        <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+        <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
             android:id="@+id/id_music_item"
             style="@style/ItemAttrs3"
             attrs:gradlayoutSrc="@mipmap/icon_music_32"

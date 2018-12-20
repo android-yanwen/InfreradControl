@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
-    tools:context="com.gta.administrator.infraredcontrol.tv.CW_TvControlActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.tv.CW_TvControlActivity">
 
 <!--上部布局-->
     <FrameLayout
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                     style="@style/ItemAttrs"
                     attrs:gradlayoutSrc="@mipmap/icon_on_off"
                     attrs:gradlayoutText="开关"/>
@@ -34,7 +34,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorDivide"/>
-                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                     style="@style/ItemAttrs"
                     attrs:gradlayoutSrc="@mipmap/icon_input"
                     attrs:gradlayoutText="输入源"/>
@@ -42,7 +42,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorDivide"/>
-                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                     style="@style/ItemAttrs"
                     attrs:gradlayoutSrc="@mipmap/icon_set_top_boxes_32"
                     attrs:gradlayoutText="控制机顶盒"/>
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                     style="@style/ItemAttrs"
                     attrs:gradlayoutSrc="@mipmap/icon_menu"
                     attrs:gradlayoutText="菜单"/>
@@ -64,7 +64,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorDivide"/>
-                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                     style="@style/ItemAttrs"
                     attrs:gradlayoutSrc="@mipmap/icon_num_key_menu"
                     attrs:gradlayoutText="数字键"/>
@@ -72,7 +72,7 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorDivide"/>
-                <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+                <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                     style="@style/ItemAttrs"
                     attrs:gradlayoutSrc="@mipmap/icon_tv_back"
                     attrs:gradlayoutText="返回"/>

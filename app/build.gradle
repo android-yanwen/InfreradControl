@@ -6,7 +6,7 @@ android {
     buildToolsVersion '28.0.2'
 
     defaultConfig {
-        applicationId "com.gta.administrator.infraredcontrol"
+        applicationId "com.gta.administrator.infraredcontrol_apk"
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 3

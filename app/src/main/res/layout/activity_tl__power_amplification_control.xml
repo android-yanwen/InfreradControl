@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
-    tools:context="com.gta.administrator.infraredcontrol.powerAmplification.TL_PowerAmplificationControlActivity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.powerAmplification.TL_PowerAmplificationControlActivity">
 
     <FrameLayout
         android:id="@+id/framelayout_1"
@@ -28,15 +28,15 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 style="@style/ItemAttrs2"
                 attrs:gradlayoutSrc="@mipmap/icon_on_off"
                 attrs:gradlayoutText="开关"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 style="@style/ItemAttrs2"
                 attrs:gradlayoutSrc="@mipmap/icon_menu"
                 attrs:gradlayoutText="菜单"/>
-            <com.gta.administrator.infraredcontrol.other.MyGradLayoutItem
+            <com.gta.administrator.infraredcontrol_apk.other.MyGradLayoutItem
                 style="@style/ItemAttrs2"
                 attrs:gradlayoutSrc="@mipmap/icon_mute_32"
                 attrs:gradlayoutText="静音"/>

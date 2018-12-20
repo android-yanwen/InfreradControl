@@ -8,10 +8,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@mipmap/main_background1"
-    tools:context="com.gta.administrator.infraredcontrol.Main1Activity">
+    tools:context="com.gta.administrator.infraredcontrol_apk.Main1Activity">
 
 
-    <com.gta.administrator.infraredcontrol.other.MyToolBar
+    <com.gta.administrator.infraredcontrol_apk.other.MyToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

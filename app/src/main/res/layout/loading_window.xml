@@ -17,7 +17,7 @@
         android:drawablePadding="10dp"
         android:maxLines="1"
         android:hint="请填写账号"
-        android:text="test"/>
+        android:text=""/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:drawablePadding="13dp"
             android:inputType="textPassword"
             android:hint="请输入密码"
-            android:text="test"/>
+            android:text=""/>
         <EditText
             android:id="@+id/id_disp_pwd_edit"
             android:layout_width="wrap_content"
